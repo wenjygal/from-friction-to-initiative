@@ -97,32 +97,32 @@
   .slide-block p{font-size:16px;line-height:1.85;margin:0 0 12px;color:var(--ink)}
   .slide-block strong{color:var(--ink);background:var(--yellow-soft);padding:0 3px;border-radius:3px}
 
-  /* matrix (rebuilt, RTL-correct) */
+  /* matrix — same visual language as the rest of the page (paper/kraft/ink), no separate widget style */
   .matrix-card{
     background:var(--paper);border-radius:var(--radius);box-shadow:var(--shadow);
     padding:20px 16px 16px;margin-bottom:16px;
+    border:1px solid rgba(31,42,68,.08);
   }
-  .matrix-title{text-align:center;font-weight:800;font-size:15px;margin-bottom:14px}
+  .matrix-title{text-align:center;font-weight:800;font-size:15px;margin-bottom:14px;color:var(--ink)}
   .matrix-axis-top{text-align:center;font-size:12px;color:var(--ink-soft);font-weight:700;margin-bottom:6px}
   .matrix-grid{
     display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;
-    gap:8px;aspect-ratio:1/1;max-width:420px;margin:0 auto;
+    gap:1px;background:rgba(31,42,68,.1);
+    max-width:420px;margin:0 auto;aspect-ratio:1/1;
+    border:1px solid rgba(31,42,68,.1);
   }
   .quad{
-    border-radius:12px;padding:12px 10px;display:flex;flex-direction:column;
-    justify-content:center;align-items:center;text-align:center;gap:4px;
-    font-size:12.5px;line-height:1.4;
+    background:var(--paper);padding:14px 10px;display:flex;flex-direction:column;
+    justify-content:center;align-items:center;text-align:center;gap:5px;
+    font-size:12.5px;line-height:1.4;border-right:4px solid transparent;
   }
-  .quad .q-title{font-weight:800;font-size:13.5px}
+  .quad .q-title{font-weight:800;font-size:13.5px;color:var(--ink)}
   .quad .q-sub{color:var(--ink-soft)}
-  .q-quickwin{background:#e3f3ea;border:2px solid var(--green)}
-  .q-quickwin .q-title{color:var(--green)}
-  .q-major{background:var(--yellow-soft);border:2px solid var(--kraft-dark)}
-  .q-major .q-title{color:var(--kraft-dark)}
-  .q-fillin{background:#eef0f5;border:2px dashed rgba(31,42,68,.25)}
-  .q-fillin .q-title{color:var(--ink-soft)}
-  .q-avoid{background:#fbe6e6;border:2px solid var(--red)}
-  .q-avoid .q-title{color:var(--red)}
+  .q-quickwin{border-right-color:var(--green)}
+  .q-quickwin .q-title::after{content:" ★"}
+  .q-major{border-right-color:var(--kraft-dark)}
+  .q-fillin{border-right-color:rgba(31,42,68,.2)}
+  .q-avoid{border-right-color:var(--red)}
   .matrix-axis-side{display:flex;justify-content:space-between;font-size:12px;color:var(--ink-soft);font-weight:700;margin-top:6px;padding:0 4px}
   .matrix-note{font-size:13px;color:var(--ink-soft);text-align:center;margin-top:14px}
 
@@ -334,11 +334,11 @@ const App = (() => {
           <div class="matrix-axis-top">↑ השפעה גבוהה</div>
           <div class="matrix-grid">
             <div class="quad q-quickwin">
-              <div class="q-title">ניצחון מהיר 🎯</div>
+              <div class="q-title">ניצחון מהיר</div>
               <div class="q-sub">מאמץ נמוך · השפעה גבוהה<br>מומלץ למורה חדש</div>
             </div>
             <div class="quad q-major">
-              <div class="q-title">פרויקט מורכב ⚠️</div>
+              <div class="q-title">פרויקט מורכב</div>
               <div class="q-sub">מאמץ גבוה · השפעה גבוהה<br>בזהירות בלבד</div>
             </div>
             <div class="quad q-fillin">
@@ -346,7 +346,7 @@ const App = (() => {
               <div class="q-sub">מאמץ נמוך · השפעה נמוכה</div>
             </div>
             <div class="quad q-avoid">
-              <div class="q-title">כפוי טובה ✕</div>
+              <div class="q-title">כפוי טובה</div>
               <div class="q-sub">מאמץ גבוה · השפעה נמוכה<br>להימנע לגמרי</div>
             </div>
           </div>
