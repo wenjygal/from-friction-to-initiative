@@ -19,10 +19,50 @@
   body{
     background:var(--bg); color:var(--ink);
     font-family:'Heebo',system-ui,sans-serif;
-    min-height:100vh; display:flex; flex-direction:column; align-items:center;
-    padding-bottom:40px;
+    min-height:100vh;
   }
-  .page{width:100%;max-width:660px;padding:0 18px}
+  .layout{display:flex;min-height:100vh}
+  .page{flex:1;display:flex;flex-direction:column;align-items:center;padding-bottom:40px;min-width:0}
+  .page-inner{width:100%;max-width:660px;padding:0 18px}
+
+  /* ---- sidebar ---- */
+  .sidebar{
+    display:none;flex-direction:column;width:270px;flex-shrink:0;
+    border-left:1px solid var(--line);padding:26px 20px;
+    position:sticky;top:0;height:100vh;overflow-y:auto;
+  }
+  .sidebar-audio{border-bottom:1px solid var(--line);padding-bottom:18px;margin-bottom:18px}
+  .sidebar-audio .audio-label{font-size:12.5px;font-weight:700;color:var(--soft);margin-bottom:10px}
+  .sidebar-audio audio{width:100%;height:36px}
+  .sidebar-nav{display:flex;flex-direction:column;gap:2px}
+  .nav-item{
+    font-family:inherit;text-align:right;background:none;border:none;cursor:pointer;
+    font-size:13.5px;font-weight:600;color:var(--soft);padding:9px 10px;border-radius:8px;
+    transition:background 150ms var(--ease),color 150ms var(--ease);line-height:1.4;
+  }
+  .nav-item:hover{background:#fff}
+  .nav-item.on{background:var(--accent-soft);color:var(--accent);font-weight:800}
+
+  .menu-toggle{
+    display:flex;align-items:center;justify-content:center;position:fixed;bottom:22px;left:22px;z-index:40;
+    width:52px;height:52px;border-radius:999px;background:var(--ink);color:#fff;border:none;cursor:pointer;
+    box-shadow:0 6px 20px rgba(0,0,0,.25);transition:transform 150ms var(--ease);font-size:20px;
+  }
+  .menu-toggle:active{transform:scale(.93)}
+  .backdrop{display:none;position:fixed;inset:0;background:rgba(0,0,0,.35);z-index:45}
+  .backdrop.show{display:block}
+
+  @media (min-width:1000px){
+    .sidebar{display:flex}
+    .menu-toggle{display:none}
+  }
+  @media (max-width:999px){
+    .sidebar.open{
+      display:flex;position:fixed;top:0;bottom:0;left:0;width:280px;
+      background:var(--bg);z-index:50;box-shadow:6px 0 24px rgba(0,0,0,.15);
+      border-left:none;border-left:1px solid var(--line);
+    }
+  }
   p{font-size:17px;line-height:1.85;margin:0 0 18px;color:var(--ink)}
   mark{background:var(--accent-soft);color:var(--accent);font-weight:700;padding:0 3px;border-radius:3px}
   a{color:var(--accent);font-weight:700}
@@ -110,45 +150,57 @@
 </head>
 <body>
 
-<div class="page">
+<div class="layout">
 
-  <div class="top-bar" id="topBar">
-    <div class="num" id="stepNum">1</div>
-    <div class="progress"><i id="progressFill"></i></div>
-    <div class="meta" id="stepMeta">מתוך 10</div>
-  </div>
-
-  <!-- COVER -->
-  <section class="cover" id="cover">
-    <div class="eyebrow">קהל יעד: מורים חדשים ומתמחים בהוראה · כ-30 דקות</div>
-    <h1>מאי-נחת ליוזמה</h1>
-    <p class="tagline">שינוי ממוקד בכיתה נעשה ליוזמה מבוססת מחקר פעולה כאשר הוא מתחיל בהתבוננות, מתוכנן באופן מנומק, מלווה באיסוף ראיות ומסתיים בהערכה וברפלקציה שמובילות להמשך.</p>
-
-    <div class="outcomes">
-      <div class="label">בסיום השיעור תוכלו</div>
-      <ul>
-        <li>לתאר את ארבעת שלבי מחקר הפעולה ואת הקשר ביניהם</li>
-        <li>להבחין בין תחום אתגר, מצב מצוי, מצב רצוי, מטרה והתערבות</li>
-        <li>להסביר את רכיבי SMART ואת הקריטריונים לבחירת חלופה</li>
-        <li>להבחין בין סוגי ראיות ובין הערכת התוצאות לרפלקציה מקצועית</li>
-        <li>לזהות את המרכיבים הנדרשים בתכנון היוזמה ובהצגתה</li>
-      </ul>
-    </div>
-
-    <div class="audio-box">
-      <div class="audio-label">אפשר גם להאזין, כפודקאסט קצר על אותו תהליך</div>
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-audio">
+      <div class="audio-label">🎧 להאזין כפודקאסט</div>
       <audio controls preload="none">
         <source src="https://res.cloudinary.com/jrag9ksp/video/upload/v1790856333/from-friction-to-initiative-podcast.mp4" type="audio/mp4">
         הדפדפן שלך לא תומך בנגן אודיו.
       </audio>
     </div>
+    <nav class="sidebar-nav" id="sidebarNav"></nav>
+  </aside>
 
-    <button class="start-btn" onclick="App.start()">בואו נתחיל ←</button>
-  </section>
+  <div class="page">
+   <div class="page-inner">
 
-  <main id="steps"></main>
+    <div class="top-bar" id="topBar">
+      <div class="num" id="stepNum">1</div>
+      <div class="progress"><i id="progressFill"></i></div>
+      <div class="meta" id="stepMeta">מתוך 10</div>
+    </div>
+
+    <!-- COVER -->
+    <section class="cover" id="cover">
+      <div class="eyebrow">קהל יעד: מורים חדשים ומתמחים בהוראה · כ-30 דקות</div>
+      <h1>מאי-נחת ליוזמה</h1>
+      <p class="tagline">שינוי ממוקד בכיתה נעשה ליוזמה מבוססת מחקר פעולה כאשר הוא מתחיל בהתבוננות, מתוכנן באופן מנומק, מלווה באיסוף ראיות ומסתיים בהערכה וברפלקציה שמובילות להמשך.</p>
+
+      <div class="outcomes">
+        <div class="label">בסיום השיעור תוכלו</div>
+        <ul>
+          <li>לתאר את ארבעת שלבי מחקר הפעולה ואת הקשר ביניהם</li>
+          <li>להבחין בין תחום אתגר, מצב מצוי, מצב רצוי, מטרה והתערבות</li>
+          <li>להסביר את רכיבי SMART ואת הקריטריונים לבחירת חלופה</li>
+          <li>להבחין בין סוגי ראיות ובין הערכת התוצאות לרפלקציה מקצועית</li>
+          <li>לזהות את המרכיבים הנדרשים בתכנון היוזמה ובהצגתה</li>
+        </ul>
+      </div>
+
+      <button class="start-btn" onclick="App.start()">בואו נתחיל ←</button>
+    </section>
+
+    <main id="steps"></main>
+
+   </div>
+  </div>
 
 </div>
+
+<button class="menu-toggle" id="menuToggle" aria-label="תוכן עניינים">☰</button>
+<div class="backdrop" id="backdrop"></div>
 
 <script>
 const STEPS = [
@@ -166,28 +218,39 @@ const STEPS = [
   {
     title: "מחקר פעולה: ארבעה שלבים במעגל מתמשך",
     anchor: "התבוננות ומיפוי ← תכנון ← ביצוע ואיסוף נתונים ← הערכה ורפלקציה ← מחזור נוסף",
-    blocks: [{
-      pair: ["assets/slides/slide_02.png","assets/slides/slide_03.png"],
-      html: `
-      <p>מחקר פעולה חינוכי הוא תהליך שבו המורה חוקר את הפרקטיקה שלו בתוך סביבת העבודה. הוא מתבונן במתרחש, מתכנן שינוי, מיישם אותו ואוסף מידע כדי להעריך את התוצאות.</p>
-      <p>ההבחנה החשובה היא בין <mark>עצם עשיית השינוי</mark> לבין <mark>חקירת השינוי</mark>. מורה יכול להכניס משימת פתיחה חדשה ולהרגיש שהשיעור מתחיל טוב יותר. במחקר פעולה הוא גם מתאר את המצב הקודם, מגדיר את השיפור הרצוי, מתעד את הביצוע ובודק אם הראיות תומכות בתחושה שלו.</p>
-      <p>הראשון הוא <strong>התבוננות ומיפוי</strong>. בשלב זה מזהים תופעה, מתארים את המצב המצוי ואת המצב הרצוי, ומתייעצים עם אנשים שיכולים להרחיב את התמונה.</p>
-      <p>השלב השני הוא <strong>תכנון ממוקד</strong>. מגדירים מטרה, בוחנים כמה דרכי פעולה ובוחרים התערבות שאפשר להפעיל, כולל דרך ההערכה: מה נמדוד, מתי ואיך נדע אם חל שינוי.</p>
-      <p>השלב השלישי הוא <strong>ביצוע ואיסוף נתונים</strong>. המורה מפעיל את השינוי בכיתה ומתעד את מה שקורה.</p>
-      <p>השלב הרביעי הוא <strong>הערכה ורפלקציה</strong>. בודקים מה השתנה ביחס למצב ההתחלתי, ובוחנים גם מה למד המורה על עצמו.</p>
-      <p>זהו מעגל, מפני שהמסקנות יכולות להוביל לתכנון חדש. מחקר הפעולה מכוון לשינוי ממוקד, מדויק ובר־קיימא: איכות היוזמה אינה נמדדת בגודל הפרויקט, אלא בקשר בין הצורך, הפעולה, הראיות והלמידה שנוצרה.</p>
-    `}]
+    blocks: [
+      {
+        pair: ["assets/slides/slide_02.png"],
+        html: `
+        <p>מחקר פעולה חינוכי הוא תהליך שבו המורה חוקר את הפרקטיקה שלו בתוך סביבת העבודה. הוא מתבונן במתרחש, מתכנן שינוי, מיישם אותו ואוסף מידע כדי להעריך את התוצאות.</p>
+        <p>ההבחנה החשובה היא בין <mark>עצם עשיית השינוי</mark> לבין <mark>חקירת השינוי</mark>. מורה יכול להכניס משימת פתיחה חדשה ולהרגיש שהשיעור מתחיל טוב יותר. במחקר פעולה הוא גם מתאר את המצב הקודם, מגדיר את השיפור הרצוי, מתעד את הביצוע ובודק אם הראיות תומכות בתחושה שלו.</p>
+      `},
+      {
+        pair: ["assets/slides/slide_03.png"],
+        html: `
+        <p>הראשון הוא <strong>התבוננות ומיפוי</strong>. בשלב זה מזהים תופעה, מתארים את המצב המצוי ואת המצב הרצוי, ומתייעצים עם אנשים שיכולים להרחיב את התמונה.</p>
+        <p>השלב השני הוא <strong>תכנון ממוקד</strong>. מגדירים מטרה, בוחנים כמה דרכי פעולה ובוחרים התערבות שאפשר להפעיל, כולל דרך ההערכה: מה נמדוד, מתי ואיך נדע אם חל שינוי.</p>
+        <p>השלב השלישי הוא <strong>ביצוע ואיסוף נתונים</strong>. המורה מפעיל את השינוי בכיתה ומתעד את מה שקורה.</p>
+        <p>השלב הרביעי הוא <strong>הערכה ורפלקציה</strong>. בודקים מה השתנה ביחס למצב ההתחלתי, ובוחנים גם מה למד המורה על עצמו.</p>
+        <p>זהו מעגל, מפני שהמסקנות יכולות להוביל לתכנון חדש. מחקר הפעולה מכוון לשינוי ממוקד, מדויק ובר־קיימא: איכות היוזמה אינה נמדדת בגודל הפרויקט, אלא בקשר בין הצורך, הפעולה, הראיות והלמידה שנוצרה.</p>
+      `}
+    ]
   },
   {
     title: "מיפוי אתגרים: מהמצב המצוי למצב הרצוי",
     anchor: "אקלים ושגרה · מעורבות ומוטיבציה · הוראה דיפרנציאלית · מטלות והערכה",
-    blocks: [{
-      pair: ["assets/slides/slide_04.png","assets/slides/slide_05.png"],
-      html: `
-      <p>מיפוי האתגר מתחיל בהבחנה בין <mark>מצב מצוי</mark> ל<mark>מצב רצוי</mark>. המצב המצוי מתאר מה קורה כרגע. המצב הרצוי מתאר מה היינו רוצים שיקרה במקום זאת. הפער ביניהם מגדיר את כיוון השינוי.</p>
-      <p>ארבעה תחומי אתגר מרכזיים: <strong>אקלים כיתתי וניהול שגרה</strong>, <strong>מעורבות ומוטיבציית לומדים</strong>, <strong>פדגוגיה והוראה דיפרנציאלית</strong>, ו<strong>מטלות והערכה מעצבת</strong>.</p>
-      <p>בכל התחומים חשוב להבחין בין תיאור לפרשנות. "התלמידים עצלנים" היא פרשנות. "פחות ממחצית התלמידים הגישו במועד" הוא תיאור שאפשר לבדוק. "אין משמעת" הוא ניסוח רחב. "עוברות אחת־עשרה דקות מהצלצול לתחילת העבודה" ממקד את התופעה.</p>
-      <p>גם המצב הרצוי צריך להיות ברור. "כיתה טובה יותר" אינו מסביר איזה שינוי נדרש. "התלמידים מתחילים משימת פתיחה באופן עצמאי" כבר מציג תמונת עתיד שאפשר לתרגם למטרה.</p>
+    blocks: [
+      {
+        pair: ["assets/slides/slide_04.png"],
+        html: `
+        <p>מיפוי האתגר מתחיל בהבחנה בין <mark>מצב מצוי</mark> ל<mark>מצב רצוי</mark>. המצב המצוי מתאר מה קורה כרגע. המצב הרצוי מתאר מה היינו רוצים שיקרה במקום זאת. הפער ביניהם מגדיר את כיוון השינוי.</p>
+        <p>ארבעה תחומי אתגר מרכזיים: <strong>אקלים כיתתי וניהול שגרה</strong>, <strong>מעורבות ומוטיבציית לומדים</strong>, <strong>פדגוגיה והוראה דיפרנציאלית</strong>, ו<strong>מטלות והערכה מעצבת</strong>.</p>
+      `},
+      {
+        pair: ["assets/slides/slide_05.png"],
+        html: `
+        <p>בכל התחומים חשוב להבחין בין תיאור לפרשנות. "התלמידים עצלנים" היא פרשנות. "פחות ממחצית התלמידים הגישו במועד" הוא תיאור שאפשר לבדוק. "אין משמעת" הוא ניסוח רחב. "עוברות אחת־עשרה דקות מהצלצול לתחילת העבודה" ממקד את התופעה.</p>
+        <p>גם המצב הרצוי צריך להיות ברור. "כיתה טובה יותר" אינו מסביר איזה שינוי נדרש. "התלמידים מתחילים משימת פתיחה באופן עצמאי" כבר מציג תמונת עתיד שאפשר לתרגם למטרה.</p>
     `}]
   },
   {
@@ -207,9 +270,13 @@ const STEPS = [
     anchor: "הבנת ההקשר → שלוש חלופות לפחות → מעגל ההשפעה → השפעה מול מאמץ → הכרעה",
     blocks: [
       {
-        pair: ["assets/slides/slide_07.png","assets/slides/slide_08.png"],
+        pair: ["assets/slides/slide_07.png"],
         html: `
         <p>לפני בחירת התערבות חשוב להרחיב את ההבנה של האתגר. <strong>מורים עמיתים ומקבילים</strong> יכולים להסביר אם התופעה מופיעה גם בשיעורים אחרים ומה עבד עבורם. <strong>היועצת או מחנך הכיתה</strong> יכולים להוסיף מידע על ההקשר הרגשי והחברתי. <strong>ההנהלה והרכזים הפדגוגיים</strong> יכולים לבדוק התאמה לכיוון בית הספר. <strong>התלמידים עצמם</strong> הם מקור מידע בשיחת מיקוד קצרה ופתוחה.</p>
+      `},
+      {
+        pair: ["assets/slides/slide_08.png"],
+        html: `
         <p>לאחר הבירור מפתחים מאגר חלופות. <mark>לפחות שלוש דרכי התערבות שונות</mark> לפני ההחלטה. זהו שלב של חשיבה מסתעפת: מרחיבים את האפשרויות כדי לא להיצמד אוטומטית לרעיון הראשון.</p>
         <p>בדוגמת פתיחת השיעור: כרטיס כניסה (שגרת למידה עצמאית), צוות תלמידים שבועי מתחלף (חלוקת אחריות חברתית), או חיזוקים ומשחוק (צבירת נקודות כיתתית). שלוש חלופות שמטפלות באותה תופעה באמצעות מנגנונים שונים.</p>
       `},
@@ -360,6 +427,13 @@ const App = (() => {
       document.getElementById(`prev-${i}`).onclick = prev;
       document.getElementById(`next-${i}`).onclick = next;
     });
+
+    const navEl = document.getElementById('sidebarNav');
+    navEl.innerHTML = `<button class="nav-item" data-i="-1">שער</button>` +
+      STEPS.map((s,i) => `<button class="nav-item" data-i="${i}">${i+1}. ${s.title}</button>`).join('');
+    navEl.querySelectorAll('.nav-item').forEach(btn => {
+      btn.onclick = () => goTo(parseInt(btn.dataset.i, 10));
+    });
   }
 
   function update(){
@@ -371,6 +445,10 @@ const App = (() => {
       document.getElementById('stepMeta').textContent = `מתוך ${STEPS.length}`;
       document.getElementById('progressFill').style.width = `${((idx+1)/STEPS.length)*100}%`;
     }
+    document.querySelectorAll('.nav-item').forEach(btn => {
+      btn.classList.toggle('on', parseInt(btn.dataset.i, 10) === idx);
+    });
+    closeMenu();
     window.scrollTo({top:0, behavior:'smooth'});
   }
 
@@ -380,6 +458,15 @@ const App = (() => {
     if (idx <= 0){ idx = -1; update(); return; }
     idx -= 1; update();
   }
+  function goTo(i){ idx = i; update(); }
+
+  function openMenu(){ document.getElementById('sidebar').classList.add('open'); document.getElementById('backdrop').classList.add('show'); }
+  function closeMenu(){ document.getElementById('sidebar').classList.remove('open'); document.getElementById('backdrop').classList.remove('show'); }
+
+  document.getElementById('menuToggle').onclick = () => {
+    document.getElementById('sidebar').classList.contains('open') ? closeMenu() : openMenu();
+  };
+  document.getElementById('backdrop').onclick = closeMenu;
 
   document.addEventListener('keydown', e => {
     if (idx === -1) return;
@@ -388,6 +475,7 @@ const App = (() => {
   });
 
   render();
+  update();
   return { start };
 })();
 </script>
