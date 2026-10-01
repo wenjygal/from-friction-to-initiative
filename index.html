@@ -64,6 +64,9 @@
     }
   }
   p{font-size:17px;line-height:1.85;margin:0 0 18px;color:var(--ink)}
+  .step ul{margin:0 0 18px;padding:0;list-style:none}
+  .step li{font-size:17px;line-height:1.75;margin-bottom:12px;padding-right:20px;position:relative}
+  .step li::before{content:"";position:absolute;right:0;top:11px;width:6px;height:6px;border-radius:50%;background:var(--accent)}
   mark{background:var(--accent-soft);color:var(--accent);font-weight:700;padding:0 3px;border-radius:3px}
   a{color:var(--accent);font-weight:700}
 
@@ -260,7 +263,13 @@ const STEPS = [
       pair: ["assets/slides/slide_06.png"],
       html: `
       <p>לאחר שמזהים את האתגר, מתרגמים את המצב הרצוי למטרה. המטרה מגדירה איזה שינוי רוצים לראות, אצל מי, באיזו מידה ובתוך כמה זמן.</p>
-      <p><strong>ספציפית (Specific)</strong> — מוגדרת באופן צר וברור. <strong>מדידה (Measurable)</strong> — יש מדד שאפשר לבחון: זמן, אחוז הגשה, מספר פניות יזומות. <strong>שאפתנית (Ambitious)</strong> — מציבה רף שדורש שינוי אמיתי בהרגלים. <strong>ריאלית (Realistic)</strong> — אפשר להשיג אותה במסגרת הזמן והסמכות של המורה. <strong>תחומה בזמן (Time-bound)</strong> — נקבע חלון זמן ברור.</p>
+      <ul>
+        <li><strong>ספציפית (Specific)</strong> — מוגדרת באופן צר וברור</li>
+        <li><strong>מדידה (Measurable)</strong> — יש מדד שאפשר לבחון: זמן, אחוז הגשה, מספר פניות יזומות</li>
+        <li><strong>שאפתנית (Ambitious)</strong> — מציבה רף שדורש שינוי אמיתי בהרגלים</li>
+        <li><strong>ריאלית (Realistic)</strong> — אפשר להשיג אותה במסגרת הזמן והסמכות של המורה</li>
+        <li><strong>תחומה בזמן (Time-bound)</strong> — נקבע חלון זמן ברור</li>
+      </ul>
       <p>דוגמה: קיצור זמן המעבר מתחילת השיעור ללמידה פעילה מאחת־עשרה דקות <mark>לשלוש דקות</mark>, בתשעים אחוז מהשיעורים של כיתה ח׳2, במהלך חמישה שבועות. יש כאן תופעה, כיתה, מצב התחלתי, יעד ומסגרת זמן.</p>
       <p>יש להבחין בין מטרה לבין אמצעי. "להפעיל כרטיס כניסה" מתאר את ההתערבות. "לקצר את זמן פתיחת השיעור" מתאר את השינוי המבוקש. אותה מטרה יכולה להיות מושגת באמצעות חלופות שונות.</p>
     `}]
