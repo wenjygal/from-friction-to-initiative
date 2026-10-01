@@ -7,167 +7,136 @@
 <meta name="description" content="שיעור אסינכרוני קצר: ממיפוי אתגר בכיתה ועד יוזמה חינוכית מתוכננת, לפי מודל מחקר-הפעולה">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
   :root{
-    --cream:#faf3e6;
-    --paper:#fffdf8;
-    --ink:#1f2a44;
-    --ink-soft:#4a5570;
-    --yellow:#f3d34a;
-    --yellow-soft:#fbe8a8;
-    --kraft:#c9a876;
-    --kraft-dark:#9c7b4f;
-    --red:#d64545;
-    --green:#4a8f6b;
-    --radius:16px;
-    --shadow:0 10px 30px rgba(31,42,68,.12);
+    --bg:#f8f8f6; --ink:#1a1a1a; --soft:#6b6b68;
+    --accent:#e0632f; --accent-soft:#fde4d6; --line:#e2e2de;
+    --ease: cubic-bezier(.23,1,.32,1);
   }
   *{box-sizing:border-box}
   html,body{margin:0;padding:0}
   body{
-    background:var(--cream);
-    color:var(--ink);
+    background:var(--bg); color:var(--ink);
     font-family:'Heebo',system-ui,sans-serif;
-    min-height:100vh;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    padding-bottom:90px;
+    min-height:100vh; display:flex; flex-direction:column; align-items:center;
+    padding-bottom:40px;
   }
-  .wrap{width:100%;max-width:760px;padding:0 18px}
+  .page{width:100%;max-width:660px;padding:0 18px}
+  p{font-size:17px;line-height:1.85;margin:0 0 18px;color:var(--ink)}
+  mark{background:var(--accent-soft);color:var(--accent);font-weight:700;padding:0 3px;border-radius:3px}
+  a{color:var(--accent);font-weight:700}
 
-  /* progress bar */
-  .progress-shell{
-    position:sticky;top:0;z-index:10;
-    width:100%;background:var(--cream);
-    border-bottom:1px solid rgba(31,42,68,.08);
-    padding:12px 0 10px;
-  }
-  .progress-label{
-    text-align:center;font-size:13px;color:var(--ink-soft);
-    margin-bottom:8px;font-weight:500;
-  }
-  .progress-dots{display:flex;justify-content:center;gap:6px;max-width:760px;margin:0 auto;padding:0 18px}
-  .dot{flex:1;height:5px;border-radius:3px;background:rgba(31,42,68,.12);transition:background .25s}
-  .dot.done{background:var(--kraft)}
-  .dot.active{background:var(--ink)}
+  /* ---- cover ---- */
+  .cover{padding:44px 0 20px;text-align:center}
+  .cover .eyebrow{font-size:13px;font-weight:700;color:var(--soft);margin-bottom:14px}
+  .cover h1{font-size:clamp(32px,7vw,46px);font-weight:900;margin:0 0 18px;letter-spacing:-.02em}
+  .cover .tagline{font-size:18px;line-height:1.7;color:var(--ink);max-width:520px;margin:0 auto 26px}
+  .outcomes{text-align:right;background:#fff;border:1px solid var(--line);border-radius:14px;padding:20px 22px;margin:0 0 26px}
+  .outcomes .label{font-size:12.5px;font-weight:800;color:var(--accent);margin-bottom:10px}
+  .outcomes ul{margin:0;padding-right:18px}
+  .outcomes li{font-size:15px;line-height:1.8;margin-bottom:6px;color:var(--ink)}
 
-  /* cover */
-  .cover{padding:36px 0 10px;text-align:center}
-  .cover h1{
-    font-size:clamp(28px,6vw,42px);
-    margin:0 0 10px;font-weight:800;
-    background:linear-gradient(transparent 60%, var(--yellow-soft) 60%);
-    display:inline;
-  }
-  .cover .tagline{font-size:17px;color:var(--ink-soft);margin:18px auto 22px;max-width:520px;line-height:1.6}
-  .cover .meta{font-size:14px;color:var(--kraft-dark);font-weight:700;margin-bottom:28px}
-  .cover img.cover-img{width:100%;border-radius:var(--radius);box-shadow:var(--shadow);margin:10px 0 28px}
-
-  .audio-box{
-    background:var(--paper);border:1px solid rgba(31,42,68,.1);
-    border-radius:var(--radius);padding:16px 18px;margin:0 0 26px;
-    box-shadow:var(--shadow);text-align:right;
-  }
-  .audio-box .audio-label{font-weight:700;font-size:14px;margin-bottom:10px;display:flex;align-items:center;gap:8px}
+  .audio-box{border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:18px 0;margin:0 0 30px;text-align:right}
+  .audio-box .audio-label{font-size:13.5px;font-weight:700;color:var(--soft);margin-bottom:10px}
   .audio-box audio{width:100%}
 
   .start-btn{
-    display:inline-block;background:var(--ink);color:var(--yellow);
-    font-weight:700;font-size:17px;padding:14px 34px;border-radius:999px;
-    text-decoration:none;box-shadow:var(--shadow);border:none;cursor:pointer;
-    transition:transform .15s;
+    display:inline-flex;align-items:center;gap:8px;background:var(--ink);color:#fff;
+    font-weight:800;font-size:16px;padding:14px 30px;border-radius:999px;border:none;
+    cursor:pointer;transition:transform 150ms var(--ease);font-family:inherit;
   }
   .start-btn:active{transform:scale(.97)}
 
-  /* steps */
-  .step{display:none;padding:26px 0 10px;animation:fade .3s ease}
-  .step.active{display:block}
-  @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
-  .step h2{
-    font-size:clamp(20px,4.5vw,26px);margin:0 0 22px;font-weight:800;
-    border-right:5px solid var(--yellow);padding-right:12px;
-  }
-  .slide-block{margin-bottom:34px}
-  .slide-block img{
-    width:100%;border-radius:var(--radius);box-shadow:var(--shadow);
-    display:block;margin-bottom:16px;
-  }
-  .slide-block p{font-size:16px;line-height:1.85;margin:0 0 12px;color:var(--ink)}
-  .slide-block strong{color:var(--ink);background:var(--yellow-soft);padding:0 3px;border-radius:3px}
+  /* ---- step chrome ---- */
+  .top-bar{display:none}
+  .top-bar.active{display:flex;align-items:center;gap:14px;margin:30px 0 26px;position:sticky;top:0;background:var(--bg);padding-top:10px;z-index:5}
+  .num{font-size:14px;font-weight:900;color:#fff;background:var(--accent);border-radius:999px;width:32px;height:32px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+  .progress{flex:1;height:3px;background:var(--line);border-radius:2px;position:relative;overflow:hidden}
+  .progress i{position:absolute;right:0;top:0;height:3px;background:var(--accent);border-radius:2px;transition:width 250ms var(--ease-in-out,ease-in-out)}
+  .meta{font-size:12.5px;color:var(--soft);font-weight:700;white-space:nowrap}
 
-  /* matrix — same visual language as the rest of the page (paper/kraft/ink), no separate widget style */
-  .matrix-card{
-    background:var(--paper);border-radius:var(--radius);box-shadow:var(--shadow);
-    padding:20px 16px 16px;margin-bottom:16px;
-    border:1px solid rgba(31,42,68,.08);
-  }
-  .matrix-title{text-align:center;font-weight:800;font-size:15px;margin-bottom:14px;color:var(--ink)}
-  .matrix-axis-top{text-align:center;font-size:12px;color:var(--ink-soft);font-weight:700;margin-bottom:6px}
-  .matrix-grid{
-    display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;
-    gap:1px;background:rgba(31,42,68,.1);
-    max-width:420px;margin:0 auto;aspect-ratio:1/1;
-    border:1px solid rgba(31,42,68,.1);
-  }
-  .quad{
-    background:var(--paper);padding:14px 10px;display:flex;flex-direction:column;
-    justify-content:center;align-items:center;text-align:center;gap:5px;
-    font-size:12.5px;line-height:1.4;border-right:4px solid transparent;
-  }
-  .quad .q-title{font-weight:800;font-size:13.5px;color:var(--ink)}
-  .quad .q-sub{color:var(--ink-soft)}
-  .q-quickwin{border-right-color:var(--green)}
-  .q-quickwin .q-title::after{content:" ★"}
-  .q-major{border-right-color:var(--kraft-dark)}
-  .q-fillin{border-right-color:rgba(31,42,68,.2)}
-  .q-avoid{border-right-color:var(--red)}
-  .matrix-axis-side{display:flex;justify-content:space-between;font-size:12px;color:var(--ink-soft);font-weight:700;margin-top:6px;padding:0 4px}
-  .matrix-note{font-size:13px;color:var(--ink-soft);text-align:center;margin-top:14px}
+  .step{display:none}
+  .step.active{display:block;animation:enter 220ms var(--ease)}
+  @keyframes enter{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+  @media (prefers-reduced-motion: reduce){ .step.active{animation:none} }
 
-  /* nav */
-  .nav-bar{
-    position:fixed;bottom:0;right:0;left:0;z-index:20;
-    background:var(--paper);border-top:1px solid rgba(31,42,68,.1);
-    padding:12px 18px;display:flex;justify-content:space-between;align-items:center;
-    box-shadow:0 -6px 20px rgba(31,42,68,.08);
-  }
-  .nav-bar.hidden{display:none}
-  .nav-btn{
-    font-family:inherit;font-size:15px;font-weight:700;border-radius:999px;
-    padding:11px 22px;border:none;cursor:pointer;transition:opacity .15s,transform .15s;
-  }
-  .nav-btn:active{transform:scale(.96)}
-  .nav-btn.next{background:var(--ink);color:var(--yellow)}
-  .nav-btn.prev{background:transparent;color:var(--ink-soft);border:1px solid rgba(31,42,68,.2)}
-  .nav-btn:disabled{opacity:.35;cursor:default}
-  .nav-step-indicator{font-size:13px;color:var(--ink-soft);font-weight:600}
+  .step h2{font-size:clamp(24px,5vw,30px);font-weight:900;margin:0 0 18px;line-height:1.3;letter-spacing:-.015em}
+  figure{margin:0 0 20px}
+  figure.pair{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  figure img{display:block;width:100%;border-radius:10px;box-shadow:0 1px 0 rgba(0,0,0,.06)}
+  .anchor{display:inline-block;font-size:13px;color:var(--accent);font-weight:700;margin-bottom:22px;padding:6px 14px;background:var(--accent-soft);border-radius:999px}
 
-  .finish-box{
-    text-align:center;background:var(--paper);border-radius:var(--radius);
-    box-shadow:var(--shadow);padding:26px 20px;margin-top:10px;
+  /* ---- matrix ---- */
+  .matrix{margin:30px 0 10px}
+  .matrix-head{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:20px}
+  .matrix-head h3{font-size:20px;font-weight:900;margin:0}
+  .axis-tag{font-size:12.5px;font-weight:700;color:var(--soft)}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:26px 22px;position:relative}
+  .grid::before{content:"";position:absolute;right:50%;top:-6px;bottom:-6px;width:1px;background:var(--line)}
+  .grid::after{content:"";position:absolute;top:50%;right:-6px;left:-6px;height:1px;background:var(--line)}
+  .q{padding:4px 2px}
+  .q-title{font-size:17px;font-weight:900;margin-bottom:6px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+  .q-sub{font-size:13px;color:var(--soft);line-height:1.6}
+  .q-reco{background:var(--accent-soft);border-radius:14px;padding:16px 16px 14px;margin:-12px}
+  .q-reco .q-title{color:var(--accent)}
+  .pill{display:inline-block;font-size:10.5px;font-weight:800;background:var(--ink);color:#fff;padding:3px 9px;border-radius:999px}
+  .axes-row{display:flex;justify-content:space-between;margin-top:16px;font-size:12px;color:var(--soft);font-weight:700}
+
+  /* ---- nav ---- */
+  .nav{display:flex;justify-content:space-between;align-items:center;margin-top:36px;padding-top:20px;border-top:1px solid var(--line)}
+  .nav button{font-family:inherit;font-size:15px;font-weight:800;border:none;cursor:pointer;transition:transform 150ms var(--ease);background:none}
+  .nav button:active{transform:scale(.97)}
+  .nav button:disabled{opacity:.3;cursor:default}
+  .nav .prev{color:var(--soft);padding:10px 4px}
+  .nav .next{background:var(--ink);color:#fff;padding:12px 28px;border-radius:999px}
+
+  /* ---- glossary ---- */
+  .glossary{margin-top:44px;padding-top:28px;border-top:1px solid var(--line)}
+  .glossary h3{font-size:22px;font-weight:900;margin:0 0 6px}
+  .glossary .sub{font-size:13.5px;color:var(--soft);margin-bottom:20px}
+  .gloss-row{display:grid;grid-template-columns:150px 1fr;gap:4px 16px;padding:12px 0;border-bottom:1px solid var(--line)}
+  .gloss-row dt{font-weight:800;font-size:14.5px}
+  .gloss-row dd{margin:0;font-size:14.5px;color:var(--soft);line-height:1.6}
+
+  .finish{text-align:center;padding:30px 0 10px}
+  .finish p{font-size:16px;line-height:1.8}
+
+  @media (max-width:480px){
+    figure.pair{grid-template-columns:1fr}
+    .outcomes{text-align:right}
   }
-  .finish-box p{font-size:16px;line-height:1.8;margin:0}
 </style>
 </head>
 <body>
 
-<div class="progress-shell" id="progressShell" style="display:none">
-  <div class="progress-label" id="progressLabel">שלב 1 מתוך 8</div>
-  <div class="progress-dots" id="progressDots"></div>
-</div>
+<div class="page">
 
-<div class="wrap">
+  <div class="top-bar" id="topBar">
+    <div class="num" id="stepNum">1</div>
+    <div class="progress"><i id="progressFill"></i></div>
+    <div class="meta" id="stepMeta">מתוך 10</div>
+  </div>
 
   <!-- COVER -->
   <section class="cover" id="cover">
-    <img class="cover-img" src="assets/slides/slide_01.png" alt="מאי-נחת ליוזמה — שער">
-    <div class="meta">כ-30 דקות · 8 שלבים</div>
-    <p class="tagline">יומן המסע של המורה — מהקושי היומיומי בכיתה, דרך מחקר-פעולה, ועד יוזמה חינוכית מתוכננת ובת-מדידה.</p>
+    <div class="eyebrow">קהל יעד: מורים חדשים ומתמחים בהוראה · כ-30 דקות</div>
+    <h1>מאי-נחת ליוזמה</h1>
+    <p class="tagline">שינוי ממוקד בכיתה נעשה ליוזמה מבוססת מחקר פעולה כאשר הוא מתחיל בהתבוננות, מתוכנן באופן מנומק, מלווה באיסוף ראיות ומסתיים בהערכה וברפלקציה שמובילות להמשך.</p>
+
+    <div class="outcomes">
+      <div class="label">בסיום השיעור תוכלו</div>
+      <ul>
+        <li>לתאר את ארבעת שלבי מחקר הפעולה ואת הקשר ביניהם</li>
+        <li>להבחין בין תחום אתגר, מצב מצוי, מצב רצוי, מטרה והתערבות</li>
+        <li>להסביר את רכיבי SMART ואת הקריטריונים לבחירת חלופה</li>
+        <li>להבחין בין סוגי ראיות ובין הערכת התוצאות לרפלקציה מקצועית</li>
+        <li>לזהות את המרכיבים הנדרשים בתכנון היוזמה ובהצגתה</li>
+      </ul>
+    </div>
 
     <div class="audio-box">
-      <div class="audio-label">🎧 אפשר גם להאזין, כפודקאסט קצר על אותו תהליך:</div>
+      <div class="audio-label">אפשר גם להאזין, כפודקאסט קצר על אותו תהליך</div>
       <audio controls preload="none">
         <source src="https://res.cloudinary.com/jrag9ksp/video/upload/v1790856333/from-friction-to-initiative-podcast.mp4" type="audio/mp4">
         הדפדפן שלך לא תומך בנגן אודיו.
@@ -177,227 +146,240 @@
     <button class="start-btn" onclick="App.start()">בואו נתחיל ←</button>
   </section>
 
-  <!-- STEPS -->
   <main id="steps"></main>
 
-</div>
-
-<div class="nav-bar hidden" id="navBar">
-  <button class="nav-btn prev" id="prevBtn" onclick="App.prev()">→ הקודם</button>
-  <span class="nav-step-indicator" id="navIndicator"></span>
-  <button class="nav-btn next" id="nextBtn" onclick="App.next()">הבא ←</button>
 </div>
 
 <script>
 const STEPS = [
   {
-    title: "שלב 1 — מהו מחקר פעולה?",
+    title: "מה הופך שינוי ליוזמה נחקרת?",
+    anchor: "אתגר ממוקד · שינוי מתוכנן · ראיות · למידה מקצועית",
+    blocks: [{ html: `
+      <p>שיעור מתחיל, אבל הלמידה עדיין לא התחילה. חלק מהתלמידים מחפשים ציוד, אחרים ממשיכים לדבר, והמורה מנסה לאסוף את הכיתה. עוברות עשר או אחת־עשרה דקות לפני שמתחילים לעסוק בתוכן. זה קושי מוכר, אבל הוא יכול להיות גם <mark>נקודת מוצא ליוזמה חינוכית</mark>.</p>
+      <p>בשיעור הזה נלמד כיצד עוברים מתופעה שמטרידה אותנו לתהליך מקצועי שאפשר לתכנן, לבדוק ולשפר. נלווה דוגמה של קיצור זמן פתיחת השיעור. הדוגמה תמחיש את התהליך, אך אותם עקרונות מתאימים גם למעורבות תלמידים, להוראה דיפרנציאלית, להגשת מטלות ולהערכה מעצבת.</p>
+      <p>אין צורך להתחיל ברעיון חדשני או בפרויקט גדול. נקודת המוצא יכולה להיות אי־נחת יומיומית: משהו שחוזר על עצמו ומקשה על הלמידה. היא יכולה להיות גם תשוקה פדגוגית, למשל רצון לתת לתלמידים יותר בחירה, או הזדמנות שנוצרה בכיתה ובבית הספר.</p>
+      <p>היוזמה שנבחן היא שינוי ממוקד בתוך מרחב ההשפעה של המורה. השאלה היא מה אפשר לשנות בפרקטיקה שלנו, כיצד נבחר את השינוי, ואילו ראיות יעזרו להבין מה קרה בעקבותיו.</p>
+      <p>התוצאה הרצויה של השיעור היא הבנת התהליך כולו. נלמד את המושגים ואת הקשרים ביניהם: אתגר, מטרה, שותפים, חלופות, תכנון, ביצוע, הערכה ורפלקציה.</p>
+    `}]
+  },
+  {
+    title: "מחקר פעולה: ארבעה שלבים במעגל מתמשך",
+    anchor: "התבוננות ומיפוי ← תכנון ← ביצוע ואיסוף נתונים ← הערכה ורפלקציה ← מחזור נוסף",
+    blocks: [{
+      pair: ["assets/slides/slide_02.png","assets/slides/slide_03.png"],
+      html: `
+      <p>מחקר פעולה חינוכי הוא תהליך שבו המורה חוקר את הפרקטיקה שלו בתוך סביבת העבודה. הוא מתבונן במתרחש, מתכנן שינוי, מיישם אותו ואוסף מידע כדי להעריך את התוצאות.</p>
+      <p>ההבחנה החשובה היא בין <mark>עצם עשיית השינוי</mark> לבין <mark>חקירת השינוי</mark>. מורה יכול להכניס משימת פתיחה חדשה ולהרגיש שהשיעור מתחיל טוב יותר. במחקר פעולה הוא גם מתאר את המצב הקודם, מגדיר את השיפור הרצוי, מתעד את הביצוע ובודק אם הראיות תומכות בתחושה שלו.</p>
+      <p>הראשון הוא <strong>התבוננות ומיפוי</strong>. בשלב זה מזהים תופעה, מתארים את המצב המצוי ואת המצב הרצוי, ומתייעצים עם אנשים שיכולים להרחיב את התמונה.</p>
+      <p>השלב השני הוא <strong>תכנון ממוקד</strong>. מגדירים מטרה, בוחנים כמה דרכי פעולה ובוחרים התערבות שאפשר להפעיל, כולל דרך ההערכה: מה נמדוד, מתי ואיך נדע אם חל שינוי.</p>
+      <p>השלב השלישי הוא <strong>ביצוע ואיסוף נתונים</strong>. המורה מפעיל את השינוי בכיתה ומתעד את מה שקורה.</p>
+      <p>השלב הרביעי הוא <strong>הערכה ורפלקציה</strong>. בודקים מה השתנה ביחס למצב ההתחלתי, ובוחנים גם מה למד המורה על עצמו.</p>
+      <p>זהו מעגל, מפני שהמסקנות יכולות להוביל לתכנון חדש. מחקר הפעולה מכוון לשינוי ממוקד, מדויק ובר־קיימא: איכות היוזמה אינה נמדדת בגודל הפרויקט, אלא בקשר בין הצורך, הפעולה, הראיות והלמידה שנוצרה.</p>
+    `}]
+  },
+  {
+    title: "מיפוי אתגרים: מהמצב המצוי למצב הרצוי",
+    anchor: "אקלים ושגרה · מעורבות ומוטיבציה · הוראה דיפרנציאלית · מטלות והערכה",
+    blocks: [{
+      pair: ["assets/slides/slide_04.png","assets/slides/slide_05.png"],
+      html: `
+      <p>מיפוי האתגר מתחיל בהבחנה בין <mark>מצב מצוי</mark> ל<mark>מצב רצוי</mark>. המצב המצוי מתאר מה קורה כרגע. המצב הרצוי מתאר מה היינו רוצים שיקרה במקום זאת. הפער ביניהם מגדיר את כיוון השינוי.</p>
+      <p>ארבעה תחומי אתגר מרכזיים: <strong>אקלים כיתתי וניהול שגרה</strong>, <strong>מעורבות ומוטיבציית לומדים</strong>, <strong>פדגוגיה והוראה דיפרנציאלית</strong>, ו<strong>מטלות והערכה מעצבת</strong>.</p>
+      <p>בכל התחומים חשוב להבחין בין תיאור לפרשנות. "התלמידים עצלנים" היא פרשנות. "פחות ממחצית התלמידים הגישו במועד" הוא תיאור שאפשר לבדוק. "אין משמעת" הוא ניסוח רחב. "עוברות אחת־עשרה דקות מהצלצול לתחילת העבודה" ממקד את התופעה.</p>
+      <p>גם המצב הרצוי צריך להיות ברור. "כיתה טובה יותר" אינו מסביר איזה שינוי נדרש. "התלמידים מתחילים משימת פתיחה באופן עצמאי" כבר מציג תמונת עתיד שאפשר לתרגם למטרה.</p>
+    `}]
+  },
+  {
+    title: "מטרת היוזמה לפי SMART",
+    anchor: "ספציפית · מדידה · שאפתנית · ריאלית · תחומה בזמן",
+    blocks: [{
+      pair: ["assets/slides/slide_06.png"],
+      html: `
+      <p>לאחר שמזהים את האתגר, מתרגמים את המצב הרצוי למטרה. המטרה מגדירה איזה שינוי רוצים לראות, אצל מי, באיזו מידה ובתוך כמה זמן.</p>
+      <p><strong>ספציפית (Specific)</strong> — מוגדרת באופן צר וברור. <strong>מדידה (Measurable)</strong> — יש מדד שאפשר לבחון: זמן, אחוז הגשה, מספר פניות יזומות. <strong>שאפתנית (Ambitious)</strong> — מציבה רף שדורש שינוי אמיתי בהרגלים. <strong>ריאלית (Realistic)</strong> — אפשר להשיג אותה במסגרת הזמן והסמכות של המורה. <strong>תחומה בזמן (Time-bound)</strong> — נקבע חלון זמן ברור.</p>
+      <p>דוגמה: קיצור זמן המעבר מתחילת השיעור ללמידה פעילה מאחת־עשרה דקות <mark>לשלוש דקות</mark>, בתשעים אחוז מהשיעורים של כיתה ח׳2, במהלך חמישה שבועות. יש כאן תופעה, כיתה, מצב התחלתי, יעד ומסגרת זמן.</p>
+      <p>יש להבחין בין מטרה לבין אמצעי. "להפעיל כרטיס כניסה" מתאר את ההתערבות. "לקצר את זמן פתיחת השיעור" מתאר את השינוי המבוקש. אותה מטרה יכולה להיות מושגת באמצעות חלופות שונות.</p>
+    `}]
+  },
+  {
+    title: "חקר שטח, שותפים, חלופות וקבלת החלטות",
+    anchor: "הבנת ההקשר → שלוש חלופות לפחות → מעגל ההשפעה → השפעה מול מאמץ → הכרעה",
     blocks: [
       {
-        img: "assets/slides/slide_02.png",
-        alt: "מחקר פעולה הוא לא מחקר אקדמי מנותק",
-        html: `<p>מחקר פעולה חינוכי הוא לא מחקר אקדמי תיאורטי ומנותק. זה תהליך מעגלי: התבוננות עצמית, חקר פרקטיקה, יישום שינוי, והערכת התוצאות בשטח — ממש בכיתה שלך.</p>
-               <p>חשוב להבהיר כבר בהתחלה: המטרה היא לא "להמציא <strong>פרויקט גרנדיוזי</strong>". המטרה היא לחולל שינוי ממוקד, מדויק, ובר-קיימא — בתוך מרחב ההשפעה הישיר שלך כמורה. לא לשנות את בית הספר. לשנות דבר אחד, קונקרטי, בכיתה שלך.</p>`
-      },
+        pair: ["assets/slides/slide_07.png","assets/slides/slide_08.png"],
+        html: `
+        <p>לפני בחירת התערבות חשוב להרחיב את ההבנה של האתגר. <strong>מורים עמיתים ומקבילים</strong> יכולים להסביר אם התופעה מופיעה גם בשיעורים אחרים ומה עבד עבורם. <strong>היועצת או מחנך הכיתה</strong> יכולים להוסיף מידע על ההקשר הרגשי והחברתי. <strong>ההנהלה והרכזים הפדגוגיים</strong> יכולים לבדוק התאמה לכיוון בית הספר. <strong>התלמידים עצמם</strong> הם מקור מידע בשיחת מיקוד קצרה ופתוחה.</p>
+        <p>לאחר הבירור מפתחים מאגר חלופות. <mark>לפחות שלוש דרכי התערבות שונות</mark> לפני ההחלטה. זהו שלב של חשיבה מסתעפת: מרחיבים את האפשרויות כדי לא להיצמד אוטומטית לרעיון הראשון.</p>
+        <p>בדוגמת פתיחת השיעור: כרטיס כניסה (שגרת למידה עצמאית), צוות תלמידים שבועי מתחלף (חלוקת אחריות חברתית), או חיזוקים ומשחוק (צבירת נקודות כיתתית). שלוש חלופות שמטפלות באותה תופעה באמצעות מנגנונים שונים.</p>
+      `},
       {
-        img: "assets/slides/slide_03.png",
-        alt: "ארבעת שלבי מעגל מחקר הפעולה",
-        html: `<p>המחקר בנוי כמעגל של ארבעה שלבים, שחוזר על עצמו: <strong>התבוננות ומיפוי</strong> → <strong>תכנון ממוקד</strong> → <strong>ביצוע ואיסוף נתונים</strong> → <strong>הערכה ורפלקציה</strong>.</p>
-               <p>בשיעור הזה נעבור על כל אחד מארבעת השלבים בקצרה. בסוף יהיה לכם כלי פרומפטים שילווה אתכם ביישום בפועל, שלב אחר שלב.</p>`
-      }
+        pair: ["assets/slides/slide_09.png"],
+        html: `
+        <p>המסנן הראשון הוא <strong>מעגל ההשפעה מול מעגל הדאגה</strong>, המיוחס לסטיבן קובי. גודל הכיתה, לוח הצלצולים ורקע התלמידים יכולים להעסיק את המורה, אך יוזמה אישית צריכה להתמקד בפעולות שהוא יכול להוביל בעצמו: אופן ניהול השיעור, מבנה המשימות, המשוב והתקשורת בכיתה.</p>
+      `},
+      { matrix: true },
+      {
+        pair: ["assets/slides/slide_11.png"],
+        html: `
+        <p>לבסוף, <strong>שלוש שאלות הכרעה</strong>: האם יש למורה חיבור אישי אמיתי לנושא? האם אפשר להתחיל בשיעור הבא ללא אישורים מיוחדים? והאם בתוך ארבעה שבועות אפשר להציג נתון כמותי ברור על שינוי? ההחלטה צריכה להיות מנומקת לפי הצורך, ההשפעה הצפויה והיכולת להתמיד.</p>
+      `}
     ]
   },
   {
-    title: "שלב 2 — מיפוי אתגר: מצוי מול רצוי",
-    blocks: [
-      {
-        img: "assets/slides/slide_04.png",
-        alt: "ארבעה תחומי חיכוך אופייניים בבית הספר",
-        html: `<p>מאיפה מתחילים כשאין רעיון מוגדר מראש? נקודת המוצא היא אחת משלוש: אי-נחת יומיומית שמפריעה לכם בכיתה, תשוקה פדגוגית שאתם רוצים לקדם, או הזדמנות שנוצרה מעצמה. אין צורך "להמציא" — צריך לשים לב למה שכבר קיים.</p>
-               <p>כדי למקד את החיפוש, שימושי לחשוב באילו מארבעה תחומי חיכוך אופייניים לבית הספר האתגר שלכם נמצא: <strong>אקלים כיתתי וניהול שגרה</strong>, <strong>מעורבות ומוטיבציית לומדים</strong>, <strong>פדגוגיה והוראה דיפרנציאלית</strong>, או <strong>מטלות והערכה מעצבת</strong>.</p>`
-      },
-      {
-        img: "assets/slides/slide_05.png",
-        alt: "דוגמה: מצוי מול רצוי בתחום המעורבות",
-        html: `<p>ברגע שזיהיתם תחום, השלב הבא הוא לתאר אותו בשתי עמודות: <strong>המצב המצוי</strong> — מה קורה בפועל, הקושי כפי שהוא — ו<strong>המצב הרצוי</strong> — איך תיראה התמונה האופטימלית, אם הבעיה תיפתר.</p>
-               <p>ככל שהפער בין שתי העמודות מתואר בצורה יותר קונקרטית — לא "התלמידים לא מעורבים" אלא "רק 30% משתתפים, והקשב נשחק אחרי 15 דקות" — כך קל יותר בשלב הבא לנסח ממנו מטרה מדידה.</p>`
-      }
-    ]
+    title: "תכנון אופרטיבי: מהרעיון לתוכנית התערבות",
+    anchor: "חלופה ונימוק · אחריות · לוח זמנים · מדידה",
+    blocks: [{
+      pair: ["assets/slides/slide_12.png"],
+      html: `
+      <p>בחירת חלופה היא התחלת התכנון האופרטיבי. באחריות <strong>המורה</strong> להכין את המשימות מראש, להפעיל אותן בעקביות, למדוד ולשקף את התוצאות לכיתה. באחריות <strong>התלמידים</strong> להיכנס, לפתוח מחברות ולהתחיל את משימת החימום. <strong>שותפים</strong> יכולים לתת גיבוי פדגוגי ולחזק תלמידים במקרים פרטניים.</p>
+      <p>לוח הזמנים נפרס על פני חמישה שבועות: בשבוע הראשון מודדים <mark>קו בסיס</mark>, ללא הפעלת השינוי. בשבועות השני עד הרביעי מפעילים את ההתערבות בעקביות ורושמים נתונים. השבוע החמישי מוקדש לסיכום, לשיחת משוב ולהסקת מסקנות.</p>
+      <p>קו הבסיס חשוב משום שתחושה בלבד שהשיעור התארך או התקצר אינה מספיקה להשוואה. יש לשמור על הגדרה עקבית של רגע ההתחלה ושל רגע תחילת הלמידה.</p>
+    `}]
   },
   {
-    title: "שלב 3 — ניסוח מטרה S.M.A.R.T",
-    blocks: [
-      {
-        img: "assets/slides/slide_06.png",
-        alt: "חמשת עקרונות S.M.A.R.T",
-        html: `<p>הצעד הבא הוא לתרגם את "המצב הרצוי" למטרת התערבות חדה — באמצעות שיטת S.M.A.R.T, ראשי תיבות שכל אות בהם מייצגת עיקרון:</p>
-               <p><strong>S — ספציפית (Specific)</strong>: מוגדרת בצמצום. <strong>M — מדידה (Measurable)</strong>: יש מדד כמותי. <strong>A — שאפתנית (Ambitious)</strong>: דורשת שינוי הרגלים אמיתי. <strong>R — ריאלית (Realistic)</strong>: בת-השגה בסמכות המורה. <strong>T — תחומה בזמן (Time-bound)</strong>: חלון זמן מוגדר.</p>
-               <p>דוגמה: "במהלך 5 שבועות, יקוצר זמן המעבר מתחילת השיעור ללמידה פעילה מ-11 דקות ל-3 דקות ב-90% מהשיעורים של כיתה ח'2."</p>`
-      }
-    ]
+    title: "ביצוע ואיסוף ראיות",
+    anchor: "כמותיות: כמה? · איכותיות: איך נחווה? · חזותיות: מה נראה?",
+    blocks: [{
+      pair: ["assets/slides/slide_13.png"],
+      html: `
+      <p>הנתונים הם הבסיס להבנת מה שקרה, ולכן התיעוד מלווה את התהליך ולא נדחה רק לסיום. שלושה סוגי ראיות משלימים: <strong>ראיות כמותיות</strong> — זמן בסטופר, אחוזי הגשה, ממוצע היעדרויות. <strong>ראיות איכותיות</strong> — הערה קצרה ביומן המורה, ציטוט תלמיד, תגובת עמית. <strong>ראיות חזותיות</strong> — תצלומי לוח, כרטיסים ממולאים, תמונות של הכיתה.</p>
+      <p>השילוב בין הסוגים מאפשר תמונה עשירה יותר: הזמנים מציגים את השינוי במדד, היומן והתגובות מסייעים להבין קשיים והצלחות, והתצלומים מציגים את העבודה שנעשתה בפועל.</p>
+      <p>יש לתעד גם נסיבות חריגות, כמו שיעור שהתחיל לאחר אירוע בית־ספרי. נסיבות כאלה מסבירות תנודות בהמשך ושומרות על תמונה אמינה של התהליך.</p>
+    `}]
   },
   {
-    title: "שלב 4 — שותפים וחלופות",
-    blocks: [
-      {
-        img: "assets/slides/slide_07.png",
-        alt: "ארבע קבוצות שוות התייעצות",
-        html: `<p>לפני שמתחילים לפעול, כדאי להיוועץ באנשי מפתח — לא כדי לקבל אישור, אלא כדי לתקף את הבעיה. ארבע קבוצות שוות התייעצות: <strong>מורים עמיתים</strong>, <strong>יועצת או מחנך כיתה</strong>, <strong>הנהלה ורכזים פדגוגיים</strong>, ו<strong>התלמידים עצמם</strong>.</p>`
-      },
-      {
-        img: "assets/slides/slide_08.png",
-        alt: "חשיבה מפוזרת — לפחות שלוש חלופות",
-        html: `<p>אחרי שהבעיה תוקפה, לא קופצים לפתרון הראשון שעולה בראש. רושמים <strong>לפחות שלוש דרכי התערבות שונות באמת</strong> לפני שמחליטים — למשל כיוון מבוסס-שגרה, כיוון מבוסס חלוקת תפקידים חברתית, וכיוון מבוסס חיזוקים ומשחוק. רק אחרי שיש כמה אפשרויות אמיתיות על השולחן, עוברים לבחירה מושכלת.</p>`
-      }
-    ]
+    title: "הערכה, רפלקציה והמשכיות",
+    anchor: "הערכה: מה השתנה? · רפלקציה: מה למדתי? · המשכיות: מה הלאה?",
+    blocks: [{
+      pair: ["assets/slides/slide_14.png"],
+      html: `
+      <p>בתום ההפעלה חוזרים למטרה ולראיות. ההערכה מתחילה בהשוואה בין קו הבסיס לנתונים שנאספו. אם המטרה הושגה, מזהים את גורמי ההצלחה. אם לא הושגה במלואה, בוחנים חסמים: חופשות, אירועי בית ספר, התנגדות תלמידים.</p>
+      <p>אחרי ההערכה מגיעה הרפלקציה המקצועית, לפי שלושה עוגנים מתוך תיאוריית ההכוונה העצמית: <strong>מסוגלות</strong> — אילו יכולות התפתחו, והאם גדל הביטחון. <strong>אוטונומיה</strong> — כיצד המעבר מביצוע הנחיות לחקירת הפרקטיקה השפיע. <strong>שייכות</strong> — כיצד ההתייעצות והקשר עם התלמידים תרמו לתחושה המקצועית.</p>
+      <p>לבסוף בוחנים המשכיות: איזו פרקטיקה כדאי לשמר? מה צריך להתאים? מהו המוקד למחזור הבא? כך ההערכה והרפלקציה סוגרות מחזור אחד ומכינות את ההתבוננות הבאה.</p>
+    `}]
   },
   {
-    title: "שלב 5 — איך בוחרים? שלושה כלי הכרעה",
-    blocks: [
-      {
-        img: "assets/slides/slide_09.png",
-        alt: "מעגל ההשפעה מול מעגל הדאגה",
-        html: `<p>עכשיו, כשיש כמה חלופות, איך בוחרים? שלושה כלים שעוזרים להכריע — ושונים מהאינטואיציה הראשונית.</p>
-               <p><strong>מעגל ההשפעה מול מעגל הדאגה</strong> (סטיבן קובי): פוסלים מיד כל חלופה שתלויה בגורמים שלא בשליטתכם — גודל כיתה, לוח צלצולים, רקע משפחתי. נשארים רק עם מה שבאמת במעגל ההשפעה הישיר: ניהול השיעור, אופי המשימות, מבנה המשוב, התקשורת הבינאישית.</p>`
-      },
-      {
-        matrix: true,
-        html: `<p><strong>מטריצת השפעה מול מאמץ</strong>: מחלקים כל חלופה לפי שני צירים. מאמץ נמוך + השפעה גבוהה = ניצחון מהיר — זה המומלץ למורה חדש. מאמץ גבוה + השפעה נמוכה = משימה כפוית טובה — להימנע לגמרי.</p>`
-      },
-      {
-        img: "assets/slides/slide_11.png",
-        alt: "שאלון שלוש השאלות להכרעה סופית",
-        html: `<p><strong>שאלון שלוש השאלות</strong>: האם יש לי חיבור וכאב אישי אמיתי לנושא? האם אפשר להתחיל ליישם כבר בשיעור הבא, בלי אישורים מיוחדים? ובעוד ארבעה שבועות, האם אוכל להציג נתון כמותי ברור שמראה שינוי? אם חלופה עוברת את שלושת הכלים האלה — זו הבחירה.</p>`
-      }
-    ]
+    title: "הצגת היוזמה: ההיגיון של עשרת השקפים",
+    anchor: "הקשר → אתגר → מטרה → בחירה ותכנון → ראיות → למידה",
+    blocks: [{
+      pair: ["assets/slides/slide_15.png"],
+      html: `
+      <p>נספח המדריך מציע עשרה שקפים: שער, ציר התהליך, מודל מחקר הפעולה, תיאור האתגר (מצוי מול רצוי), מטרת SMART, השותפים, החלופות ותוכנית ההתערבות, נתוני לפני ואחרי, ורפלקציה אישית-מקצועית.</p>
+      <p>ההיגיון המרכזי הוא רצף שאפשר לעקוב אחריו: האתגר מסביר את המטרה, המטרה מסבירה את הבחירה, הראיות תומכות בהערכה, והרפלקציה מסבירה את הלמידה. זו לא עבודה נוספת מעבר למה שנעשה — זו אריזה מסודרת של מה שכבר תועד בדרך.</p>
+    `}]
   },
   {
-    title: "שלב 6 — תכנון אופרטיבי ואיסוף נתונים",
-    blocks: [
-      {
-        img: "assets/slides/slide_12.png",
-        alt: "חלוקת אחריות ושלבי ביצוע",
-        html: `<p>אחרי שהחלופה נבחרה, ממירים אותה לתוכנית עבודה. <strong>חלוקת אחריות ברורה</strong>: מה באחריות המורה — הכנת משימות, עקביות במדידה, שיקוף תוצאות. מה באחריות התלמידים. ומה באחריות שותפים, אם יש. ההתערבות נפרסת על פני כמה שבועות: קודם מודדים קו בסיס, אחר כך מפעילים בעקביות, ולבסוף מסכמים.</p>`
-      },
-      {
-        img: "assets/slides/slide_13.png",
-        alt: "שלושה סוגי ראיות",
-        html: `<p><strong>איסוף נתונים</strong> הוא לב העניין — בלי נתונים, אין איך לדעת אם המטרה הושגה. שלושה סוגי ראיות משלימים: <strong>כמותיות</strong> (זמנים, אחוזי הגשה), <strong>איכותיות</strong> (הערת יומן, ציטוט תלמיד), ו<strong>חזותיות</strong> (תצלום לוח, כרטיס כניסה ממולא).</p>`
-      }
-    ]
-  },
-  {
-    title: "שלב 7 — הערכה ורפלקציה",
-    blocks: [
-      {
-        img: "assets/slides/slide_14.png",
-        alt: "ארבעת עוגני הרפלקציה",
-        html: `<p>בסוף תקופת ההתערבות, משווים בין קו הבסיס לנתונים שנאספו בסיום. האם המטרה הושגה? מה היו גורמי ההצלחה, או אילו חסמים צצו?</p>
-               <p>מעבר לנתונים, יש גם רפלקציה אישית-מקצועית לפי ארבעה עוגנים: <strong>מסוגלות</strong>, <strong>אוטונומיה</strong>, <strong>שייכות</strong>, ו<strong>מה הלאה</strong> — איך זה הופך לחלק קבוע בארגז הכלים שלכם.</p>`
-      }
-    ]
-  },
-  {
-    title: "שלב 8 — תבנית ההגשה הסופית",
-    blocks: [
-      {
-        img: "assets/slides/slide_15.png",
-        alt: "תבנית מצגת הגשה בת 10 שקפים",
-        html: `<p>כל התהליך — מיפוי, מטרה, שותפים, חלופות, ביצוע, הערכה — מתכנס בסוף למצגת הגשה אחת, בת 10 שקפים. זו לא עבודה נוספת מעבר למה שעשיתם — זו אריזה מסודרת של כל מה שכבר תועד בדרך.</p>`
-      }
-    ]
+    title: "סיכום: חיבור מרכיבי התהליך",
+    anchor: "צורך → מטרה → בחירה → פעולה → ראיות → מסקנות → המשך",
+    blocks: [{ html: `
+      <p>נחזור לתמונה שפתחה את השיעור: פתיחת שיעור שמתארכת. המורה תיאר את המצב המצוי ואת המצב הרצוי, והתמקד בתופעה שנמצאת במרחב ההשפעה שלו. כך הקושי נעשה לנושא שאפשר לחקור.</p>
+      <p>לאחר מכן הוא ניסח מטרה לפי SMART, בירר את ההקשר עם עמיתים ותלמידים, ובחן לפחות שלוש חלופות. את הבחירה ביסס על יכולת ההשפעה והיחס בין השפעה למאמץ.</p>
+      <p>החלופה נעשתה לתוכנית עם אחריות ולוח זמנים: קו בסיס, הפעלה עקבית, תיעוד וסיכום. בזמן הביצוע נאספו ראיות כמותיות, איכותיות וחזותיות. בסיום הושוו הנתונים למצב ההתחלתי וליעד.</p>
+      <p>הרפלקציה הוסיפה את הלמידה המקצועית של המורה: יכולות שהתפתחו, תחושת יוזמה ובחירה, וקשרים עם תלמידים ועמיתים. מתוך התוצאות והלמידה התקבלה החלטה על המשך.</p>
+      <p><mark>מחקר פעולה מחבר בין התבוננות, פעולה ולמידה.</mark> יוזמה חינוכית אישית נשענת על החיבור הזה כאשר כל רכיב נובע מקודמו ומסייע להבין את הבא אחריו.</p>
+    `}]
   }
 ];
 
-const App = (() => {
-  let idx = -1; // -1 = cover
+const GLOSSARY = [
+  ["מחקר פעולה","חקר הפרקטיקה באמצעות התבוננות, תכנון, ביצוע והערכה ורפלקציה"],
+  ["מצב מצוי","תיאור עובדתי של התופעה לפני השינוי"],
+  ["מצב רצוי","תמונת העתיד המבוקשת"],
+  ["מטרה","השינוי המבוקש, מוגדר לפי SMART"],
+  ["שותפים","אנשים שתורמים להבנת ההקשר, לדיוק הבחירה ולביצוע"],
+  ["חלופות","דרכי התערבות שונות להשגת אותה מטרה"],
+  ["מעגל השפעה","פעולות שהמורה יכול להוביל במרחב העבודה שלו"],
+  ["השפעה מול מאמץ","בחינת התועלת הצפויה ביחס להשקעה הנדרשת"],
+  ["קו בסיס","מדידת המצב לפני הפעלת ההתערבות"],
+  ["ראיות כמותיות / איכותיות / חזותיות","מספרים · תיאורים (יומן, ציטוטים) · תצלומים ותוצרים"],
+  ["הערכה","בחינת השינוי ביחס לקו הבסיס ולמטרה"],
+  ["רפלקציה","בחינת הלמידה וההתפתחות המקצועית של המורה"],
+];
 
-  function renderSteps(){
+function matrixHTML(){
+  return `
+    <div class="matrix">
+      <div class="matrix-head"><h3>מאמץ מול השפעה</h3><span class="axis-tag">↑ השפעה</span></div>
+      <div class="grid">
+        <div class="q q-reco">
+          <div class="q-title">ניצחון מהיר <span class="pill">מומלץ</span></div>
+          <div class="q-sub">מאמץ נמוך, השפעה גבוהה — שינוי רוטינה, כרטיס כניסה</div>
+        </div>
+        <div class="q">
+          <div class="q-title">פרויקט מורכב</div>
+          <div class="q-sub">מאמץ גבוה, השפעה גבוהה — בזהירות בלבד</div>
+        </div>
+        <div class="q">
+          <div class="q-title">מילוי זמן</div>
+          <div class="q-sub">מאמץ נמוך, השפעה נמוכה</div>
+        </div>
+        <div class="q">
+          <div class="q-title">כפוי טובה</div>
+          <div class="q-sub">מאמץ גבוה, השפעה נמוכה — להימנע לגמרי</div>
+        </div>
+      </div>
+      <div class="axes-row"><span>→ מאמץ נמוך (כאן מתחילים)</span><span>מאמץ גבוה ←</span></div>
+    </div>`;
+}
+
+function blockHTML(b){
+  let fig = '';
+  if (b.pair && b.pair.length){
+    const cls = b.pair.length > 1 ? 'pair' : '';
+    fig = `<figure class="${cls}">${b.pair.map(src => `<img src="${src}" alt="" loading="lazy">`).join('')}</figure>`;
+  }
+  const matrix = b.matrix ? matrixHTML() : '';
+  return fig + matrix + (b.html || '');
+}
+
+const App = (() => {
+  let idx = -1;
+
+  function render(){
     const main = document.getElementById('steps');
+    const glossaryHTML = `
+      <div class="glossary">
+        <h3>מילון מושגים</h3>
+        <div class="sub">לעיון — לא חלק מרצף השיעור</div>
+        ${GLOSSARY.map(([k,v]) => `<div class="gloss-row"><dt>${k}</dt><dd>${v}</dd></div>`).join('')}
+      </div>`;
     main.innerHTML = STEPS.map((s,i) => `
       <section class="step" id="step-${i}">
         <h2>${s.title}</h2>
-        ${s.blocks.map(b => b.matrix ? matrixHTML(b.html) : `
-          <div class="slide-block">
-            <img src="${b.img}" alt="${b.alt}" loading="lazy">
-            ${b.html}
-          </div>`).join('')}
+        <div class="anchor">${s.anchor}</div>
+        ${s.blocks.map(blockHTML).join('')}
+        <div class="nav">
+          <button class="prev" id="prev-${i}">→ הקודם</button>
+          <button class="next" id="next-${i}">${i === STEPS.length-1 ? 'סיימתי ✓' : 'הבא ←'}</button>
+        </div>
+        ${i === STEPS.length-1 ? glossaryHTML : ''}
       </section>
     `).join('');
-  }
-
-  function matrixHTML(captionHtml){
-    return `
-      <div class="slide-block">
-        <div class="matrix-card">
-          <div class="matrix-title">מטריצת השפעה מול מאמץ</div>
-          <div class="matrix-axis-top">↑ השפעה גבוהה</div>
-          <div class="matrix-grid">
-            <div class="quad q-quickwin">
-              <div class="q-title">ניצחון מהיר</div>
-              <div class="q-sub">מאמץ נמוך · השפעה גבוהה<br>מומלץ למורה חדש</div>
-            </div>
-            <div class="quad q-major">
-              <div class="q-title">פרויקט מורכב</div>
-              <div class="q-sub">מאמץ גבוה · השפעה גבוהה<br>בזהירות בלבד</div>
-            </div>
-            <div class="quad q-fillin">
-              <div class="q-title">מילוי זמן</div>
-              <div class="q-sub">מאמץ נמוך · השפעה נמוכה</div>
-            </div>
-            <div class="quad q-avoid">
-              <div class="q-title">כפוי טובה</div>
-              <div class="q-sub">מאמץ גבוה · השפעה נמוכה<br>להימנע לגמרי</div>
-            </div>
-          </div>
-          <div class="matrix-axis-side"><span>→ מאמץ נמוך (כאן מתחילים)</span><span>מאמץ גבוה ←</span></div>
-          <div class="matrix-note">קריאה מימין: מאמץ עולה שמאלה, השפעה עולה כלפי מעלה</div>
-        </div>
-        ${captionHtml}
-      </div>`;
-  }
-
-  function renderDots(){
-    const dots = document.getElementById('progressDots');
-    dots.innerHTML = STEPS.map((_,i) => `<div class="dot" id="dot-${i}"></div>`).join('');
+    STEPS.forEach((_,i) => {
+      document.getElementById(`prev-${i}`).onclick = prev;
+      document.getElementById(`next-${i}`).onclick = next;
+    });
   }
 
   function update(){
     document.getElementById('cover').style.display = idx === -1 ? 'block' : 'none';
-    document.getElementById('progressShell').style.display = idx === -1 ? 'none' : 'block';
-    document.getElementById('navBar').classList.toggle('hidden', idx === -1);
-
-    STEPS.forEach((_,i) => {
-      document.getElementById(`step-${i}`).classList.toggle('active', i === idx);
-      const dot = document.getElementById(`dot-${i}`);
-      dot.classList.toggle('active', i === idx);
-      dot.classList.toggle('done', i < idx);
-    });
-
+    document.getElementById('topBar').classList.toggle('active', idx >= 0);
+    STEPS.forEach((_,i) => document.getElementById(`step-${i}`).classList.toggle('active', i === idx));
     if (idx >= 0){
-      document.getElementById('progressLabel').textContent = `שלב ${idx+1} מתוך ${STEPS.length}`;
-      document.getElementById('navIndicator').textContent = `${idx+1} / ${STEPS.length}`;
+      document.getElementById('stepNum').textContent = idx + 1;
+      document.getElementById('stepMeta').textContent = `מתוך ${STEPS.length}`;
+      document.getElementById('progressFill').style.width = `${((idx+1)/STEPS.length)*100}%`;
     }
-    document.getElementById('prevBtn').disabled = idx <= 0;
-    document.getElementById('nextBtn').textContent = (idx === STEPS.length-1) ? 'סיימתי ✓' : 'הבא ←';
-
     window.scrollTo({top:0, behavior:'smooth'});
   }
 
   function start(){ idx = 0; update(); }
-  function next(){
-    if (idx === STEPS.length-1){
-      document.getElementById('steps').innerHTML += `
-        <div class="finish-box">
-          <p>🎉 סיימתם את שלב הלמידה.<br>בשלב הבא תקבלו כלי פרומפטים שילווה אתכם ביישום בפועל, שלב אחר שלב.</p>
-        </div>`;
-      document.getElementById('navBar').classList.add('hidden');
-      window.scrollTo({top:document.body.scrollHeight, behavior:'smooth'});
-      return;
-    }
-    idx = Math.min(idx+1, STEPS.length-1); update();
+  function next(){ idx = Math.min(idx+1, STEPS.length-1); update(); }
+  function prev(){
+    if (idx <= 0){ idx = -1; update(); return; }
+    idx -= 1; update();
   }
-  function prev(){ idx = Math.max(idx-1, 0); update(); }
 
   document.addEventListener('keydown', e => {
     if (idx === -1) return;
@@ -405,10 +387,8 @@ const App = (() => {
     if (e.key === 'ArrowRight') prev();
   });
 
-  renderSteps();
-  renderDots();
-
-  return { start, next, prev };
+  render();
+  return { start };
 })();
 </script>
 </body>
