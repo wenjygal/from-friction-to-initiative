@@ -215,6 +215,10 @@
 
     <main id="steps"></main>
 
+    <div class="site-footer">
+      <p>נוצר באמצעות AI על ידי <a href="https://linktr.ee/boost_me" target="_blank" rel="noopener">BOOST ME</a></p>
+    </div>
+
    </div>
   </div>
 
@@ -440,9 +444,6 @@ const App = (() => {
         <h3>מילון מושגים</h3>
         <div class="sub">לעיון — לא חלק מרצף השיעור</div>
         ${GLOSSARY.map(([k,v]) => `<div class="gloss-row"><dt>${k}</dt><dd>${v}</dd></div>`).join('')}
-      </div>
-      <div class="site-footer">
-        <p>נוצר באמצעות AI על ידי <a href="https://linktr.ee/boost_me" target="_blank" rel="noopener">BOOST ME</a></p>
       </div>`;
     main.innerHTML = STEPS.map((s,i) => `
       <section class="step" id="step-${i}">
