@@ -43,18 +43,27 @@
   .nav-item:hover{background:#fff}
   .nav-item.on{background:var(--accent-soft);color:var(--accent);font-weight:800}
 
-  .menu-toggle{
-    display:flex;align-items:center;justify-content:center;position:fixed;bottom:22px;left:22px;z-index:40;
-    width:52px;height:52px;border-radius:999px;background:var(--ink);color:#fff;border:none;cursor:pointer;
-    box-shadow:0 6px 20px rgba(0,0,0,.25);transition:transform 150ms var(--ease);font-size:20px;
+  .mobile-topbar{
+    display:flex;align-items:center;position:fixed;top:0;right:0;left:0;z-index:40;height:48px;
+    background:var(--bg);border-bottom:1px solid var(--line);padding:0 14px;
   }
-  .menu-toggle:active{transform:scale(.93)}
+  .menu-toggle{
+    display:flex;align-items:center;justify-content:center;
+    width:36px;height:36px;border-radius:8px;background:none;color:var(--ink);border:none;cursor:pointer;
+    transition:transform 150ms var(--ease),background 150ms var(--ease);font-size:19px;
+  }
+  .menu-toggle:active{transform:scale(.9)}
+  .mobile-topbar .site-title{font-size:13.5px;font-weight:700;color:var(--soft);margin-right:10px}
   .backdrop{display:none;position:fixed;inset:0;background:rgba(0,0,0,.35);z-index:45}
   .backdrop.show{display:block}
 
   @media (min-width:1000px){
     .sidebar{display:flex}
-    .menu-toggle{display:none}
+    .mobile-topbar{display:none}
+  }
+  @media (max-width:999px){
+    body{padding-top:48px}
+    .top-bar.active{top:48px;z-index:4}
   }
   @media (max-width:999px){
     .sidebar.open{
@@ -147,6 +156,12 @@
   .finish{text-align:center;padding:30px 0 10px}
   .finish p{font-size:16px;line-height:1.8}
 
+  /* ---- footer ---- */
+  .site-footer{margin-top:50px;padding-top:20px;border-top:1px solid var(--line);text-align:center}
+  .site-footer a{color:var(--soft);font-weight:700;text-decoration:none}
+  .site-footer a:hover{color:var(--accent)}
+  .site-footer p{font-size:12.5px;color:var(--soft);margin:0}
+
   @media (max-width:480px){
     figure.pair{grid-template-columns:1fr}
     .outcomes{text-align:right}
@@ -205,7 +220,10 @@
 
 </div>
 
-<button class="menu-toggle" id="menuToggle" aria-label="תוכן עניינים">☰</button>
+<div class="mobile-topbar">
+  <button class="menu-toggle" id="menuToggle" aria-label="תוכן עניינים">☰</button>
+  <span class="site-title">מאי-נחת ליוזמה</span>
+</div>
 <div class="backdrop" id="backdrop"></div>
 
 <script>
@@ -422,6 +440,9 @@ const App = (() => {
         <h3>מילון מושגים</h3>
         <div class="sub">לעיון — לא חלק מרצף השיעור</div>
         ${GLOSSARY.map(([k,v]) => `<div class="gloss-row"><dt>${k}</dt><dd>${v}</dd></div>`).join('')}
+      </div>
+      <div class="site-footer">
+        <p>נוצר באמצעות AI על ידי <a href="https://linktr.ee/boost_me" target="_blank" rel="noopener">BOOST ME</a></p>
       </div>`;
     main.innerHTML = STEPS.map((s,i) => `
       <section class="step" id="step-${i}">
