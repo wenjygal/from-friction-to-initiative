@@ -281,7 +281,7 @@ const Book = (() => {
     if (f.optional && f.big){
       const open = (state.vals[f.id] || '').trim() ? ' open' : '';
       const what = f.label.replace(/^אם זו שיחה חדשה, הדביקו כאן /, '');
-      return `<details class="field optional"${open}><summary><span class="plus" aria-hidden="true"></span><span class="st"><span class="t">שיחה חדשה? לחצו כאן כדי להדביק ${esc(what)}</span><span class="s">צריך רק אם סגרתם את השיחה הקודמת. אחרת אפשר לדלג.</span></span></summary>${control}</details>`;
+      return `<details class="field optional"${open}><summary><span class="plus" aria-hidden="true"></span><span class="st"><span class="t">אם זו שיחה חדשה: לחצו כאן כדי להדביק ${esc(what)}</span><span class="s">צריך רק אם סגרתם את השיחה הקודמת. אחרת אפשר לדלג.</span></span></summary>${control}</details>`;
     }
     return `<div class="field"><label for="f-${f.id}">${esc(f.label)}${hint}</label>${control}</div>`;
   }
