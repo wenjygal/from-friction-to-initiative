@@ -50,6 +50,9 @@
     font-size:13.5px;font-weight:600;color:var(--soft);padding:9px 10px;border-radius:8px;
     transition:background 150ms var(--ease),color 150ms var(--ease);line-height:1.4;
   }
+  .nav-group{font-size:12px;font-weight:800;color:var(--accent);margin:18px 10px 6px;letter-spacing:.02em}
+  .nav-group:first-child{margin-top:0}
+  a.nav-item{display:block;text-decoration:none}
   .nav-item:hover{background:#fff}
   .nav-item.on{background:var(--accent-soft);color:var(--accent);font-weight:800}
 
@@ -635,9 +638,10 @@ const App = (() => {
     });
 
     const navEl = document.getElementById('sidebarNav');
-    navEl.innerHTML = `<button class="nav-item" data-i="-1">שער</button>` +
-      STEPS.map((s,i) => `<button class="nav-item" data-i="${i}">${i+1}. ${s.title}</button>`).join('');
-    navEl.querySelectorAll('.nav-item').forEach(btn => {
+    navEl.innerHTML = `<div class="nav-group">שלב 1: למידה</div><button class="nav-item" data-i="-1">שער</button>` +
+      STEPS.map((s,i) => `<button class="nav-item" data-i="${i}">${i+1}. ${s.title}</button>`).join('') +
+      `<div class="nav-group">שלב 2: ספר הפרומפטים</div><a class="nav-item" href="book.html">לספר הפרומפטים ←</a>`;
+    navEl.querySelectorAll('button.nav-item').forEach(btn => {
       btn.onclick = () => goTo(parseInt(btn.dataset.i, 10));
     });
   }

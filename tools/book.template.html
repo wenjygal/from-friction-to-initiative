@@ -1,0 +1,416 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ספר הפרומפטים | מאי-נחת ליוזמה</title>
+<meta name="description" content="שלב 2 של השיעור: ספר פרומפטים שמלווה אתכם עם AI, מנקודת אי-נחת בעבודה ועד שלד של יוזמה אחת">
+<meta property="og:type" content="website">
+<meta property="og:title" content="ספר הפרומפטים | מאי-נחת ליוזמה">
+<meta property="og:description" content="שלב 2 של השיעור: ספר פרומפטים שמלווה אתכם עם AI, מנקודת אי-נחת בעבודה ועד שלד של יוזמה אחת">
+<meta property="og:image" content="https://res.cloudinary.com/jrag9ksp/image/upload/f_jpg,q_auto,w_1200/ffti/og.png">
+<meta property="og:url" content="https://wenjygal.github.io/from-friction-to-initiative/book.html">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#f8f8f6; --ink:#1a1a1a; --soft:#6b6b68;
+    --accent:#e0632f; --accent-soft:#fde4d6; --line:#e2e2de;
+    --ease: cubic-bezier(.23,1,.32,1);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{background:var(--bg); color:var(--ink); font-family:'Heebo',system-ui,sans-serif; min-height:100vh}
+  .layout{display:flex;min-height:100vh}
+  .page{flex:1;display:flex;flex-direction:column;align-items:center;padding-bottom:40px;min-width:0}
+  .page-inner{width:100%;max-width:660px;padding:0 18px}
+  .skip{position:absolute;right:8px;top:-60px;background:var(--ink);color:#fff;padding:10px 16px;border-radius:8px;z-index:100;font-weight:700}
+  .skip:focus{top:8px}
+  :focus-visible{outline:3px solid var(--ink);outline-offset:2px}
+
+  /* ---- sidebar ---- */
+  .sidebar{
+    display:none;flex-direction:column;width:270px;flex-shrink:0;
+    border-left:1px solid var(--line);padding:26px 20px;
+    position:sticky;top:0;height:100vh;overflow-y:auto;
+  }
+  .sidebar-nav{display:flex;flex-direction:column;gap:2px}
+  .nav-group{font-size:12px;font-weight:800;color:var(--accent);margin:18px 10px 6px;letter-spacing:.02em}
+  .nav-group:first-child{margin-top:0}
+  .nav-item{
+    font-family:inherit;text-align:right;background:none;border:none;cursor:pointer;
+    font-size:13.5px;font-weight:600;color:var(--soft);padding:9px 10px;border-radius:8px;
+    transition:background 150ms var(--ease),color 150ms var(--ease);line-height:1.4;text-decoration:none;display:block;
+  }
+  a.nav-item{font-weight:600}
+  .nav-item:hover{background:#fff}
+  .nav-item.on{background:var(--accent-soft);color:var(--accent);font-weight:800}
+  .sidebar-foot{margin-top:auto;padding-top:18px;border-top:1px solid var(--line);display:flex;flex-direction:column;gap:2px}
+  .sidebar-foot .clear{color:#9a3b12}
+
+  .mobile-topbar{
+    display:flex;align-items:center;position:fixed;top:0;right:0;left:0;z-index:40;height:48px;
+    background:var(--bg);border-bottom:1px solid var(--line);padding:0 14px;
+  }
+  .menu-toggle{
+    display:flex;align-items:center;justify-content:center;
+    width:36px;height:36px;border-radius:8px;background:none;color:var(--ink);border:none;cursor:pointer;
+    transition:transform 150ms var(--ease);font-size:19px;
+  }
+  .menu-toggle:active{transform:scale(.9)}
+  .mobile-topbar .site-title{font-size:13.5px;font-weight:700;color:var(--soft);margin-right:10px}
+  .backdrop{display:none;position:fixed;inset:0;background:rgba(0,0,0,.35);z-index:45}
+  .backdrop.show{display:block}
+  @media (min-width:1000px){ .sidebar{display:flex} .mobile-topbar{display:none} }
+  @media (max-width:999px){
+    body{padding-top:48px}
+    .top-bar{top:48px}
+    .sidebar.open{
+      display:flex;position:fixed;top:0;bottom:0;right:0;width:280px;
+      background:var(--bg);z-index:50;box-shadow:-6px 0 24px rgba(0,0,0,.15);border-left:1px solid var(--line);
+    }
+  }
+
+  p{font-size:17px;line-height:1.85;margin:0 0 18px;color:var(--ink)}
+  a{color:var(--accent);font-weight:700}
+  code{background:#fff;border:1px solid var(--line);border-radius:4px;padding:0 4px;font-size:.92em}
+
+  /* ---- step chrome ---- */
+  .top-bar{display:flex;align-items:center;gap:14px;margin:30px 0 26px;position:sticky;top:0;background:var(--bg);padding-top:10px;z-index:5}
+  .num{font-size:14px;font-weight:900;color:#fff;background:var(--accent);border-radius:999px;min-width:32px;height:32px;padding:0 8px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+  .progress{flex:1;height:3px;background:var(--line);border-radius:2px;position:relative;overflow:hidden}
+  .progress i{position:absolute;right:0;top:0;height:3px;background:var(--accent);border-radius:2px;transition:width 250ms ease-in-out}
+  .meta{font-size:12.5px;color:var(--soft);font-weight:700;white-space:nowrap}
+
+  .screen{display:none}
+  .screen.active{display:block;animation:enter 220ms var(--ease)}
+  @keyframes enter{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+  @media (prefers-reduced-motion: reduce){ .screen.active{animation:none} .progress i{transition:none} }
+  .screen h2{font-size:clamp(24px,5vw,30px);font-weight:900;margin:0 0 18px;line-height:1.3;letter-spacing:-.015em}
+  .screen h2:focus{outline:none}
+  .screen h3{font-size:19px;font-weight:900;margin:26px 0 10px}
+  .screen ul{margin:0 0 18px;padding:0;list-style:none}
+  .screen li{font-size:17px;line-height:1.75;margin-bottom:12px;padding-right:20px;position:relative}
+  .screen li::before{content:"";position:absolute;right:0;top:11px;width:6px;height:6px;border-radius:50%;background:var(--accent)}
+  .anchor{display:inline-block;font-size:13px;color:var(--accent);font-weight:700;margin-bottom:22px;padding:6px 14px;background:var(--accent-soft);border-radius:999px}
+
+  /* ---- cover ---- */
+  .intro{background:#fff;border:1px solid var(--line);border-radius:14px;padding:20px 22px;margin:0 0 26px}
+  .intro p:last-child,.intro ul:last-child{margin-bottom:0}
+  .stage-head{display:flex;align-items:center;gap:10px;margin:34px 0 14px;padding-top:24px;border-top:1px solid var(--line)}
+  .stage-head h3{margin:0}
+  .stage-tag{font-size:12px;font-weight:800;background:var(--ink);color:#fff;padding:3px 10px;border-radius:999px}
+
+  /* ---- guide, fields, prompt ---- */
+  .guide{margin:0 0 18px}
+  .guide .sub{display:inline-block;font-size:12.5px;font-weight:800;color:var(--accent);margin-bottom:4px}
+  .fields{margin:0 0 18px;display:flex;flex-direction:column;gap:14px}
+  .field label{display:block;font-size:14.5px;font-weight:800;margin-bottom:6px;line-height:1.5}
+  .field .hint{display:block;font-size:13px;font-weight:500;color:var(--soft);margin-top:2px}
+  .field textarea{
+    width:100%;font-family:inherit;font-size:16px;line-height:1.6;padding:10px 12px;
+    border:1px solid #bdbdb8;border-radius:10px;background:#fff;color:var(--ink);resize:vertical;min-height:48px;
+  }
+  .field textarea:focus{border-color:var(--ink)}
+  details.field{border:1px dashed var(--line);border-radius:10px;padding:10px 12px;background:#fff}
+  details.field summary{cursor:pointer;font-size:14px;font-weight:800;color:var(--soft)}
+  details.field[open] summary{margin-bottom:10px}
+  .prompt-box{background:#fff;border:1px solid var(--line);border-radius:14px;margin:0 0 20px;overflow:hidden}
+  .prompt-bar{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 14px;border-bottom:1px solid var(--line);background:#fbfbf9}
+  .prompt-bar .lbl{font-size:12.5px;font-weight:800;color:var(--soft)}
+  .copy-btn{font-family:inherit;font-size:14px;font-weight:800;background:var(--ink);color:#fff;border:none;border-radius:999px;padding:8px 20px;cursor:pointer;transition:transform 150ms var(--ease)}
+  .copy-btn:active{transform:scale(.97)}
+  .copy-btn.done{background:#1f7a3d}
+  .prompt-text{white-space:pre-wrap;font-size:15px;line-height:1.75;padding:16px 16px 18px;margin:0;font-family:inherit;max-height:420px;overflow:auto}
+  .prompt-text .fill{background:var(--accent-soft);border-radius:3px;padding:0 2px}
+  .prompt-text .empty{color:var(--soft);background:#f0f0ec;border-radius:3px;padding:0 2px}
+  .output{font-size:15px;line-height:1.7;color:var(--soft);margin:0 0 22px;padding-right:12px;border-right:3px solid var(--accent)}
+  .output strong{color:var(--ink)}
+  .finish{background:var(--accent-soft);border-radius:14px;padding:18px 20px;margin:26px 0 0}
+  .finish p{font-size:16px;margin:0}
+
+  /* ---- nav ---- */
+  .nav{display:flex;justify-content:space-between;align-items:center;margin-top:36px;padding-top:20px;border-top:1px solid var(--line)}
+  .nav button{font-family:inherit;font-size:15px;font-weight:800;border:none;cursor:pointer;transition:transform 150ms var(--ease);background:none}
+  .nav button:active{transform:scale(.97)}
+  .nav button:disabled{opacity:.3;cursor:default}
+  .nav .prev{color:var(--soft);padding:10px 4px}
+  .nav .next{background:var(--ink);color:#fff;padding:12px 28px;border-radius:999px}
+
+  .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+  .site-footer{margin-top:50px;padding-top:20px;border-top:1px solid var(--line);text-align:center}
+  .site-footer a{color:var(--soft);font-weight:700;text-decoration:none}
+  .site-footer a:hover{color:var(--accent)}
+  .site-footer p{font-size:12.5px;color:var(--soft);margin:0}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">דלגו לתוכן</a>
+<div class="layout">
+
+  <aside class="sidebar" id="sidebar" aria-label="תוכן עניינים">
+    <nav class="sidebar-nav" id="sidebarNav"></nav>
+    <div class="sidebar-foot">
+      <button class="nav-item" type="button" id="infoBtn">הצהרת נגישות ופרטיות</button>
+      <button class="nav-item clear" type="button" id="clearBtn">נקה הכל</button>
+    </div>
+  </aside>
+
+  <div class="page">
+   <div class="page-inner">
+
+    <div class="top-bar" id="topBar">
+      <div class="num" id="stepNum">1</div>
+      <div class="progress" aria-hidden="true"><i id="progressFill"></i></div>
+      <div class="meta" id="stepMeta"></div>
+    </div>
+
+    <main id="main"></main>
+
+    <section class="screen" id="info" aria-labelledby="infoTitle">
+      <h2 id="infoTitle" tabindex="-1">הצהרת נגישות ופרטיות</h2>
+      <h3>פרטיות ושמירת נתונים</h3>
+      <ul>
+        <li>כל מה שתמלאו בעמוד נשמר רק בדפדפן שלכם, על המכשיר שבו אתם עובדים. שום דבר לא נשלח לשרת.</li>
+        <li>אין באתר אנליטיקס ואין עוגיות.</li>
+        <li>הכפתור "נקה הכל" בתפריט מוחק את כל מה שנשמר. כדאי להשתמש בו אם עבדתם על מחשב משותף.</li>
+        <li>הפרומפטים נשלחים לכלי ה-AI שתבחרו, על ידכם. אל תכתבו שם פרטים שאינם ציבוריים, ובוודאי לא פרטים אישיים של תלמידים או מורים.</li>
+      </ul>
+      <h3>נגישות</h3>
+      <p>העמוד נבנה במטרה לעמוד בתקן נגישות WCAG 2.1 ברמה AA: אפשר לנווט בו במקלדת, התוכן מתאים לקוראי מסך, והוא מותאם לטלפון ולמחשב. אם נתקלתם בקושי, אפשר לפנות אל מי ששלח לכם את הקישור לשיעור.</p>
+      <div class="nav"><button class="prev" type="button" id="infoBack">→ חזרה לספר</button></div>
+    </section>
+
+    <div class="site-footer">
+      <p>נוצר על ידי <a href="https://linktr.ee/boost_me" target="_blank" rel="noopener">BOOST ME</a></p>
+    </div>
+
+   </div>
+  </div>
+
+</div>
+
+<div class="mobile-topbar">
+  <button class="menu-toggle" id="menuToggle" type="button" aria-label="תוכן עניינים" aria-expanded="false" aria-controls="sidebar">☰</button>
+  <span class="site-title">ספר הפרומפטים</span>
+</div>
+<div class="backdrop" id="backdrop"></div>
+<div class="sr-only" id="live" role="status" aria-live="polite"></div>
+
+<script>
+const DATA = /*__DATA__*/null;
+
+const Book = (() => {
+  const KEY = 'ffti_book_v1';
+  const EMPTY = '[לא מולא]';
+  const screens = DATA.screens;
+  let state = { vals: {}, screen: 0 };
+  let infoOpen = false;
+
+  function load(){
+    try {
+      const raw = localStorage.getItem(KEY);
+      if (raw){
+        const s = JSON.parse(raw);
+        if (s && typeof s === 'object'){
+          state.vals = (s.vals && typeof s.vals === 'object') ? s.vals : {};
+          if (Number.isInteger(s.screen) && s.screen >= 0 && s.screen < screens.length) state.screen = s.screen;
+        }
+      }
+    } catch(e){}
+  }
+  function save(){
+    try { localStorage.setItem(KEY, JSON.stringify(state)); } catch(e){}
+  }
+  function wipe(){
+    try { localStorage.removeItem(KEY); } catch(e){}
+  }
+
+  const esc = s => String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+
+  // Assemble the prompt: returns {plain, html}. Optional fields left empty drop their whole line.
+  function assemble(text){
+    const out = [], outHtml = [];
+    for (const line of text.split('\n')){
+      const ids = [...line.matchAll(/\{\{([^}]+)\}\}/g)].map(m => m[1]);
+      if (ids.length){
+        const dropLine = ids.some(id => isOptional(id) && !(state.vals[id] || '').trim());
+        if (dropLine) continue;
+        out.push(line.replace(/\{\{([^}]+)\}\}/g, (m, id) => (state.vals[id] || '').trim() || EMPTY));
+        outHtml.push(esc(line).replace(/\{\{([^}]+)\}\}/g, (m, id) => {
+          const v = (state.vals[id] || '').trim();
+          return v ? `<span class="fill">${esc(v)}</span>` : `<span class="empty">${EMPTY}</span>`;
+        }));
+      } else { out.push(line); outHtml.push(esc(line)); }
+    }
+    const squeeze = a => a.join('\n').replace(/\n{3,}/g, '\n\n');
+    return { plain: squeeze(out), html: squeeze(outHtml) };
+  }
+  const optionalIds = new Set();
+  screens.forEach(s => s.blocks.forEach(b => (b.fields||[]).forEach(f => { if (f.optional) optionalIds.add(f.id); })));
+  const isOptional = id => optionalIds.has(id);
+
+  function fieldHTML(f){
+    const hint = f.hint ? `<span class="hint">${esc(f.hint)}</span>` : '';
+    const val = esc(state.vals[f.id] || '');
+    const rows = f.big ? 4 : 2;
+    const control = `<textarea id="f-${f.id}" data-f="${f.id}" rows="${rows}">${val}</textarea>`;
+    if (f.optional && f.big){
+      const open = (state.vals[f.id] || '').trim() ? ' open' : '';
+      return `<details class="field"${open}><summary>${esc(f.label)}</summary>${control}</details>`;
+    }
+    return `<div class="field"><label for="f-${f.id}">${esc(f.label)}${hint}</label>${control}</div>`;
+  }
+
+  function render(){
+    const main = document.getElementById('main');
+    let html = '';
+    screens.forEach((s, i) => {
+      let body = '';
+      if (i === 0){
+        body += `<h2 tabindex="-1">${esc(DATA.coverTitle)}</h2><div class="intro">${DATA.coverHtml}</div>`;
+        body += `<div class="stage-head"><span class="stage-tag">שלב 0</span><h3>${esc(s.title)}</h3></div>`;
+      } else {
+        body += `<h2 tabindex="-1">שלב ${esc(s.stage)}: ${esc(s.title)}</h2>`;
+      }
+      s.blocks.forEach((b, bi) => {
+        if (b.type === 'guide'){
+          const sub = b.sub ? `<span class="sub">${esc(b.sub)}</span><br>` : '';
+          body += `<p class="guide">${sub}${b.html}</p>`;
+        } else if (b.type === 'prompt'){
+          if (b.fields.length) body += `<div class="fields">${b.fields.map(fieldHTML).join('')}</div>`;
+          body += `<div class="prompt-box">
+            <div class="prompt-bar"><span class="lbl" id="lbl-${i}-${bi}">הפרומפט להעתקה</span>
+            <button class="copy-btn" type="button" data-copy="${i}-${bi}" aria-describedby="lbl-${i}-${bi}">העתק</button></div>
+            <pre class="prompt-text" id="p-${i}-${bi}" dir="rtl" tabindex="0"></pre></div>`;
+        } else if (b.type === 'output'){
+          body += `<p class="output"><strong>${esc(b.label)}:</strong> ${b.html}</p>`;
+        }
+      });
+      if (i === screens.length - 1){
+        body += `<div class="finish"><p><strong>מה מגישים:</strong> את שלד היוזמה ואת פסקת התהליך, כמטלת הסיכום של השיעור. ההגשה נעשית מחוץ לספר.</p></div>`;
+      }
+      body += `<div class="nav">
+        <button class="prev" type="button" data-nav="prev"${i === 0 ? ' disabled' : ''}>→ הקודם</button>
+        ${i === screens.length - 1 ? '' : '<button class="next" type="button" data-nav="next">הבא ←</button>'}
+      </div>`;
+      html += `<section class="screen" id="screen-${i}" data-i="${i}">${body}</section>`;
+    });
+    main.innerHTML = html;
+
+    const nav = document.getElementById('sidebarNav');
+    nav.innerHTML = `<div class="nav-group">שלב 1: למידה</div>
+      <a class="nav-item" href="index.html">לשלב הלמידה (9 מסכים) ←</a>
+      <div class="nav-group">שלב 2: ספר הפרומפטים</div>` +
+      screens.map((s, i) => `<button class="nav-item" type="button" data-go="${i}">${esc(s.nav)}</button>`).join('');
+
+    main.querySelectorAll('textarea[data-f]').forEach(t => {
+      t.addEventListener('input', () => {
+        state.vals[t.dataset.f] = t.value;
+        save();
+        refreshPrompts();
+      });
+    });
+    main.querySelectorAll('[data-nav]').forEach(b => b.onclick = () => go(state.screen + (b.dataset.nav === 'next' ? 1 : -1)));
+    main.querySelectorAll('[data-copy]').forEach(b => b.onclick = () => copy(b));
+    nav.querySelectorAll('[data-go]').forEach(b => b.onclick = () => go(parseInt(b.dataset.go, 10)));
+    refreshPrompts();
+  }
+
+  function refreshPrompts(){
+    screens.forEach((s, i) => s.blocks.forEach((b, bi) => {
+      if (b.type !== 'prompt') return;
+      const el = document.getElementById(`p-${i}-${bi}`);
+      if (el) el.innerHTML = assemble(b.text).html;
+    }));
+  }
+
+  function announce(msg){
+    const l = document.getElementById('live');
+    l.textContent = '';
+    setTimeout(() => { l.textContent = msg; }, 30);
+  }
+
+  async function copy(btn){
+    const [i, bi] = btn.dataset.copy.split('-').map(Number);
+    const text = assemble(screens[i].blocks[bi].text).plain;
+    let ok = false;
+    try { await navigator.clipboard.writeText(text); ok = true; } catch(e){}
+    if (!ok){
+      const ta = document.createElement('textarea');
+      ta.value = text; ta.setAttribute('readonly',''); ta.style.position = 'fixed'; ta.style.opacity = '0';
+      document.body.appendChild(ta); ta.select();
+      try { ok = document.execCommand('copy'); } catch(e){}
+      ta.remove();
+    }
+    const orig = 'העתק';
+    btn.textContent = ok ? 'הועתק ✓' : 'לא הצלחנו להעתיק, סמנו ידנית';
+    btn.classList.toggle('done', ok);
+    announce(ok ? 'הפרומפט הועתק' : 'ההעתקה נכשלה, סמנו את הטקסט והעתיקו ידנית');
+    setTimeout(() => { btn.textContent = orig; btn.classList.remove('done'); }, 2200);
+  }
+
+  function update(focus){
+    const showInfo = infoOpen;
+    document.querySelectorAll('.screen').forEach(el => {
+      if (el.id === 'info') el.classList.toggle('active', showInfo);
+      else el.classList.toggle('active', !showInfo && parseInt(el.dataset.i, 10) === state.screen);
+    });
+    document.getElementById('main').style.display = showInfo ? 'none' : 'block';
+    document.getElementById('topBar').style.display = showInfo ? 'none' : 'flex';
+    document.getElementById('stepNum').textContent = screens[state.screen].stage;
+    document.getElementById('stepMeta').textContent = `${state.screen + 1} מתוך ${screens.length}`;
+    document.getElementById('progressFill').style.width = `${((state.screen + 1) / screens.length) * 100}%`;
+    document.querySelectorAll('#sidebarNav [data-go]').forEach(b => {
+      const on = !showInfo && parseInt(b.dataset.go, 10) === state.screen;
+      b.classList.toggle('on', on);
+      if (on) b.setAttribute('aria-current', 'step'); else b.removeAttribute('aria-current');
+    });
+    closeMenu();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    if (focus){
+      const h = showInfo ? document.getElementById('infoTitle') : document.querySelector(`#screen-${state.screen} h2`);
+      if (h) h.focus({ preventScroll: true });
+    }
+  }
+
+  function go(i){
+    infoOpen = false;
+    state.screen = Math.max(0, Math.min(screens.length - 1, i));
+    save(); update(true);
+  }
+  function openMenu(){
+    document.getElementById('sidebar').classList.add('open');
+    document.getElementById('backdrop').classList.add('show');
+    document.getElementById('menuToggle').setAttribute('aria-expanded', 'true');
+  }
+  function closeMenu(){
+    document.getElementById('sidebar').classList.remove('open');
+    document.getElementById('backdrop').classList.remove('show');
+    document.getElementById('menuToggle').setAttribute('aria-expanded', 'false');
+  }
+
+  document.getElementById('menuToggle').onclick = () =>
+    document.getElementById('sidebar').classList.contains('open') ? closeMenu() : openMenu();
+  document.getElementById('backdrop').onclick = closeMenu;
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMenu(); });
+  document.getElementById('infoBtn').onclick = () => { infoOpen = true; update(true); };
+  document.getElementById('infoBack').onclick = () => { infoOpen = false; update(true); };
+  document.getElementById('clearBtn').onclick = () => {
+    if (!confirm('למחוק את כל מה שמילאתם בספר? אי אפשר לשחזר.')) return;
+    wipe(); state = { vals: {}, screen: 0 }; infoOpen = false;
+    render(); update(true);
+    announce('כל הנתונים נמחקו');
+  };
+
+  load();
+  render();
+  update(false);
+  return { go };
+})();
+</script>
+</body>
+</html>

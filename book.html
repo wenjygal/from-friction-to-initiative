@@ -1,0 +1,416 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ספר הפרומפטים | מאי-נחת ליוזמה</title>
+<meta name="description" content="שלב 2 של השיעור: ספר פרומפטים שמלווה אתכם עם AI, מנקודת אי-נחת בעבודה ועד שלד של יוזמה אחת">
+<meta property="og:type" content="website">
+<meta property="og:title" content="ספר הפרומפטים | מאי-נחת ליוזמה">
+<meta property="og:description" content="שלב 2 של השיעור: ספר פרומפטים שמלווה אתכם עם AI, מנקודת אי-נחת בעבודה ועד שלד של יוזמה אחת">
+<meta property="og:image" content="https://res.cloudinary.com/jrag9ksp/image/upload/f_jpg,q_auto,w_1200/ffti/og.png">
+<meta property="og:url" content="https://wenjygal.github.io/from-friction-to-initiative/book.html">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#f8f8f6; --ink:#1a1a1a; --soft:#6b6b68;
+    --accent:#e0632f; --accent-soft:#fde4d6; --line:#e2e2de;
+    --ease: cubic-bezier(.23,1,.32,1);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{background:var(--bg); color:var(--ink); font-family:'Heebo',system-ui,sans-serif; min-height:100vh}
+  .layout{display:flex;min-height:100vh}
+  .page{flex:1;display:flex;flex-direction:column;align-items:center;padding-bottom:40px;min-width:0}
+  .page-inner{width:100%;max-width:660px;padding:0 18px}
+  .skip{position:absolute;right:8px;top:-60px;background:var(--ink);color:#fff;padding:10px 16px;border-radius:8px;z-index:100;font-weight:700}
+  .skip:focus{top:8px}
+  :focus-visible{outline:3px solid var(--ink);outline-offset:2px}
+
+  /* ---- sidebar ---- */
+  .sidebar{
+    display:none;flex-direction:column;width:270px;flex-shrink:0;
+    border-left:1px solid var(--line);padding:26px 20px;
+    position:sticky;top:0;height:100vh;overflow-y:auto;
+  }
+  .sidebar-nav{display:flex;flex-direction:column;gap:2px}
+  .nav-group{font-size:12px;font-weight:800;color:var(--accent);margin:18px 10px 6px;letter-spacing:.02em}
+  .nav-group:first-child{margin-top:0}
+  .nav-item{
+    font-family:inherit;text-align:right;background:none;border:none;cursor:pointer;
+    font-size:13.5px;font-weight:600;color:var(--soft);padding:9px 10px;border-radius:8px;
+    transition:background 150ms var(--ease),color 150ms var(--ease);line-height:1.4;text-decoration:none;display:block;
+  }
+  a.nav-item{font-weight:600}
+  .nav-item:hover{background:#fff}
+  .nav-item.on{background:var(--accent-soft);color:var(--accent);font-weight:800}
+  .sidebar-foot{margin-top:auto;padding-top:18px;border-top:1px solid var(--line);display:flex;flex-direction:column;gap:2px}
+  .sidebar-foot .clear{color:#9a3b12}
+
+  .mobile-topbar{
+    display:flex;align-items:center;position:fixed;top:0;right:0;left:0;z-index:40;height:48px;
+    background:var(--bg);border-bottom:1px solid var(--line);padding:0 14px;
+  }
+  .menu-toggle{
+    display:flex;align-items:center;justify-content:center;
+    width:36px;height:36px;border-radius:8px;background:none;color:var(--ink);border:none;cursor:pointer;
+    transition:transform 150ms var(--ease);font-size:19px;
+  }
+  .menu-toggle:active{transform:scale(.9)}
+  .mobile-topbar .site-title{font-size:13.5px;font-weight:700;color:var(--soft);margin-right:10px}
+  .backdrop{display:none;position:fixed;inset:0;background:rgba(0,0,0,.35);z-index:45}
+  .backdrop.show{display:block}
+  @media (min-width:1000px){ .sidebar{display:flex} .mobile-topbar{display:none} }
+  @media (max-width:999px){
+    body{padding-top:48px}
+    .top-bar{top:48px}
+    .sidebar.open{
+      display:flex;position:fixed;top:0;bottom:0;right:0;width:280px;
+      background:var(--bg);z-index:50;box-shadow:-6px 0 24px rgba(0,0,0,.15);border-left:1px solid var(--line);
+    }
+  }
+
+  p{font-size:17px;line-height:1.85;margin:0 0 18px;color:var(--ink)}
+  a{color:var(--accent);font-weight:700}
+  code{background:#fff;border:1px solid var(--line);border-radius:4px;padding:0 4px;font-size:.92em}
+
+  /* ---- step chrome ---- */
+  .top-bar{display:flex;align-items:center;gap:14px;margin:30px 0 26px;position:sticky;top:0;background:var(--bg);padding-top:10px;z-index:5}
+  .num{font-size:14px;font-weight:900;color:#fff;background:var(--accent);border-radius:999px;min-width:32px;height:32px;padding:0 8px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+  .progress{flex:1;height:3px;background:var(--line);border-radius:2px;position:relative;overflow:hidden}
+  .progress i{position:absolute;right:0;top:0;height:3px;background:var(--accent);border-radius:2px;transition:width 250ms ease-in-out}
+  .meta{font-size:12.5px;color:var(--soft);font-weight:700;white-space:nowrap}
+
+  .screen{display:none}
+  .screen.active{display:block;animation:enter 220ms var(--ease)}
+  @keyframes enter{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+  @media (prefers-reduced-motion: reduce){ .screen.active{animation:none} .progress i{transition:none} }
+  .screen h2{font-size:clamp(24px,5vw,30px);font-weight:900;margin:0 0 18px;line-height:1.3;letter-spacing:-.015em}
+  .screen h2:focus{outline:none}
+  .screen h3{font-size:19px;font-weight:900;margin:26px 0 10px}
+  .screen ul{margin:0 0 18px;padding:0;list-style:none}
+  .screen li{font-size:17px;line-height:1.75;margin-bottom:12px;padding-right:20px;position:relative}
+  .screen li::before{content:"";position:absolute;right:0;top:11px;width:6px;height:6px;border-radius:50%;background:var(--accent)}
+  .anchor{display:inline-block;font-size:13px;color:var(--accent);font-weight:700;margin-bottom:22px;padding:6px 14px;background:var(--accent-soft);border-radius:999px}
+
+  /* ---- cover ---- */
+  .intro{background:#fff;border:1px solid var(--line);border-radius:14px;padding:20px 22px;margin:0 0 26px}
+  .intro p:last-child,.intro ul:last-child{margin-bottom:0}
+  .stage-head{display:flex;align-items:center;gap:10px;margin:34px 0 14px;padding-top:24px;border-top:1px solid var(--line)}
+  .stage-head h3{margin:0}
+  .stage-tag{font-size:12px;font-weight:800;background:var(--ink);color:#fff;padding:3px 10px;border-radius:999px}
+
+  /* ---- guide, fields, prompt ---- */
+  .guide{margin:0 0 18px}
+  .guide .sub{display:inline-block;font-size:12.5px;font-weight:800;color:var(--accent);margin-bottom:4px}
+  .fields{margin:0 0 18px;display:flex;flex-direction:column;gap:14px}
+  .field label{display:block;font-size:14.5px;font-weight:800;margin-bottom:6px;line-height:1.5}
+  .field .hint{display:block;font-size:13px;font-weight:500;color:var(--soft);margin-top:2px}
+  .field textarea{
+    width:100%;font-family:inherit;font-size:16px;line-height:1.6;padding:10px 12px;
+    border:1px solid #bdbdb8;border-radius:10px;background:#fff;color:var(--ink);resize:vertical;min-height:48px;
+  }
+  .field textarea:focus{border-color:var(--ink)}
+  details.field{border:1px dashed var(--line);border-radius:10px;padding:10px 12px;background:#fff}
+  details.field summary{cursor:pointer;font-size:14px;font-weight:800;color:var(--soft)}
+  details.field[open] summary{margin-bottom:10px}
+  .prompt-box{background:#fff;border:1px solid var(--line);border-radius:14px;margin:0 0 20px;overflow:hidden}
+  .prompt-bar{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 14px;border-bottom:1px solid var(--line);background:#fbfbf9}
+  .prompt-bar .lbl{font-size:12.5px;font-weight:800;color:var(--soft)}
+  .copy-btn{font-family:inherit;font-size:14px;font-weight:800;background:var(--ink);color:#fff;border:none;border-radius:999px;padding:8px 20px;cursor:pointer;transition:transform 150ms var(--ease)}
+  .copy-btn:active{transform:scale(.97)}
+  .copy-btn.done{background:#1f7a3d}
+  .prompt-text{white-space:pre-wrap;font-size:15px;line-height:1.75;padding:16px 16px 18px;margin:0;font-family:inherit;max-height:420px;overflow:auto}
+  .prompt-text .fill{background:var(--accent-soft);border-radius:3px;padding:0 2px}
+  .prompt-text .empty{color:var(--soft);background:#f0f0ec;border-radius:3px;padding:0 2px}
+  .output{font-size:15px;line-height:1.7;color:var(--soft);margin:0 0 22px;padding-right:12px;border-right:3px solid var(--accent)}
+  .output strong{color:var(--ink)}
+  .finish{background:var(--accent-soft);border-radius:14px;padding:18px 20px;margin:26px 0 0}
+  .finish p{font-size:16px;margin:0}
+
+  /* ---- nav ---- */
+  .nav{display:flex;justify-content:space-between;align-items:center;margin-top:36px;padding-top:20px;border-top:1px solid var(--line)}
+  .nav button{font-family:inherit;font-size:15px;font-weight:800;border:none;cursor:pointer;transition:transform 150ms var(--ease);background:none}
+  .nav button:active{transform:scale(.97)}
+  .nav button:disabled{opacity:.3;cursor:default}
+  .nav .prev{color:var(--soft);padding:10px 4px}
+  .nav .next{background:var(--ink);color:#fff;padding:12px 28px;border-radius:999px}
+
+  .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+  .site-footer{margin-top:50px;padding-top:20px;border-top:1px solid var(--line);text-align:center}
+  .site-footer a{color:var(--soft);font-weight:700;text-decoration:none}
+  .site-footer a:hover{color:var(--accent)}
+  .site-footer p{font-size:12.5px;color:var(--soft);margin:0}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">דלגו לתוכן</a>
+<div class="layout">
+
+  <aside class="sidebar" id="sidebar" aria-label="תוכן עניינים">
+    <nav class="sidebar-nav" id="sidebarNav"></nav>
+    <div class="sidebar-foot">
+      <button class="nav-item" type="button" id="infoBtn">הצהרת נגישות ופרטיות</button>
+      <button class="nav-item clear" type="button" id="clearBtn">נקה הכל</button>
+    </div>
+  </aside>
+
+  <div class="page">
+   <div class="page-inner">
+
+    <div class="top-bar" id="topBar">
+      <div class="num" id="stepNum">1</div>
+      <div class="progress" aria-hidden="true"><i id="progressFill"></i></div>
+      <div class="meta" id="stepMeta"></div>
+    </div>
+
+    <main id="main"></main>
+
+    <section class="screen" id="info" aria-labelledby="infoTitle">
+      <h2 id="infoTitle" tabindex="-1">הצהרת נגישות ופרטיות</h2>
+      <h3>פרטיות ושמירת נתונים</h3>
+      <ul>
+        <li>כל מה שתמלאו בעמוד נשמר רק בדפדפן שלכם, על המכשיר שבו אתם עובדים. שום דבר לא נשלח לשרת.</li>
+        <li>אין באתר אנליטיקס ואין עוגיות.</li>
+        <li>הכפתור "נקה הכל" בתפריט מוחק את כל מה שנשמר. כדאי להשתמש בו אם עבדתם על מחשב משותף.</li>
+        <li>הפרומפטים נשלחים לכלי ה-AI שתבחרו, על ידכם. אל תכתבו שם פרטים שאינם ציבוריים, ובוודאי לא פרטים אישיים של תלמידים או מורים.</li>
+      </ul>
+      <h3>נגישות</h3>
+      <p>העמוד נבנה במטרה לעמוד בתקן נגישות WCAG 2.1 ברמה AA: אפשר לנווט בו במקלדת, התוכן מתאים לקוראי מסך, והוא מותאם לטלפון ולמחשב. אם נתקלתם בקושי, אפשר לפנות אל מי ששלח לכם את הקישור לשיעור.</p>
+      <div class="nav"><button class="prev" type="button" id="infoBack">→ חזרה לספר</button></div>
+    </section>
+
+    <div class="site-footer">
+      <p>נוצר על ידי <a href="https://linktr.ee/boost_me" target="_blank" rel="noopener">BOOST ME</a></p>
+    </div>
+
+   </div>
+  </div>
+
+</div>
+
+<div class="mobile-topbar">
+  <button class="menu-toggle" id="menuToggle" type="button" aria-label="תוכן עניינים" aria-expanded="false" aria-controls="sidebar">☰</button>
+  <span class="site-title">ספר הפרומפטים</span>
+</div>
+<div class="backdrop" id="backdrop"></div>
+<div class="sr-only" id="live" role="status" aria-live="polite"></div>
+
+<script>
+const DATA = {"coverTitle":"עד כאן התיאוריה. עכשיו עוברים לעשות.","coverHtml":"\u003cp>בשיעור למדתם איך מחקר-פעולה הופך משהו שמפריע לכם בעבודה ליוזמה לשינוי. עכשיו תנסו את זה בעצמכם, על דברים אמיתיים מהכיתה ומבית הספר שלכם.\u003c/p>\n\u003ch3>מה זה הכלי הזה?\u003c/h3>\n\u003cp>ספר פרומפטים שמלווה אתכם בתהליך חשיבה משותף עם ה-AI. אתם מעתיקים פרומפט, שולחים אותו ל-AI שאתם עובדים איתו, ומנהלים איתו שיחה. ה-AI לא נותן תשובות. הוא שואל, מקשיב ועוזר לכם לראות את הדברים בצורה ברורה יותר. אתם חושבים, ואתם מחליטים.\u003c/p>\n\u003ch3>לאן זה מוביל?\u003c/h3>\n\u003cp>התהליך מתחיל במה שמפריע לכם ומסתיים בשלד של יוזמה אחת שבחרתם: מה רוצים לשנות, איך אפשר להתחיל ומה צריך בשביל זה. זו לא תוכנית עבודה מלאה, אלא נקודת התחלה ברורה.\u003c/p>\n\u003ch3>איך נראה התהליך?\u003c/h3>\n\u003cp>קודם מכירים. אחר כך ממפים מה מפריע ומעמיקים בכמה אתגרים. בוחרים אחד מהם, חושבים איך להתמודד איתו, ובסוף אוספים הכל למסמך אחד.\u003c/p>\n\u003ch3>כמה דברים לפני שמתחילים\u003c/h3>\n\u003cul>\n\u003cli>היוזמה לא טכנולוגית: בלי אפליקציה, אתר או כלי דיגיטלי. שינוי בשיטה, בשגרה, בשיח או בארגון.\u003c/li>\n\u003cli>אין תשובות נכונות. אפשר לענות קצר ולדלג על שאלה.\u003c/li>\n\u003cli>ה-AI עשוי להמליץ או להעיר על רעיון. אתם מחליטים.\u003c/li>\n\u003cli>\u003cstrong>שמירה על פרטיות:\u003c/strong> אסור לשתף פרטים שאינם ציבוריים, ובוודאי לא פרטים אישיים של תלמידים או מורים, כולל שמות אישיים. כתבו \"תלמיד אחד\" או \"עמיתה\".\u003c/li>\n\u003cli>\u003cstrong>כלי ה-AI:\u003c/strong> אפשר לעבוד עם כל כלי. לרוב המורים יש גישה ל-Gemini של משרד החינוך, ואפשר להשתמש בו.\u003c/li>\n\u003cli>\u003cstrong>עובדים באותה שיחה מההתחלה ועד הסוף.\u003c/strong> כל הפרומפטים והדיון נשארים באותה שיחה, כי כל שלב נשען על מה שנאמר קודם. אל תסגרו אותה ואל תפתחו שיחה חדשה באמצע.\u003c/li>\n\u003cli>\u003cstrong>בסוף:\u003c/strong> תגישו את שלד היוזמה ופסקה קצרה על התהליך שעברתם, כמטלת הסיכום של השיעור.\u003c/li>\n\u003c/ul>\n","screens":[{"key":"s0","nav":"שער והיכרות (שלב 0)","title":"היכרות","stage":"0","blocks":[{"type":"guide","sub":"","html":"פתחו שיחה חדשה ב-AI שאתם עובדים איתו (לא מצוין מוצר מסוים, הסטודנטים בוחרים). מלאו את השדות במילים שלכם, העתיקו את הפרומפט ושלחו. השאירו את אותה שיחה פתוחה עד סוף התהליך."},{"type":"prompt","text":"היי, אני {{s0p0f0}}.\nהניסיון המעשי שלי בקצרה: {{s0p0f1}}.\nמשהו שחשוב לי שתדע עליי, אם בא לי לשתף: {{s0p0f2}}.\n\nאני מתחיל/ה תהליך חשיבה משותף איתך, שלב אחרי שלב. בסופו יהיה לי שלד של יוזמה לשינוי ממוקד, שמתחילה במשהו שמפריע לי בעבודה. היוזמה לא תהיה טכנולוגית: לא אפליקציה, לא אתר ולא כלי דיגיטלי.\n\nפעל כמלווה מחקר-פעולה בחינוך: שותף חשיבה סקרן, חם ורגוע, שעוזר למורים בתחילת הדרך לחשוב בבהירות על מה שהם רואים. אתה לא בוחן, לא מעריך ולא מספק תשובות.\n\nכללים לאורך כל השיחה:\n* שאל שאלה אחת בלבד בכל פעם, וחכה לתשובה.\n* אין תשובות נכונות או שגויות. תשובה קצרה מספיקה, ומותר לי לדלג על שאלה או לומר \"לא יודע/ת\".\n* שאל רק שאלות שאתה באמת לא יודע את התשובה עליהן.\n* כשתשובה כללית, בקש בעדינות דוגמה אחת מהכיתה או מבית הספר.\n* אל תציע פתרונות, ואל תכוון לפתרון טכנולוגי אלא אם אבקש זאת במפורש.\n* אל תשפוט ואל תתקן אותי. עזור לי לנסח את מה שאני אומר/ת בצורה מדויקת יותר.\n* שמירה על פרטיות: אסור לי לשתף פרטים שאינם ציבוריים, ובוודאי לא שמות או פרטים אישיים של תלמידים או מורים. אם אכתוב שם או פרט מזהה, הזכר לי בעדינות לנסח מחדש בלי הפרט (\"תלמיד אחד\", \"עמיתה\"), ואל תשתמש בו בהמשך השיחה.\n\nבשלב הזה אנחנו רק מכירים, בלי למפות בעיות. התחל ממה שכתבתי למעלה, ושאל על הדברים הנעימים והמעניינים בניסיון שלי לפני כל דבר אחר. עד 4 שאלות, בקצב שלי. אל תחקור אותי.\n\nבסוף כתוב לי תמונה קצרה של הניסיון שלי ושאל אם דייקת. אחרי שאאשר, נעבור לשלב 1.\n\nהתחל בשאלה אחת בלבד.","fields":[{"id":"s0p0f0","label":"מי אתם","hint":"סטודנט/ית להוראה עם התנסות בכיתה / מורה חדש/ה","optional":false,"big":false},{"id":"s0p0f1","label":"איפה התנסיתי או מלמד/ת, באיזו שכבת גיל ובאיזה מקצוע. כמה מילים מספיקות","hint":"","optional":false,"big":false},{"id":"s0p0f2","label":"משהו שחשוב לי שתדע עליי, אם בא לי לשתף","hint":"אפשר להשאיר ריק","optional":true,"big":false}]},{"type":"output","label":"תוצר השלב","html":"תמונה קצרה של הניסיון המעשי, מאושרת על ידי הסטודנט, שתלווה את כל השלבים."}]},{"key":"s1","nav":"1. מיפוי מה שמפריע","title":"מיפוי מה שמפריע","stage":"1","blocks":[{"type":"guide","sub":"","html":"המשיכו באותה שיחה שפתחתם בשלב 0. העתיקו את הפרומפט ושלחו. אפשר לענות בקצרה, ואין צורך בניסוח מושלם. כשה-AI מציג את המפה, שמרו אותה בצד, כי נחזור אליה בשלב הבא. אם סגרתם את השיחה, פתחו שיחה חדשה והדביקו את תמונת הניסיון משלב 0 בשדה “אם זו שיחה חדשה”."},{"type":"prompt","text":"המשך באותה שיחה. עברנו את ההיכרות ואישרתי את התמונה שכתבת עליי.\n\nעכשיו אני רוצה למפות את אי-הנחת שלי: דברים שמפריעים לי, מתסכלים אותי או לא עובדים, מנקודת המבט של הניסיון שסיפרתי. לא רק מה שמשפיע עליי כמורה, אלא גם על התלמידים, על הצוות ועל בית הספר כולו.\n\nכמה דברים לפני שמתחילים:\n* אין צורך בניסוח מושלם. נשפר אותו יחד.\n* אפשר להתחיל מכל מקום, גם מדבר קטן שחוזר ומציק לי.\n* אני יכול/ה לדלג על שאלה, ולחזור אליה אחר כך.\n\nעזור לי לברר בהדרגה:\n* מה מפריע לי, מתסכל אותי או לא עובד בעבודה היומיומית שלי בכיתה\n* מה עוד אני רואה סביבי שלא עובד, בצוות ובבית הספר\n* מי מושפע מכל אחד מהם: אני, התלמידים, המורים, ההורים או בית הספר כולו\n* באיזו תדירות זה קורה ומה קורה בפועל כשזה קורה\n\nאל תעבור על הסעיפים כשאלון קבוע. התאם כל שאלה למה שכבר אמרתי. כשאי-נחת מנוסחת במילים כלליות, עזור לי לחדד אותה עד שמישהו אחר יבין בדיוק למה אני מתכוון/ת. הבחן בין מה שנצפה בפועל לבין פרשנות או הנחה, והחזר לי את ההבחנה בעדינות.\n\nבשלב הזה אל תציע פתרונות ואל תדרג. המטרה היא למפות, לא לבחור.\n\n{{s1p0f0}}\n\nכשיש לנו 5 עד 8 נקודות אי-נחת, שאל אם חסר משהו. אחר כך הצג מפה: לכל נקודה משפט אחד מדויק, מקרה קונקרטי אחד, מי מושפע, והאם זה נצפה או הנחה.\n\nהתחל בשאלה אחת בלבד.","fields":[{"id":"s1p0f0","label":"אם זו שיחה חדשה, הדביקו כאן את תמונת הניסיון שכתבת בשלב 0","hint":"","optional":true,"big":true}]},{"type":"output","label":"תוצר השלב","html":"מפה בהירה של 5 עד 8 נקודות אי-נחת, כל אחת מנוסחת במדויק, עם דוגמה קונקרטית וציון מי מושפע ממנה."}]},{"key":"s2","nav":"2. העמקה באתגרים","title":"העמקה באתגרים","stage":"2","blocks":[{"type":"guide","sub":"פרומפט ההעמקה","html":"המשיכו באותה שיחה. בחרו מהמפה אתגר אחד שהכי מדבר אליכם, והעדיפו אתגרים שקורים בכיתה שלכם. לא חייבים לבחור אותו סופית, רק להעמיק בו. כתבו אותו בשדה, העתיקו את הפרומפט ושלחו, ואחרי הסיכום חזרו על הפרומפט עם אתגר נוסף. כדאי להעמיק בשלושה או ארבעה אתגרים. אפשר לעצור באמצע ולהמשיך בפעם אחרת."},{"type":"prompt","text":"המשך באותה שיחה. מתוך המפה שבנינו, אני רוצה להעמיק באתגר הזה: {{s2p0f0}}.\n\nאני רוצה לעצור איתו קצת, להיכנס אליו ולהסתכל עליו מכמה כיוונים. עדיין לא בוחרים ועדיין לא פותרים.\n\nהתחל בלהחזיר אותי לרגע אחד אמיתי. שאל אותי על הפעם האחרונה שזה קרה, או על מקרה שראיתי: איפה זה היה, מה קרה, מה ראיתי ושמעתי, ומה הרגשתי. תן לי לספר בקצב שלי.\n\nאחרי שהסצנה ברורה, עזור לי לבחון את האתגר מכיוונים נוספים. בחר לפי מה שאמרתי, בשאלה אחת בכל פעם:\n* איך זה נראה מנקודת המבט של תלמיד, עמית, יועצת או הנהלה\n* מתי זה קורה ומתי פחות, ומה שונה\n* מה כבר ניסיתי או שמתי לב שעוזר, ולו קצת\n* מה ייראה אחרת אם האתגר יתמתן\n* מה בסיטואציה השפיע על זה, ומה עוד לא ברור לי\n\nאל תעבור על הכיוונים כרשימה. אם משהו שאמרתי מזמין להמשיך בו, תישאר שם. אם כיוון לא רלוונטי, דלג. מספיקות 4 עד 6 שאלות.\n\nאל תציע פתרונות ואל תבקש ממני להחליט. אם אני מנסח/ת הנחה ולא ראיה, החזר לי אותה בעדינות.\n\nבסוף סכם בקצרה, רק לפי מה שאמרתי ובלי להוסיף תובנות משלך: איך האתגר נראה עכשיו, מה עלה שלא היה בהתחלה, ומה עדיין פתוח. שאל אם דייקת.\n\n{{s2p0f1}}\n\nהתחל בשאלה אחת בלבד.","fields":[{"id":"s2p0f0","label":"כתבו כאן אתגר אחד מהמפה","hint":"","optional":false,"big":false},{"id":"s2p0f1","label":"אם זו שיחה חדשה, הדביקו כאן את המפה משלב 1","hint":"","optional":true,"big":true}]},{"type":"output","label":"תוצר ההעמקה (לכל אתגר)","html":"סצנה קונקרטית אחת, כמה נקודות מבט, ומה עלה ומה עדיין פתוח."},{"type":"guide","sub":"פרומפט הסיכום","html":"אחרי שהעמקתם בשלושה או ארבעה אתגרים, העתיקו את הפרומפט הקצר הזה ושלחו. שמרו את הטבלה בצד."},{"type":"prompt","text":"עשינו העמקה בכמה אתגרים. הצג טבלה אחת: לכל אתגר שהעמקנו בו, משפט אחד על איך הוא נראה עכשיו, מה עלה בשיחה, ומה עדיין פתוח. השתמש רק במה שאמרתי, בלי להוסיף. אל תדרג ואל תמליץ.","fields":[]},{"type":"output","label":"תוצר השלב","html":"טבלת סיכום של 3 עד 4 אתגרים מועמדים לבחירה."}]},{"key":"s3","nav":"3. שאלות על כל אתגר","title":"שאלות על כל אתגר","stage":"3","blocks":[{"type":"guide","sub":"","html":"המשיכו באותה שיחה. הפרומפט הזה עובר על האתגרים שהעמקתם בהם, ושואל אתכם על כל אחד ארבע שאלות קצרות. עונים במספר מ-1 עד 5, ואם בא לכם גם במשפט אחד. אין תשובה נכונה: זו דרך לראות מה מדבר אליכם, לא מבחן. בשלב הבא ה-AI יעריך את האתגרים ויציע המלצה. אם סגרתם את השיחה, פתחו שיחה חדשה והדביקו את טבלת הסיכום משלב 2 בשדה “אם זו שיחה חדשה”."},{"type":"prompt","text":"המשך באותה שיחה. עכשיו אני רוצה להסתכל על האתגרים שהעמקנו בהם, ולראות איך כל אחד מהם עומד מול כמה שאלות. עדיין לא מחליטים. זו דרך לראות מה באמת מדבר אליי.\n\nלכל אתגר, לפי הסדר שבטבלת הסיכום, שאל אותי ארבע שאלות, אחת בכל פעם:\n1. כמה חשוב לי לצלוח את האתגר הזה\n2. כמה ריאלי שאצליח לצלוח אותו, בהתחשב במה שבשליטתי כמורה\n3. כמה האתגר נפוץ: באיזו תדירות זה קורה בכיתה שלי, וכמה זה קיים גם בבית הספר ואצל מורים אחרים שאני מכיר/ה\n4. כמה מוקדם אפשר להתחיל לעבוד עליו (5 = כבר בשיעור הבא, 1 = רק בעוד זמן רב)\n\nבכל שאלה אני עונה במספר מ-1 (נמוך מאוד) עד 5 (גבוה מאוד), ואם בא לי גם במשפט אחד שמסביר. אם אני מהסס/ת, עזור לי בשאלה אחת קצרה. אל תשפוט את התשובות שלי ואל תתקן אותן. אם אני נותן/ת ציון גבוה בשאלה אחת ונמוך באחרת באותו אתגר, אפשר לשים לב לזה בעדינות, בלי להסיק מסקנות במקומי.\n\nאחרי שעברנו על כל האתגרים, הצג טבלה אחת: שורה לכל אתגר, ארבעה ציונים ומשפט הסבר קצר ממה שאמרתי. אל תחשב סכום, אל תדרג ואל תמליץ מה לבחור. אחרי הטבלה, שאל אותי מה אני שם/ה לב אליו כשאני מסתכל/ת עליה.\n\n{{s3p0f0}}\n\nהתחל באתגר הראשון, בשאלה הראשונה, ובשאלה אחת בלבד.","fields":[{"id":"s3p0f0","label":"אם זו שיחה חדשה, הדביקו כאן את טבלת הסיכום משלב 2","hint":"","optional":true,"big":true}]},{"type":"output","label":"תוצר השלב","html":"טבלה של 3 עד 4 האתגרים עם ארבעה ציונים לכל אחד, ומה שהסטודנט שם לב אליו בה."}]},{"key":"s4","nav":"4. הערכה והמלצה של ה-AI","title":"הערכה והמלצה של ה-AI","stage":"4","blocks":[{"type":"guide","sub":"","html":"המשיכו באותה שיחה, אחרי שראיתם את הטבלה והסתכלתם עליה. הפרומפט הזה מבקש מה-AI להעריך כל אתגר לפי מה שסיפרתם לאורך הדרך, ולהמליץ על אחד. זו המלצה בלבד. אתם מוזמנים לבחור כל אתגר שתרצו, גם אם הוא לא זה שה-AI ממליץ עליו. ההערכה היא של האתגרים, לא שלכם."},{"type":"prompt","text":"המשך באותה שיחה. ראיתי את הטבלה ואמרתי מה שמתי לב אליו. עכשיו אני רוצה את ההערכה שלך: איזה מהאתגרים מתאים ביותר להמשך.\n\nהערך כל אתגר בארבעת הקריטריונים: חשיבות עבורי, ריאליות, תפוצה (בכיתה שלי, בבית הספר ואצל מורים אחרים), וכמה מוקדם אפשר להתחיל. תן לכל קריטריון דירוג בכוכבים מ-1 עד 5 (כוכב אחד = נמוך, חמישה = גבוה, למשל ★★★★☆), עם הסבר של משפט או שניים.\n\nלכל אתגר כתוב גם ניתוח קצר, שלושה עד ארבעה משפטים, שמסביר למה הוא קיבל את הציונים האלה: מה בדברים שסיפרתי, בסצנות ובציונים שנתתי הוביל לכל ציון, מה מחזק את האתגר ומה מקשה עליו. הניתוח הוא החלק החשוב בהערכה, והציון משקף אותו.\n\nההערכה שלך צריכה להישען על מה שסיפרתי לאורך השיחה: הסצנות, מה שאמרתי על מה שבשליטתי, והציונים שנתתי. אם הדירוג שלך שונה מהציון שנתתי, אמור זאת והסבר למה, בעדינות. הערך את האתגר ולא אותי. אם אתגר תלוי בדברים שמחוץ לשליטתי כמורה (למשל גודל כיתה או לוח צלצולים), ציין זאת בקריטריון הריאליות.\n\nאחר כך חשב לכל אתגר ציון משוקלל לפי המשקלים: חשיבות 30%, ריאליות 30%, כמה מוקדם אפשר להתחיל 20%, תפוצה 20%. הצג את החישוב בגלוי כדי שאוכל לבדוק אותו, ואת הציון המשוקלל בכוכבים ובמספר מ-1 עד 5, עם הסבר קצר.\n\nהמלץ על אתגר אחד שהכי מתאים, והסבר למה בשלושה או ארבעה משפטים. ציין גם אם אתגר נוסף קרוב אליו, ובמה הוא חזק יותר.\n\nזו המלצה ולא החלטה. כתוב זאת בבירור בסוף ההמלצה: שזו המלצה בלבד, ושאני מוזמן/ת לבחור כל אתגר שאני רוצה, גם אם הוא לא זה שהמלצת עליו. אחר כך שאל אותי אם אני מסכים/ה, אם אני מעדיף/ה אתגר אחר, ואם משהו בהערכה נראה לי לא נכון. אם אבחר באתגר אחר, כבד את הבחירה בלי לשכנע אותי. כשנחליט, נסח איתי את האתגר שנבחר במשפט אחד.","fields":[]},{"type":"output","label":"תוצר השלב","html":"הערכה בכוכבים לכל אתגר עם ניתוח קצר שמסביר את הציון, ציון משוקלל, המלצה אחת, ואתגר אחד שנבחר, מנוסח במשפט אחד."}]},{"key":"s5","nav":"5. מצוי, רצוי וכיוונים","title":"מצוי, רצוי וכיוונים","stage":"5","blocks":[{"type":"guide","sub":"","html":"המשיכו באותה שיחה. עכשיו מתחילים לחשוב על דרך להתמודד עם האתגר שבחרתם. הרעיונות הראשונים יבואו מכם, וה-AI יעזור לכם להרחיב ולדייק. אל תחסמו רעיון כי הוא נשמע לא מושלם. ה-AI עשוי להעיר בעדינות על רעיון או לכוון לכיוון אחר, וההחלטה תמיד שלכם. אם סגרתם את השיחה, פתחו שיחה חדשה והדביקו את הנוסח של האתגר שבחרתם בשדה “אם זו שיחה חדשה”."},{"type":"prompt","text":"המשך באותה שיחה. האתגר שבחרנו: {{s5p0f0}}.\n\nעכשיו אני רוצה להתחיל לחשוב על דרך להתמודד איתו. המטרה בשלב הזה היא למפות: איפה אני נמצא/ת עכשיו, איך אני רוצה שזה ייראה, ואילו כיוונים שונים יכולים להוביל משם לשם. עדיין לא בוחרים כיוון אחד.\n\nמכאן מותר לך להציע רעיונות, אבל הכיוונים הראשונים צריכים לבוא ממני.\n\nנלך בסדר הזה, שאלה אחת בכל פעם:\n1. מצוי: עזור לי לתאר במדויק איך המצב נראה היום. מה קורה בפועל, כמה ובאיזו תדירות, בלי פרשנות. אם אפשר, עם מספר או דוגמה.\n2. רצוי: עזור לי לתאר איך ייראה המצב אם האתגר יתמתן. מה יהיה אחרת בכיתה, בצורה שאפשר לראות או למדוד.\n3. כיוונים: שאל אותי אילו כיוונים עולים לי כדי להגיע מהמצוי לרצוי. תן לי להתחיל, גם אם הרעיון עוד לא מושלם. אחרי כל רעיון שלי, עזור לי לחדד אותו: מה בדיוק אעשה, מי מעורב ומה זה משנה.\n4. עוד כיוונים: כשאין לי יותר רעיונות, שאל אם אני רוצה לשמוע רעיונות נוספים. אם כן, הצע 2 או 3 כיוונים שונים באמת מאלה שעלו (למשל שגרה חדשה, חלוקת תפקידים בין התלמידים, חיזוק ומשוב, שינוי בסידור או בארגון הכיתה), לא ניסוחים שונים לאותו רעיון. הצג אותם כהצעות ולא כתשובות.\n\nכללים לשלב הזה:\n* הרעיונות צריכים להיות בתוך מה שבשליטתי כמורה, ולא טכנולוגיים (לא אפליקציה, לא אתר, לא כלי דיגיטלי).\n* אם נראה לך שרעיון שלי לא יעבוד, לא מתאים לאתגר, או שהכיוון לא נכון, אמור זאת בכנות ובעדינות במשפט או שניים, הסבר מה מדאיג אותך, והצע כיוון קרוב שנראה לך טוב יותר. הערה כנה ועדינה עדיפה על שתיקה. אחרי זה תן לי להחליט. אל תחזור על ההסתייגות, אל תנסה לשכנע ואל תלחץ.\n* אל תבחר כיוון במקומי ואל תדרג אותם.\n\nכשיש לנו לפחות שלושה כיוונים שונים באמת, הצג מפה אחת: המצוי, הרצוי, ולכל כיוון משפט אחד על מה הוא כולל, איך הוא מקרב מהמצוי לרצוי, ואם יש הסתייגות, מה היא. שאל אם דייקת.\n\nהתחל בשאלה הראשונה, ובשאלה אחת בלבד.","fields":[{"id":"s5p0f0","label":"כתבו כאן את האתגר שנבחר, במשפט אחד","hint":"","optional":false,"big":false}]},{"type":"output","label":"תוצר השלב","html":"מצוי ורצוי מוגדרים במדויק, ולפחות שלושה כיוונים שונים באמת להגיע מהמצוי לרצוי, כל אחד עם הסתייגות אם יש."}]},{"key":"s6","nav":"6. בחירת כיוון ומיפוי משאבים","title":"בחירת כיוון ומיפוי משאבים","stage":"6","blocks":[{"type":"guide","sub":"","html":"המשיכו באותה שיחה. בשלב הזה בוחרים כיוון אחד מהמפה שבנינו ובודקים מה צריך כדי ליישם אותו. אם אתם מהססים בין כיוונים, ה-AI יעזור לכם לחשוב, וההחלטה שלכם. אם בדרך מתברר שהכיוון כבד מדי, מותר לחזור ולבחור כיוון אחר. אם סגרתם את השיחה, פתחו שיחה חדשה והדביקו את מפת הכיוונים משלב 5 בשדה “אם זו שיחה חדשה”."},{"type":"prompt","text":"המשך באותה שיחה. עכשיו אני רוצה לבחור כיוון אחד מהמפה שבנינו, ולבדוק מה צריך כדי ליישם אותו.\n\nהתחל בלשאול אותי איזה כיוון אני בוחר/ת. אם אני מהסס/ת, עזור לי לחשוב בעזרת שלוש שאלות, אחת בכל פעם:\n* האם יש לי חיבור וכאב אישי אמיתי לכיוון הזה, כך שאמשיך איתו גם כשהעומס יעלה\n* האם אפשר להתחיל ליישם אותו כבר בשיעור הבא, בלי אישורים מיוחדים\n* האם בעוד ארבעה שבועות אוכל להראות נתון או סימן ברור שמשהו השתנה\nאתה עוזר לי לחשוב, לא מחליט במקומי.\n\nאחרי שבחרתי, המטרה היא למפות מה כבר יש לי ומה אני צריך/ה כדי להתחיל, בלי להפוך את זה לרשימה ענקית. נעבור על הנושאים האלה אחד אחד, בשאלה אחת בכל פעם:\n* זמן: כמה זמן זה לוקח בשיעור ומחוצה לו, ומתי אפשר להתחיל\n* אנשים: מי יכול לעזור או צריך להיות מעורב (תלמידים, עמיתים, יועצת, הנהלה, הורים), ועם מי כדאי להתייעץ לפני שמתחילים כדי לבדוק שהאתגר והכיוון נכונים\n* חומרים וציוד: מה אצטרך להכין או להשיג\n* אישורים ותיאום: האם צריך אישור או הסכמה של מישהו, ממי ומתי\n* ידע ומיומנויות: מה אני צריך/ה לדעת או ללמוד כדי לעשות את זה\n* מקום וסידור: האם צריך שינוי בכיתה, בלוח הזמנים או בארגון\n\nלכל נושא עזור לי לברר: מה כבר יש לי, מה חסר, ומאיפה אפשר להשיג. אם נראה לך שפספסתי משאב חשוב, הוסף אותו בעדינות. אם משהו נשמע כבד מדי בשבילי כמורה בתחילת הדרך, או תלוי במישהו שאין לי עליו שליטה, אמור זאת בכנות ובעדינות והצע גרסה קלה יותר של הכיוון, או שאלה אם אני רוצה לבחור כיוון אחר. אחרי זה תן לי להחליט, בלי לשכנע.\n\nבסוף הצג טבלה אחת: לכל נושא, מה יש לי, מה חסר ומאיפה אפשר להשיג. מתחת לטבלה ציין אם אפשר להתחיל כבר בשיעור הבא בלי אישור מיוחד, ומה הדבר הראשון שאצטרך להשיג. שאל אם דייקת.\n\n{{s6p0f0}}\n\nהתחל בשאלה אחת בלבד.","fields":[{"id":"s6p0f0","label":"אם זו שיחה חדשה, הדביקו כאן את מפת הכיוונים משלב 5","hint":"","optional":true,"big":true}]},{"type":"output","label":"תוצר השלב","html":"כיוון אחד שנבחר, וטבלת משאבים: מה יש, מה חסר ומאיפה משיגים, וגם אם אפשר להתחיל כבר בשיעור הבא."}]},{"key":"s7a","nav":"7א. שלד היוזמה","title":"שלד היוזמה","stage":"7א","blocks":[{"type":"guide","sub":"","html":"המשיכו באותה שיחה. זה השלב האחרון: ה-AI יאסוף את כל מה שעשיתם לשלד אחד של היוזמה שלכם. עברו עליו, תקנו מה שלא מדויק, ושמרו אותו במסמך. שימו לב: זה שלד ולא תוכנית עבודה מלאה, והצעדים הבאים שבסופו הם מה שתעשו הלאה. אם סגרתם את השיחה, פתחו שיחה חדשה והדביקו את הסיכומים משלבים 0 עד 6 בשדה “אם זו שיחה חדשה”."},{"type":"prompt","text":"המשך באותה שיחה. הגענו לסוף. אני רוצה שתאסוף את כל מה שעשינו לשלד אחד של היוזמה שלי, מסמך קצר שאפשר להעתיק ולשמור.\n\nהשתמש רק במה שאמרתי ובמה שסוכם בשיחה. אל תוסיף תוכן משלך, ואל תמלא דברים שלא נקבעו. מה שלא הוגדר, כתוב \"לא הוגדר\".\n\nמבנה השלד:\n1. האתגר שבחרתי: משפט אחד\n2. מי אני וההקשר שלי: שתי שורות מההיכרות\n3. המצוי: איך המצב נראה היום\n4. הרצוי: איך אני רוצה שייראה\n5. הכיוון שבחרתי: מה הוא כולל, מי מעורב, ואיך הוא מקרב מהמצוי לרצוי\n6. כיוונים אחרים שנשקלו: שורה לכל אחד\n7. משאבים: מה יש לי, מה חסר ומאיפה משיגים\n8. שותפים: עם מי כדאי להתייעץ לפני שמתחילים\n9. הסתייגויות ונקודות פתוחות: מה שעלה בשיחה ועדיין לא ברור\n\nסיים בסעיף \"הצעדים הבאים\". זה סעיף אופרטיבי, והוא לא חלק מהשלד אלא מה שצריך לעשות הלאה. כתוב בו:\n* להתייעץ עם השותפים שציינתי ולהשיג את האישורים שחסרים (אם צוינו), לפני שמתחילים, כי ההתייעצות עשויה לשנות את האתגר או את הכיוון.\n* להגדיר את הצעד הראשון ומי אחראי על מה.\n* מדידה ולוח זמנים: ציין בשורה אחת שהם יטופלו בהמשך, בשיעורים הפרונטליים. אל תפרט ואל תתכנן אותם.\n\nאחרי שהצגת, שאל אותי אם משהו לא מדויק, ותקן.\n\n{{s7ap0f0}}","fields":[{"id":"s7ap0f0","label":"אם זו שיחה חדשה, הדביקו כאן את הסיכומים משלבים 0 עד 6","hint":"","optional":true,"big":true}]},{"type":"output","label":"תוצר השלד","html":"שלד של היוזמה במסמך אחד, עם סעיף \"הצעדים הבאים\": התייעצות עם שותפים, צעד ראשון ואחריות, והפניה למדידה ולוח זמנים בשיעורים הפרונטליים."}]},{"key":"s7b","nav":"7ב. רפלקציה על התהליך","title":"רפלקציה על התהליך","stage":"7ב","blocks":[{"type":"guide","sub":"פרומפט הרפלקציה","html":"אחרי שתיקנתם ושמרתם את השלד, העתיקו את הפרומפט הזה ושלחו, באותה שיחה. ה-AI ישאל אתכם כמה שאלות על התהליך שעברתם, ובסוף יכתוב פסקה קצרה בלשונכם. את השלד ואת הפסקה הזו מגישים כמטלת הסיכום של השיעור. אם סגרתם את השיחה, פתחו שיחה חדשה והדביקו את השלד בשדה “אם זו שיחה חדשה”."},{"type":"prompt","text":"המשך באותה שיחה. השלד מוכן ושמרתי אותו. עכשיו אני רוצה לחשוב על התהליך שעברתי, כדי לכתוב עליו פסקה קצרה להגשה.\n\nשאל אותי 3 עד 4 שאלות רפלקטיביות, אחת בכל פעם, לפי מה שעבר עליי בשיחה. למשל מה הפתיע אותי, איפה שיניתי דעה או התלבטתי, מה למדתי על אי-הנחת שלי ועל הדרך שבה אני חושב/ת עליו, ומה היה קל או קשה בתהליך. אל תשפוט ואל תעריך אותי. מותר לי לדלג על שאלה.\n\nבסוף כתוב פסקה קצרה בגוף ראשון, בלשון שלי, שמספרת על התהליך שעברתי. השתמש רק במה שאמרתי, בלי להוסיף תובנות משלך. שאל אם דייקת, ותקן.\n\n{{s7bp0f0}}\n\nהתחל בשאלה אחת בלבד.","fields":[{"id":"s7bp0f0","label":"אם זו שיחה חדשה, הדביקו כאן את השלד","hint":"","optional":true,"big":true}]},{"type":"output","label":"תוצר הרפלקציה","html":"פסקה קצרה בגוף ראשון על התהליך שהסטודנט עבר. השלד והפסקה הם מה שמוגש."}]}]};
+
+const Book = (() => {
+  const KEY = 'ffti_book_v1';
+  const EMPTY = '[לא מולא]';
+  const screens = DATA.screens;
+  let state = { vals: {}, screen: 0 };
+  let infoOpen = false;
+
+  function load(){
+    try {
+      const raw = localStorage.getItem(KEY);
+      if (raw){
+        const s = JSON.parse(raw);
+        if (s && typeof s === 'object'){
+          state.vals = (s.vals && typeof s.vals === 'object') ? s.vals : {};
+          if (Number.isInteger(s.screen) && s.screen >= 0 && s.screen < screens.length) state.screen = s.screen;
+        }
+      }
+    } catch(e){}
+  }
+  function save(){
+    try { localStorage.setItem(KEY, JSON.stringify(state)); } catch(e){}
+  }
+  function wipe(){
+    try { localStorage.removeItem(KEY); } catch(e){}
+  }
+
+  const esc = s => String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+
+  // Assemble the prompt: returns {plain, html}. Optional fields left empty drop their whole line.
+  function assemble(text){
+    const out = [], outHtml = [];
+    for (const line of text.split('\n')){
+      const ids = [...line.matchAll(/\{\{([^}]+)\}\}/g)].map(m => m[1]);
+      if (ids.length){
+        const dropLine = ids.some(id => isOptional(id) && !(state.vals[id] || '').trim());
+        if (dropLine) continue;
+        out.push(line.replace(/\{\{([^}]+)\}\}/g, (m, id) => (state.vals[id] || '').trim() || EMPTY));
+        outHtml.push(esc(line).replace(/\{\{([^}]+)\}\}/g, (m, id) => {
+          const v = (state.vals[id] || '').trim();
+          return v ? `<span class="fill">${esc(v)}</span>` : `<span class="empty">${EMPTY}</span>`;
+        }));
+      } else { out.push(line); outHtml.push(esc(line)); }
+    }
+    const squeeze = a => a.join('\n').replace(/\n{3,}/g, '\n\n');
+    return { plain: squeeze(out), html: squeeze(outHtml) };
+  }
+  const optionalIds = new Set();
+  screens.forEach(s => s.blocks.forEach(b => (b.fields||[]).forEach(f => { if (f.optional) optionalIds.add(f.id); })));
+  const isOptional = id => optionalIds.has(id);
+
+  function fieldHTML(f){
+    const hint = f.hint ? `<span class="hint">${esc(f.hint)}</span>` : '';
+    const val = esc(state.vals[f.id] || '');
+    const rows = f.big ? 4 : 2;
+    const control = `<textarea id="f-${f.id}" data-f="${f.id}" rows="${rows}">${val}</textarea>`;
+    if (f.optional && f.big){
+      const open = (state.vals[f.id] || '').trim() ? ' open' : '';
+      return `<details class="field"${open}><summary>${esc(f.label)}</summary>${control}</details>`;
+    }
+    return `<div class="field"><label for="f-${f.id}">${esc(f.label)}${hint}</label>${control}</div>`;
+  }
+
+  function render(){
+    const main = document.getElementById('main');
+    let html = '';
+    screens.forEach((s, i) => {
+      let body = '';
+      if (i === 0){
+        body += `<h2 tabindex="-1">${esc(DATA.coverTitle)}</h2><div class="intro">${DATA.coverHtml}</div>`;
+        body += `<div class="stage-head"><span class="stage-tag">שלב 0</span><h3>${esc(s.title)}</h3></div>`;
+      } else {
+        body += `<h2 tabindex="-1">שלב ${esc(s.stage)}: ${esc(s.title)}</h2>`;
+      }
+      s.blocks.forEach((b, bi) => {
+        if (b.type === 'guide'){
+          const sub = b.sub ? `<span class="sub">${esc(b.sub)}</span><br>` : '';
+          body += `<p class="guide">${sub}${b.html}</p>`;
+        } else if (b.type === 'prompt'){
+          if (b.fields.length) body += `<div class="fields">${b.fields.map(fieldHTML).join('')}</div>`;
+          body += `<div class="prompt-box">
+            <div class="prompt-bar"><span class="lbl" id="lbl-${i}-${bi}">הפרומפט להעתקה</span>
+            <button class="copy-btn" type="button" data-copy="${i}-${bi}" aria-describedby="lbl-${i}-${bi}">העתק</button></div>
+            <pre class="prompt-text" id="p-${i}-${bi}" dir="rtl" tabindex="0"></pre></div>`;
+        } else if (b.type === 'output'){
+          body += `<p class="output"><strong>${esc(b.label)}:</strong> ${b.html}</p>`;
+        }
+      });
+      if (i === screens.length - 1){
+        body += `<div class="finish"><p><strong>מה מגישים:</strong> את שלד היוזמה ואת פסקת התהליך, כמטלת הסיכום של השיעור. ההגשה נעשית מחוץ לספר.</p></div>`;
+      }
+      body += `<div class="nav">
+        <button class="prev" type="button" data-nav="prev"${i === 0 ? ' disabled' : ''}>→ הקודם</button>
+        ${i === screens.length - 1 ? '' : '<button class="next" type="button" data-nav="next">הבא ←</button>'}
+      </div>`;
+      html += `<section class="screen" id="screen-${i}" data-i="${i}">${body}</section>`;
+    });
+    main.innerHTML = html;
+
+    const nav = document.getElementById('sidebarNav');
+    nav.innerHTML = `<div class="nav-group">שלב 1: למידה</div>
+      <a class="nav-item" href="index.html">לשלב הלמידה (9 מסכים) ←</a>
+      <div class="nav-group">שלב 2: ספר הפרומפטים</div>` +
+      screens.map((s, i) => `<button class="nav-item" type="button" data-go="${i}">${esc(s.nav)}</button>`).join('');
+
+    main.querySelectorAll('textarea[data-f]').forEach(t => {
+      t.addEventListener('input', () => {
+        state.vals[t.dataset.f] = t.value;
+        save();
+        refreshPrompts();
+      });
+    });
+    main.querySelectorAll('[data-nav]').forEach(b => b.onclick = () => go(state.screen + (b.dataset.nav === 'next' ? 1 : -1)));
+    main.querySelectorAll('[data-copy]').forEach(b => b.onclick = () => copy(b));
+    nav.querySelectorAll('[data-go]').forEach(b => b.onclick = () => go(parseInt(b.dataset.go, 10)));
+    refreshPrompts();
+  }
+
+  function refreshPrompts(){
+    screens.forEach((s, i) => s.blocks.forEach((b, bi) => {
+      if (b.type !== 'prompt') return;
+      const el = document.getElementById(`p-${i}-${bi}`);
+      if (el) el.innerHTML = assemble(b.text).html;
+    }));
+  }
+
+  function announce(msg){
+    const l = document.getElementById('live');
+    l.textContent = '';
+    setTimeout(() => { l.textContent = msg; }, 30);
+  }
+
+  async function copy(btn){
+    const [i, bi] = btn.dataset.copy.split('-').map(Number);
+    const text = assemble(screens[i].blocks[bi].text).plain;
+    let ok = false;
+    try { await navigator.clipboard.writeText(text); ok = true; } catch(e){}
+    if (!ok){
+      const ta = document.createElement('textarea');
+      ta.value = text; ta.setAttribute('readonly',''); ta.style.position = 'fixed'; ta.style.opacity = '0';
+      document.body.appendChild(ta); ta.select();
+      try { ok = document.execCommand('copy'); } catch(e){}
+      ta.remove();
+    }
+    const orig = 'העתק';
+    btn.textContent = ok ? 'הועתק ✓' : 'לא הצלחנו להעתיק, סמנו ידנית';
+    btn.classList.toggle('done', ok);
+    announce(ok ? 'הפרומפט הועתק' : 'ההעתקה נכשלה, סמנו את הטקסט והעתיקו ידנית');
+    setTimeout(() => { btn.textContent = orig; btn.classList.remove('done'); }, 2200);
+  }
+
+  function update(focus){
+    const showInfo = infoOpen;
+    document.querySelectorAll('.screen').forEach(el => {
+      if (el.id === 'info') el.classList.toggle('active', showInfo);
+      else el.classList.toggle('active', !showInfo && parseInt(el.dataset.i, 10) === state.screen);
+    });
+    document.getElementById('main').style.display = showInfo ? 'none' : 'block';
+    document.getElementById('topBar').style.display = showInfo ? 'none' : 'flex';
+    document.getElementById('stepNum').textContent = screens[state.screen].stage;
+    document.getElementById('stepMeta').textContent = `${state.screen + 1} מתוך ${screens.length}`;
+    document.getElementById('progressFill').style.width = `${((state.screen + 1) / screens.length) * 100}%`;
+    document.querySelectorAll('#sidebarNav [data-go]').forEach(b => {
+      const on = !showInfo && parseInt(b.dataset.go, 10) === state.screen;
+      b.classList.toggle('on', on);
+      if (on) b.setAttribute('aria-current', 'step'); else b.removeAttribute('aria-current');
+    });
+    closeMenu();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    if (focus){
+      const h = showInfo ? document.getElementById('infoTitle') : document.querySelector(`#screen-${state.screen} h2`);
+      if (h) h.focus({ preventScroll: true });
+    }
+  }
+
+  function go(i){
+    infoOpen = false;
+    state.screen = Math.max(0, Math.min(screens.length - 1, i));
+    save(); update(true);
+  }
+  function openMenu(){
+    document.getElementById('sidebar').classList.add('open');
+    document.getElementById('backdrop').classList.add('show');
+    document.getElementById('menuToggle').setAttribute('aria-expanded', 'true');
+  }
+  function closeMenu(){
+    document.getElementById('sidebar').classList.remove('open');
+    document.getElementById('backdrop').classList.remove('show');
+    document.getElementById('menuToggle').setAttribute('aria-expanded', 'false');
+  }
+
+  document.getElementById('menuToggle').onclick = () =>
+    document.getElementById('sidebar').classList.contains('open') ? closeMenu() : openMenu();
+  document.getElementById('backdrop').onclick = closeMenu;
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMenu(); });
+  document.getElementById('infoBtn').onclick = () => { infoOpen = true; update(true); };
+  document.getElementById('infoBack').onclick = () => { infoOpen = false; update(true); };
+  document.getElementById('clearBtn').onclick = () => {
+    if (!confirm('למחוק את כל מה שמילאתם בספר? אי אפשר לשחזר.')) return;
+    wipe(); state = { vals: {}, screen: 0 }; infoOpen = false;
+    render(); update(true);
+    announce('כל הנתונים נמחקו');
+  };
+
+  load();
+  render();
+  update(false);
+  return { go };
+})();
+</script>
+</body>
+</html>
