@@ -116,8 +116,17 @@
   }
   .field textarea:focus{border-color:var(--ink)}
   details.field{border:1px dashed var(--line);border-radius:10px;padding:10px 12px;background:#fff}
-  details.field summary{cursor:pointer;font-size:14px;font-weight:800;color:var(--soft)}
-  details.field[open] summary{margin-bottom:10px}
+  details.field summary{cursor:pointer;display:flex;align-items:center;gap:12px;list-style:none;font-size:14.5px;font-weight:800;color:var(--ink)}
+  details.field summary::-webkit-details-marker{display:none}
+  details.field summary .st{display:flex;flex-direction:column;gap:2px}
+  details.field summary .s{font-size:12.5px;font-weight:500;color:var(--soft)}
+  details.field summary .plus{flex-shrink:0;width:28px;height:28px;border-radius:999px;background:var(--accent-soft);position:relative;transition:background 150ms var(--ease)}
+  details.field summary .plus::before,details.field summary .plus::after{content:"";position:absolute;right:50%;top:50%;width:12px;height:2px;margin:-1px -6px 0 0;background:var(--accent);border-radius:2px}
+  details.field summary .plus::after{transform:rotate(90deg);transition:transform 150ms var(--ease)}
+  details.field[open] summary .plus::after{transform:rotate(0)}
+  details.field summary:hover .plus{background:#fbd3bd}
+  details.field.optional{border-style:solid;padding:12px 14px}
+  details.field[open] summary{margin-bottom:12px}
   .prompt-box{background:#fff;border:1px solid var(--line);border-radius:14px;margin:0 0 20px;overflow:hidden}
   .prompt-bar{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 14px;border-bottom:1px solid var(--line);background:#fbfbf9}
   .prompt-bar .lbl{font-size:12.5px;font-weight:800;color:var(--soft)}
@@ -271,7 +280,8 @@ const Book = (() => {
     const control = `<textarea id="f-${f.id}" data-f="${f.id}" rows="${rows}">${val}</textarea>`;
     if (f.optional && f.big){
       const open = (state.vals[f.id] || '').trim() ? ' open' : '';
-      return `<details class="field"${open}><summary>${esc(f.label)}</summary>${control}</details>`;
+      const what = f.label.replace(/^אם זו שיחה חדשה, הדביקו כאן /, '');
+      return `<details class="field optional"${open}><summary><span class="plus" aria-hidden="true"></span><span class="st"><span class="t">שיחה חדשה? לחצו כאן כדי להדביק ${esc(what)}</span><span class="s">צריך רק אם סגרתם את השיחה הקודמת. אחרת אפשר לדלג.</span></span></summary>${control}</details>`;
     }
     return `<div class="field"><label for="f-${f.id}">${esc(f.label)}${hint}</label>${control}</div>`;
   }
