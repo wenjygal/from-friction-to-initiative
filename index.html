@@ -651,7 +651,7 @@ const App = (() => {
     `).join('');
     STEPS.forEach((_,i) => {
       document.getElementById(`prev-${i}`).onclick = prev;
-      document.getElementById(`next-${i}`).onclick = (i === STEPS.length-1) ? () => { window.location.href = 'book.html'; } : next;
+      document.getElementById(`next-${i}`).onclick = (i === STEPS.length-1) ? () => { window.location.href = 'book.html?start=cover'; } : next;
     });
 
     const navEl = document.getElementById('sidebarNav');

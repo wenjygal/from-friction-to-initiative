@@ -443,6 +443,14 @@ const Book = (() => {
   };
 
   load();
+  // arriving from the lesson's finish button: always open on the cover, keep saved field values
+  try {
+    const q = new URLSearchParams(location.search);
+    if (q.get('start') === 'cover'){
+      state.screen = 0; save();
+      history.replaceState(null, '', location.pathname);
+    }
+  } catch(e){}
   render();
   update(false);
   return { go };
