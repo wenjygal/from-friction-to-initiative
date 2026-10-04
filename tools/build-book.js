@@ -98,6 +98,10 @@ function extractFields(promptText, screenKey, pIdx) {
       hint = 'אפשר להשאיר ריק';
     } else if (/^סטודנט\/ית להוראה/.test(inner)) {
       label = 'מי אתם'; hint = inner;
+    } else if (/^נקבה \/ זכר/.test(inner)) {
+      label = 'באיזו לשון לפנות אליכם'; hint = 'נקבה / זכר';
+    } else if (/^כתבו כאן/.test(inner)) {
+      hint = 'בלי שמות ובלי פרטים מזהים של תלמידים או עמיתים';
     }
     fields.push({ id, label, hint, optional: isNew || isBlank, big: isNew });
     return `{{${id}}}`;
