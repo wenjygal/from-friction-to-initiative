@@ -644,14 +644,14 @@ const App = (() => {
         ${s.blocks.map(blockHTML).join('')}
         <div class="nav">
           <button class="prev" id="prev-${i}">→ הקודם</button>
-          <button class="next" id="next-${i}">${i === STEPS.length-1 ? 'סיימתי ✓' : 'הבא ←'}</button>
+          <button class="next" id="next-${i}">${i === STEPS.length-1 ? 'סיימתי, נעבור לחלק המעשי ←' : 'הבא ←'}</button>
         </div>
         ${i === STEPS.length-1 ? glossaryHTML : ''}
       </section>
     `).join('');
     STEPS.forEach((_,i) => {
       document.getElementById(`prev-${i}`).onclick = prev;
-      document.getElementById(`next-${i}`).onclick = next;
+      document.getElementById(`next-${i}`).onclick = (i === STEPS.length-1) ? () => { window.location.href = 'book.html'; } : next;
     });
 
     const navEl = document.getElementById('sidebarNav');
