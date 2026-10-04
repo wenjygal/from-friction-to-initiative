@@ -120,6 +120,9 @@
   .progress i{position:absolute;right:0;top:0;height:3px;background:var(--accent);border-radius:2px;transition:width 250ms var(--ease-in-out,ease-in-out)}
   .meta{font-size:12.5px;color:var(--soft);font-weight:700;white-space:nowrap}
 
+  .sidebar-audio .transcript-link{margin-top:10px;font-family:inherit;font-size:13.5px;font-weight:700;color:var(--accent);background:none;border:none;padding:6px 0;cursor:pointer;text-decoration:underline;text-underline-offset:3px}
+  .transcript-body .turn{font-size:17px;line-height:1.8;margin:0 0 16px}
+  .transcript-body .spk{color:var(--accent);font-weight:800}
   .step{display:none}
   .step.active{display:block;animation:enter 220ms var(--ease)}
   @keyframes enter{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
@@ -189,6 +192,7 @@
         <source src="https://res.cloudinary.com/jrag9ksp/video/upload/v1790883575/from-friction-to-initiative-podcast.mp4" type="audio/mp4">
         הדפדפן שלך לא תומך בנגן אודיו.
       </audio>
+      <button class="transcript-link" type="button" onclick="App.openTranscript()">מעדיפים לקרוא? לתמלול הפודקאסט</button>
     </div>
     <nav class="sidebar-nav" id="sidebarNav"></nav>
   </aside>
@@ -221,6 +225,131 @@
       </div>
 
       <button class="start-btn" onclick="App.start()">בואו נתחיל ←</button>
+    </section>
+
+    <!-- TRANSCRIPT -->
+    <section class="step" id="transcript" aria-labelledby="transcriptTitle">
+      <h2 id="transcriptTitle">תמלול הפודקאסט</h2>
+      <div class="anchor">תמלול מלא של הפודקאסט, מילה במילה, למי שמעדיף לקרוא במקום להאזין. הפודקאסט משמש כהקניה לשיעור, והתוכן זהה. משך האודיו: כ-14 דקות.</div>
+      <div class="transcript-body">
+<p class="turn"><strong class="spk">דוברת:</strong> כל מי שעמד אי פעם מול כיתה, אממ מכיר את הרגע הזה ברמת החושים. הצלצול נשמע, נכנסים לחדר, סוגרים את הדלת, אבל הלמידה פשוט לא מתחילה.</p>
+<p class="turn"><strong class="spk">דובר:</strong> כן, זה קורה המון. עוברות כאילו שש דקות, שמונה דקות...</p>
+<p class="turn"><strong class="spk">דוברת:</strong> לפעמים אפילו 11 דקות. ילד אחד מחפש איזה עיפרון במעמקי תיק שנראה כמו חור שחור כזה, קבוצה אחרת מנהלת דיון סוער על מה שקרה בהפסקה, מישהו מבקש לצאת לשירותים.</p>
+<p class="turn"><strong class="spk">דובר:</strong> ואז הזמן, שזה בעצם המשאב הכי יקר במערכת החינוך, פשוט נוזל מבין האצבעות.</p>
+<p class="turn"><strong class="spk">דוברת:</strong> לגמרי. וזה הרגע שבו הקירות מתחילים להיסגר עליך. התחושה הזו של מאבק סיזיפי יומיומי רק כדי רק כדי להגיע לנקודת ההתחלה של השיעור.</p>
+<p class="turn"><strong class="spk">דובר:</strong> נכון, וזו חוויה שוחקת. היא אחת הגורמים המרכזיים לתסכול אצל אנשי חינוך.</p>
+<p class="turn"><strong class="spk">דוברת:</strong> אז בדיוק בגלל זה שיחת העומק שלנו היום היא כל כך קריטית. אנחנו הולכים לצלול לתוך מודל שנועד לקחת את התסכול המוכר הזה, את אותן 11 דקות אבודות, ולהפוך אותן מנקודת שבירה לנקודת זינוק.</p>
+<p class="turn"><strong class="spk">דובר:</strong> שזה תכלס מה שמוגדר בעולם החינוך כ"מחקר פעולה".</p>
+<p class="turn"><strong class="spk">דוברת:</strong> בדיוק. וחשוב לי לשים פה כוכבית קטנה: הדיון הזה לא מיועד אממ למי שרק היום בבוקר שמע בפעם הראשונה את המושג "מערך שיעור", כן? אנחנו מכוונים פה לאנשי חינוך ולסטודנטים מתקדמים. כאלה שכבר, אתם יודעים, הריחו את טושי המחיק, שחוו את הדינמיקה הכיתתית. כאלה שלא מחפשים תאוריות באוויר, אלא כלים לשנות את השטח.</p>
+<p class="turn"><strong class="spk">דובר:</strong> ההבחנה הזו ממש חשובה, כי אנשי חינוך שכבר חוו את השטח מכירים את הנטייה הזו להיכנס לחדר מורים אחרי שיעור קשוח ופשוט לשחרר קיטור.</p>
+<p class="turn"><strong class="spk">דוברת:</strong> או, לגמרי: "הכיתה הזו בלתי אפשרית", או "אין להם טיפת משמעת".</p>
+<p class="turn"><strong class="spk">דובר:</strong> נכון. והמודל שאנחנו מנתחים היום דורש לעשות ממש סוויץ' מנטלי. להפסיק לדבר בסיסמאות ורגשות, ולהתחיל למפות את המציאות בצורה אממ קרה, עובדתית.</p>
+<p class="turn"><strong class="spk">דוברת:</strong> כלומר, להגדיר מה הפער בין המצב המצוי למצב הרצוי.</p>
+<p class="turn"><strong class="spk">דובר:</strong> חד-משמעית. לקלף את האמוציות.</p>
+<p class="turn"><strong class="spk">דוברת:</strong> אז אם אני מבינה נכון, כשאני אומרת למשל "התלמידים האלה פשוט עצלנים", אני סוגרת את הדלת לשינוי. תליתי בהם תווית וזהו.</p>
+<p class="turn"><strong class="spk">דובר:</strong> כן, כי אין לך מה לעשות עם "עצלנים". אבל אם תשני את הניסוח למשהו כמו "פחות ממחצית מהתלמידים הגישו את המטלה במועד"–</p>
+<p class="turn"><strong class="spk">דוברת:</strong> פתאום יש לי נתון. יש לי משהו לעבוד איתו.</p>
+<p class="turn"><strong class="spk">דובר:</strong> בדיוק. או במקרה של הפתיחה שלנו: הבעיה היא לא "אין פה משמעת", אלא "עוברות 11 דקות מהצלצול ועד שהתלמיד הראשון פותח מחברת".</p>
+<p class="turn"><strong class="spk">דוברת:</strong> הבחנה מצוינת. וברגע שיש לנו נתון כזה, אנחנו צריכים למקם אותו. לפי המקורות שלנו מחלקים את האתגרים האלה לארבעה תחומים מרכזיים.</p>
+<p class="turn"><strong class="spk">דובר:</strong> נכון. התחום הראשון הוא אקלים וניהול שגרה, שזה בעצם אממ הכאוס הזה של תחילת השיעור שדיברנו עליו, או התעסקות בלתי פוסקת עם סלולריים.</p>
+<p class="turn"><strong class="spk">דוברת:</strong> והשני?</p>
+<p class="turn"><strong class="spk">דובר:</strong> השני הוא מעורבות ומוטיבציה. זה למשל מצב שיש לך חמישה תלמידים שמשתתפים תמיד, ועוד איזה 25 שנוכחים בחדר אבל הם כאילו שקופים לחלוטין.</p>
+<p class="turn"><strong class="spk">דוברת:</strong> שזה סופר נפוץ. ויש גם את הרובד הלימודי נטו. התחום השלישי הוא פדגוגיה והוראה דיפרנציאלית – הפערים בכיתה.</p>
+<p class="turn"><strong class="spk">דובר:</strong> בדיוק. תלמידים מתקדמים שבוהים בתקרה משיעמום, ומולם כאלה שמתקשים ומוותרים מראש כי הדף עבודה פשוט לא מותאם לאף אחד מהם.</p>
+<p class="turn"><strong class="spk">דוברת:</strong> והתחום הרביעי והאחרון מתמקד במטלות והערכה מעצבת. אה תופעות של העתקות, או למידה למבחן שפשוט מתנדפת מהזיכרון יום אחרי.</p>
+<p class="turn"><strong class="spk">דובר:</strong> אז אחרי שזיהינו את הבעיה העובדתית ושייכנו אותה לתחום, מגיע אולי השלב הכי קריטי: מבחן המציאות.</p>
+<p class="turn"><strong class="spk">דוברת:</strong> שזה אממ מתחבר למושגים של סטיבן קובי, נכון? מעגל ההשפעה מול מעגל הדאגה.</p>
+<p class="turn"><strong class="spk">דובר:</strong> בדיוק גמור. כדי שיוזמה תצליח, היא חייבת להישאר בתוך גבולות מעגל ההשפעה שלכם. מה שאתם, כאנשי חינוך, יכולים לשנות בעצמכם.</p>
+<p class="turn"><strong class="spk">דוברת:</strong> פה אני חייבת לעצור אותך. זה נשמע קצת קל מדי בתיאוריה.</p>
+<p class="turn"><strong class="spk">דובר:</strong> למה?</p>
+<p class="turn"><strong class="spk">דוברת:</strong> כי המציאות בבית ספר היא מערכת שלמה. מה קורה אם, תראה, העיכוב הזה בתחילת השיעור נובע בכלל מזה שהמורה הקודם משחרר אותם מאוחר קבוע?</p>
+<p class="turn"><strong class="spk">דובר:</strong> אה, זאת קלאסיקה.</p>
+<p class="turn"><strong class="spk">דוברת:</strong> או שלוח הצלצולים נדפק והתלמידים במסדרונות? להגיד "זה מחוץ למעגל ההשפעה שלי אז אני מתעלמת", זה מתסכל. זה מרגיש כמו להרים ידיים מול מערכת שבורה.</p>
+<p class="turn"><strong class="spk">דובר:</strong> תראי, זה באמת מתסכל. זו כנראה נקודת הכאב הכי גדולה של מורים. אבל הגישה פה לא אומרת "אל תרגישי תסכול".</p>
+<p class="turn"><strong class="spk">דוברת:</strong> אז מה היא אומרת?</p>
+<p class="turn"><strong class="spk">דובר:</strong> היא אומרת: תנהלו את האנרגיה שלכם בחוכמה. לוח הצלצולים נמצא עמוק במעגל הדאגה. זה לגיטימי שזה מטריד, אבל אין לכם שליטה על זה. אם תילחמו שם, רק תישחקו.</p>
+<p class="turn"><strong class="spk">דוברת:</strong> אוקיי, הבנתי.</p>
+<p class="turn"><strong class="spk">דובר:</strong> לעומת זאת, בשנייה שתלמידים כן חוצים את הדלת שלכן – איך נראית המשימה על הלוח, איך מאורגן הציוד – זה מאה אחוז בשליטתכן, ולשם הולכת האנרגיה.</p>
+<p class="turn"><strong class="spk">דוברת:</strong> זה בעצם לקחת את הפוקוס מהמסדרון של בית הספר ולהחזיר אותו לתוך ד' אמותיך.</p>
+<p class="turn"><strong class="spk">דובר:</strong> בדיוק.</p>
+<p class="turn"><strong class="spk">דוברת:</strong> אז נגיד שצמצמנו: הבעיה היא ה-11 דקות האלה, והמיקוד שלי הוא משימת הפתיחה. איך אני מתקדמת כדי למצוא פתרון? הרי אפשר לטבוע באוקיינוס של רעיונות.</p>
+<p class="turn"><strong class="spk">דובר:</strong> כאן נכנס השלב של איסוף נתונים וחשיבה מסתעפת. והטעות הכי גדולה היא לקפוץ ישר לפתרון הראשון שעולה בראש.</p>
+<p class="turn"><strong class="spk">דוברת:</strong> אה, "הם לא מתיישבים? עונש למי שעומד", כזה.</p>
+<p class="turn"><strong class="spk">דובר:</strong> כן, אינסטינקט כזה. במקום זה, המקורות מציעים לצאת לשטח: להתייעץ עם קולגות, והכי חשוב – לעשות שיחת מיקוד עם התלמידים עצמם.</p>
+<p class="turn"><strong class="spk">דוברת:</strong> רגע שנייה. לדבר עם התלמידים על זה שהם מבזבזים לי את הזמן, זה לא נתפס אממ כחולשה של המורה?</p>
+<p class="turn"><strong class="spk">דובר:</strong> ממש לא. לא כשזה בא מעמדה של חוקר. לא בא בטענות. שואלת: "שמתי לב שלוקח לנו הרבה זמן להתחיל. מה חסר לכם כרגע כדי להיכנס ללמידה?".</p>
+<p class="turn"><strong class="spk">דוברת:</strong> אה, מעניין.</p>
+<p class="turn"><strong class="spk">דובר:</strong> התשובות שיצופו יפתיעו אותך. לפעמים הם פשוט לא מבינים את ההוראות, לא יודעים אם להוציא מחברת או חוברת, אז הם מחכים ובינתיים, את יודעת, מדברים.</p>
+<p class="turn"><strong class="spk">דוברת:</strong> וואו, שזה משנה את התמונה לגמרי. זה אומר שהבעיה היא לא מרד, אלא חוסר בהירות. הילד לא מתריס – הוא מבולבל.</p>
+<p class="turn"><strong class="spk">דובר:</strong> לגמרי. ומתוך זה אפשר לפתח חלופות. הרעיון הוא לייצר לפחות שלוש חלופות כדי לא להינעל על אחת.</p>
+<p class="turn"><strong class="spk">דוברת:</strong> אז הנה, נמשיך עם הדוגמה שלנו: חלופה אחת יכולה להיות בניית אממ "כרטיס כניסה", למשל – משימת חימום קצרה שמוקרנת על הלוח.</p>
+<p class="turn"><strong class="spk">דובר:</strong> מעולה. חלופה שנייה יכולה להיות העברת אחריות: למנות צוות לוגיסטיקה של תלמידים שמארגנים את הציוד לפני שאת נכנסת.</p>
+<p class="turn"><strong class="spk">דוברת:</strong> חמוד. וחלופה שלישית אולי משחוק – איזה טיימר של התארגנות עם צבירת נקודות לכיתה.</p>
+<p class="turn"><strong class="spk">דובר:</strong> בדיוק. וכשיש לנו את שלוש החלופות האלה, צריך לסנן. וכאן המקורות מציגים את מטריצת השפעה מול מאמץ.</p>
+<p class="turn"><strong class="spk">דוברת:</strong> שזה מושג שמגיע בכלל מעולמות הניהול והסטארט-אפ, נכון? לנהל משאבים במציאות של מחסור. ואצל מורים המשאב הכי חסר הוא אנרגיה וזמן.</p>
+<p class="turn"><strong class="spk">דובר:</strong> נכון מאוד.</p>
+<p class="turn"><strong class="spk">דוברת:</strong> אני חייבת לתת דוגמה ששמעתי פעם: מורה להיסטוריה רצה לפתור חוסר עניין, ישב סוף שבוע שלם, איזה 20 שעות, ובנה מודל תלת-ממדי של טירה עם חידות בריחה.</p>
+<p class="turn"><strong class="spk">דובר:</strong> אוי לא, אני כבר מנחש לאן זה הולך.</p>
+<p class="turn"><strong class="spk">דוברת:</strong> כן. הוא מביא את זה לכיתה, התלמידים מפרקים את זה בארבע דקות, ואז חוזרים להשתעמם. מאמץ פסיכי – השפעה אפסית.</p>
+<p class="turn"><strong class="spk">דובר:</strong> קלאסי. זו סכנה אמיתית במחקר פעולה: ההתאהבות הזו בפתרונות מסובכים.</p>
+<p class="turn"><strong class="spk">דוברת:</strong> אז לעומת זאת, פתקיות ממו על הלוח לדיון מהיר, שזה שלוש דקות הכנה, זה יכול להיות מאמץ נמוך והשפעה אדירה.</p>
+<p class="turn"><strong class="spk">דובר:</strong> בדיוק. ההמלצה החד-משמעית פה היא ללכת על "ניצחון מהיר": השפעה גבוהה במאמץ נמוך או בינוני. מורכבות היא לא תעודת איכות פה.</p>
+<p class="turn"><strong class="spk">דוברת:</strong> אז בחרנו את הניצחון המהיר שלנו. נניח, כרטיס הכניסה הדיגיטלי. עכשיו אנחנו צריכים להגדיר מה זו הצלחה, בעזרת מטרות SMART.</p>
+<p class="turn"><strong class="spk">דובר:</strong> מטרה שהיא ספציפית, מדידה, בת השגה, רלוונטית, ותחומה בזמן.</p>
+<p class="turn"><strong class="spk">דוברת:</strong> כלומר, אני לא אומרת אממ "המטרה שהשיעור יתחיל מהר". אני אומרת: "נצמצם את ההתארגנות מ-11 לשלוש דקות תוך ארבעה שבועות בעזרת כרטיס כניסה".</p>
+<p class="turn"><strong class="spk">דובר:</strong> ניסוח מדויק. וזה לוקח אותנו ישירות לביצוע בשטח: תוכנית של חמישה שבועות. אבל הסוד פה, וזה כנראה החלק הכי קשה מנטלית למורה, הוא השבוע הראשון.</p>
+<p class="turn"><strong class="spk">דוברת:</strong> שבוע איסוף הנתונים.</p>
+<p class="turn"><strong class="spk">דובר:</strong> קו הבסיס.</p>
+<p class="turn"><strong class="spk">דוברת:</strong> קו הבסיס, כן.</p>
+<p class="turn"><strong class="spk">דובר:</strong> השבוע הזה מוקדש אך ורק לאיסוף קו הבסיס: למדוד את המצב כמו שהוא, בלי להתערב.</p>
+<p class="turn"><strong class="spk">דוברת:</strong> תקשיב, ברמה הרגשית זה סוג של עינוי. אתה בעצם אומר לאשת חינוך להיכנס לכיתה, לראות את ה-11 דקות נשרפות, בלגן, ילדים מפטפטים – ולא לעשות כלום?</p>
+<p class="turn"><strong class="spk">דובר:</strong> כלום. רק לעמוד עם הסטופר ולרשום.</p>
+<p class="turn"><strong class="spk">דוברת:</strong> זה מטורף. האינסטינקט הוא לטרוף את הלוח, לצעוק משהו.</p>
+<p class="turn"><strong class="spk">דובר:</strong> זה מנוגד לכל אינסטינקט, אני מסכים. אבל בלי זה, המחקר חסר ערך. אם לא תמדדי באופן עקבי שאכן התבזבזו 11 דקות בממוצע, כשתגיעי לחמש דקות–</p>
+<p class="turn"><strong class="spk">דוברת:</strong> לא יהיה לי למה להשוות את זה בעצם.</p>
+<p class="turn"><strong class="spk">דובר:</strong> נכון. לא תוכלי להוכיח לעצמך או להנהלה שהשינוי עבד. בשבוע הזה את משהה את תפקיד המורה המגיבה, ונכנסת לדמות החוקרת.</p>
+<p class="turn"><strong class="spk">דוברת:</strong> אוקיי, שרדנו את השבוע הראשון, קבענו קו בסיס. נכנסים לשבועות ההפעלה, שתיים עד ארבע. מתחילים להקרין את כרטיס הכניסה. אבל איך מודדים שזה באמת עובד?</p>
+<p class="turn"><strong class="spk">דובר:</strong> כאן הגישה מציגה כלי חזק שנקרא "משולש הראיות".</p>
+<p class="turn"><strong class="spk">דוברת:</strong> כי יש לנו נטייה לשקר לעצמנו, אה? להגיד "היה שיעור מושלם כי יישמנו את הרעיון".</p>
+<p class="turn"><strong class="spk">דובר:</strong> לגמרי. בגלל זה המשולש בנוי משלושה סוגי מידע שמשלימים זה את זה. הקודקוד הראשון זה ראיות כמותיות.</p>
+<p class="turn"><strong class="spk">דוברת:</strong> שזה הנתונים היבשים: סטופר, אחוזי הגשה, דברים כאלה.</p>
+<p class="turn"><strong class="spk">דובר:</strong> כן. מספרים לא משקרים, אבל הם גם לא מספרים את כל התמונה.</p>
+<p class="turn"><strong class="spk">דוברת:</strong> נכון, ופה אני מתחילה לראות את הבעיה. נניח הסטופר מראה ירידה לשתי דקות התארגנות. כמותית – ניצחון מוחץ.</p>
+<p class="turn"><strong class="spk">דובר:</strong> אבל?</p>
+<p class="turn"><strong class="spk">דוברת:</strong> אבל אז אני קולטת שהם בכלל לא קוראים את המשימה. הם סתם מעתיקים מילים מהלוח כדי לסמן וי. הזמן ירד, אבל למידה לא קורית שם.</p>
+<p class="turn"><strong class="spk">דובר:</strong> או! והנה בדיוק למה הקודקוד השני הוא חובה: ראיות איכותיות. המספר אמר הצלחה, אבל הראיה האיכותית חושפת תמונה מורכבת.</p>
+<p class="turn"><strong class="spk">דוברת:</strong> כמו מה למשל?</p>
+<p class="turn"><strong class="spk">דובר:</strong> יומן של המורה. יומן רפלקציה של המורה, או ציטוטים של תלמידים. אם שמעת תלמיד לוחש "עזוב, פשוט תעתיק את המשפט האחרון" – הנה לך ראיה איכותית שסותרת את הנתון הכמותי.</p>
+<p class="turn"><strong class="spk">דוברת:</strong> והקודקוד השלישי שמשלים הכול זה הראיות החזותיות, נכון? צילומים של התוצרים, מחברות...</p>
+<p class="turn"><strong class="spk">דובר:</strong> בדיוק.</p>
+<p class="turn"><strong class="spk">דוברת:</strong> וכשאני חושבת על זה, המתח הזה כשהסטופר אומר "הצלחה" והיומן צועק "כישלון פדגוגי" – זה לא באג, זה הפיצ'ר. זה מה שמכריח אותנו לדייק.</p>
+<p class="turn"><strong class="spk">דובר:</strong> את קולעת בול. הדיסוננס הזה הוא המרחב שבו את מתפתחת כאשת מקצוע. פה ההבדל בין מישהו שעושה איזה טריק ניהולי, לבין מורה שמנהלת למידה אמיתית.</p>
+<p class="turn"><strong class="spk">דוברת:</strong> וואו.</p>
+<p class="turn"><strong class="spk">דובר:</strong> וזה בעצם מביא אותנו לסיום המחזור, השבוע החמישי. אספנו הכול, ועכשיו יש לנו הערכה ורפלקציה. וצריך לעשות פה הפרדה, כי אנשים מבלבלים ביניהם.</p>
+<p class="turn"><strong class="spk">דובר:</strong> נכון. ההערכה מתייחסת למה שקרה בכיתה, לתוצאות הפרויקט. וחשוב להגיד: גם אם ירדנו מ-11 לשש דקות ולא הגענו לשלוש, זו לא סיבה לגנוז, זו הצלחה חלקית.</p>
+<p class="turn"><strong class="spk">דוברת:</strong> אז ההערכה זה מה קרה לבעיה, ורפלקציה זה מה שקרה למורה עצמו לאורך כל המסע הזה.</p>
+<p class="turn"><strong class="spk">דובר:</strong> בדיוק. וכדי להבין את העומק הפסיכולוגי של זה, המקורות נשענים על תיאוריית ההכוונה העצמית – תיאוריה שמדברת על שלושה צרכים פסיכולוגיים בסיסיים: מסוגלות, אוטונומיה ושייכות.</p>
+<p class="turn"><strong class="spk">דוברת:</strong> בוא נפרק את זה, כי זה המפתח למעבר ממורה שחוקה לחוקרת.</p>
+<p class="turn"><strong class="spk">דובר:</strong> קדימה.</p>
+<p class="turn"><strong class="spk">דוברת:</strong> העוגן הראשון: מסוגלות. לפני היוזמה, המורה הרגישה חסרת אונים. ברפלקציה, פתאום היא מזהה מיומנויות חדשות: היא למדה לאסוף נתונים, לפתור בעיות – זה מקפיץ את הביטחון.</p>
+<p class="turn"><strong class="spk">דובר:</strong> מדהים. והעוגן השני הוא אוטונומיה, שבעיניי הוא הכי דרמטי. מורים מרגישים המון פעמים שהם, את יודעת, ברגים קטנים, מבצעים הנחיות של פיקוח, רודפים אחרי ההספק...</p>
+<p class="turn"><strong class="spk">דוברת:</strong> ממש ככה. והמחקר הזה מחזיר להם את ההגה לידיים: "אני בוחרת את אזור ההתערבות, אני האדריכלית של השינוי בכיתה שלי".</p>
+<p class="turn"><strong class="spk">דובר:</strong> בדיוק. והעוגן השלישי: שייכות. התהליך הזה פשוט שובר את הבדידות. כשאת באה ליועצת להתייעץ, או מדברת בכנות עם תלמידים – את טווה רשת של קשרים, את כבר לא לבד.</p>
+<p class="turn"><strong class="spk">דוברת:</strong> אז אם מסכמים את שלושת העוגנים, התוצאה היא ממש שינוי זהות. מי שמתמיד בזה, עוזב את עמדת הקורבן של המערכת.</p>
+<p class="turn"><strong class="spk">דובר:</strong> לגמרי. הבעיות לא נעלמות, כן? אבל הן משנות צורה: ממטרד מעצבן – לאתגר מחקרי. וכשמסיימים רפלקציה, בעצם פשוט פותחים מחזור חדש, חכמים יותר.</p>
+<p class="turn"><strong class="spk">דוברת:</strong> אז בוא נאסוף רגע את כל המסלול שעברנו כאן בשיחה הזו.</p>
+<p class="turn"><strong class="spk">דובר:</strong> יאללה.</p>
+<p class="turn"><strong class="spk">דוברת:</strong> התחלנו מתחושת התסכול והזמן האבוד. למדנו לזקק נתונים עובדתיים ולמקם אותם במעגל ההשפעה שלנו, בלי תירוצים.</p>
+<p class="turn"><strong class="spk">דובר:</strong> ואז סיננו חלופות במטריצת המאמץ וההשפעה כדי למצוא ניצחון מהיר, וניסחנו מטרת SMART.</p>
+<p class="turn"><strong class="spk">דוברת:</strong> כבשנו את היצר והקדשנו שבוע לקו בסיס, איום ונורא, כדי לאסוף ראיות ממשולש הראיות. ולבסוף עשינו רפלקציה שהחזירה לנו את המסוגלות והאוטונומיה.</p>
+<p class="turn"><strong class="spk">דובר:</strong> שזה תכלס חבל הצלה בתוך השחיקה. חיבור פשוט בין נקודת כאב לפעולה שיטתית שמחוללת שינוי גם בכיתה וגם בזהות של המורה.</p>
+<p class="turn"><strong class="spk">דוברת:</strong> וזו בדיוק הנקודה שבה אנחנו רוצים להשאיר אתכם, המאזינים שלנו, עם מחשבה: בפעם הבאה שאתם נכנסים לכיתה ומרגישים בבטן את אותה נקודת חיכוך מעיקה–</p>
+<p class="turn"><strong class="spk">דובר:</strong> במקום סתם להתלונן בהפסקה...</p>
+<p class="turn"><strong class="spk">דוברת:</strong> בדיוק. תעצרו רגע. אולי המטרד השגרתי הזה שאתם תמיד, אבל תמיד משלימים איתו, הוא לא רק משהו שצריך לשרוד? אולי הוא בעצם חומר הגלם המושלם לאסוף ממנו את קו הבסיס הראשון שלכם? יש לכם על מה לחשוב.</p>
+      </div>
+      <div class="nav">
+        <button class="prev" id="transcriptBack" type="button">→ חזרה לשיעור</button>
+      </div>
     </section>
 
     <main id="steps"></main>
@@ -518,6 +647,7 @@ const App = (() => {
     document.getElementById('cover').style.display = idx === -1 ? 'block' : 'none';
     document.getElementById('topBar').classList.toggle('active', idx >= 0);
     STEPS.forEach((_,i) => document.getElementById(`step-${i}`).classList.toggle('active', i === idx));
+    document.getElementById('transcript').classList.toggle('active', idx === -2);
     if (idx >= 0){
       document.getElementById('stepNum').textContent = idx + 1;
       document.getElementById('stepMeta').textContent = `מתוך ${STEPS.length}`;
@@ -537,6 +667,10 @@ const App = (() => {
     idx -= 1; update();
   }
   function goTo(i){ idx = i; update(); }
+  let backIdx = -1;
+  function openTranscript(){ if (idx !== -2) backIdx = idx; idx = -2; update(); }
+  function closeTranscript(){ idx = backIdx; update(); }
+  document.getElementById('transcriptBack').onclick = closeTranscript;
 
   function openMenu(){ document.getElementById('sidebar').classList.add('open'); document.getElementById('backdrop').classList.add('show'); }
   function closeMenu(){ document.getElementById('sidebar').classList.remove('open'); document.getElementById('backdrop').classList.remove('show'); }
@@ -547,14 +681,14 @@ const App = (() => {
   document.getElementById('backdrop').onclick = closeMenu;
 
   document.addEventListener('keydown', e => {
-    if (idx === -1) return;
+    if (idx < 0) return;
     if (e.key === 'ArrowLeft') next();
     if (e.key === 'ArrowRight') prev();
   });
 
   render();
   update();
-  return { start };
+  return { start, openTranscript };
 })();
 </script>
 </body>
