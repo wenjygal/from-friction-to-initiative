@@ -58,6 +58,8 @@ function parseStage(part) {
     if (inCode) { code.push(line); continue; }
     let m = line.match(/^\*\*הנחיה למשתמש(?: \(([^)]*)\))?:\*\*\s*(.*)$/);
     if (m) { blocks.push({ type: 'guide', sub: m[1] || '', html: inline(m[2]) }); continue; }
+    m = line.match(/^\*\*שמירה לפני שממשיכים:\*\*\s*(.*)$/);
+    if (m) { blocks.push({ type: 'save', html: inline(m[1]) }); continue; }
     m = line.match(/^\*\*(תוצר[^:]*):\*\*\s*(.*)$/);
     if (m) { blocks.push({ type: 'output', label: m[1], html: inline(m[2]) }); continue; }
   }

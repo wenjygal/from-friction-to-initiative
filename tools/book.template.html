@@ -138,6 +138,8 @@
   .prompt-text .empty{color:var(--soft);background:#f0f0ec;border-radius:3px;padding:0 2px}
   .output{font-size:15px;line-height:1.7;color:var(--soft);margin:0 0 22px;padding-right:12px;border-right:3px solid var(--accent)}
   .output strong{color:var(--ink)}
+  .save-note{display:flex;flex-direction:column;gap:2px;background:var(--accent-soft);border-radius:12px;padding:12px 16px;margin:0 0 22px;font-size:15px;line-height:1.7}
+  .save-note strong{font-size:12.5px;font-weight:800;color:var(--accent)}
   .finish{background:var(--accent-soft);border-radius:14px;padding:18px 20px;margin:26px 0 0}
   .finish p{font-size:16px;margin:0}
 
@@ -306,6 +308,8 @@ const Book = (() => {
             <div class="prompt-bar"><span class="lbl" id="lbl-${i}-${bi}">הפרומפט להעתקה</span>
             <button class="copy-btn" type="button" data-copy="${i}-${bi}" aria-describedby="lbl-${i}-${bi}">העתק</button></div>
             <pre class="prompt-text" id="p-${i}-${bi}" dir="rtl" tabindex="0"></pre></div>`;
+        } else if (b.type === 'save'){
+          body += `<div class="save-note"><strong>שמירה לפני שממשיכים</strong><span>${b.html}</span></div>`;
         } else if (b.type === 'output'){
           body += `<p class="output"><strong>${esc(b.label)}:</strong> ${b.html}</p>`;
         }
