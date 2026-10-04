@@ -124,6 +124,11 @@
   .meta{font-size:12.5px;color:var(--soft);font-weight:700;white-space:nowrap}
 
   .sidebar-audio .transcript-link{margin-top:10px;font-family:inherit;font-size:13.5px;font-weight:700;color:var(--accent);background:none;border:none;padding:6px 0;cursor:pointer;text-decoration:underline;text-underline-offset:3px}
+  .transcript-top{margin:34px 0 18px}
+  .transcript-back{display:inline-flex;align-items:center;gap:8px;font-family:inherit;font-size:15px;font-weight:800;background:var(--ink);color:#fff;border:none;border-radius:999px;padding:12px 26px;cursor:pointer;transition:transform 150ms var(--ease)}
+  .transcript-back:hover{background:var(--accent)}
+  .transcript-back:active{transform:scale(.97)}
+  #transcript .nav{justify-content:flex-start}
   .transcript-body .turn{font-size:17px;line-height:1.8;margin:0 0 16px}
   .transcript-body .spk{color:var(--accent);font-weight:800}
   .step{display:none}
@@ -235,6 +240,7 @@
 
     <!-- TRANSCRIPT -->
     <section class="step" id="transcript" aria-labelledby="transcriptTitle">
+      <div class="transcript-top"><button class="transcript-back" type="button">→ חזרה לשיעור</button></div>
       <h2 id="transcriptTitle">תמלול הפודקאסט</h2>
       <div class="anchor">תמלול מלא של הפודקאסט, מילה במילה, למי שמעדיף לקרוא במקום להאזין. הפודקאסט משמש כהקניה לשיעור, והתוכן זהה. משך האודיו: כ-14 דקות.</div>
       <div class="transcript-body">
@@ -353,7 +359,7 @@
 <p class="turn"><strong class="spk">דוברת:</strong> בדיוק. תעצרו רגע. אולי המטרד השגרתי הזה שאתם תמיד, אבל תמיד משלימים איתו, הוא לא רק משהו שצריך לשרוד? אולי הוא בעצם חומר הגלם המושלם לאסוף ממנו את קו הבסיס הראשון שלכם? יש לכם על מה לחשוב.</p>
       </div>
       <div class="nav">
-        <button class="prev" id="transcriptBack" type="button">→ חזרה לשיעור</button>
+        <button class="transcript-back" type="button">→ חזרה לשיעור</button>
       </div>
     </section>
 
@@ -684,7 +690,7 @@ const App = (() => {
   let backIdx = -1;
   function openTranscript(){ if (idx !== -2) backIdx = idx; idx = -2; update(); }
   function closeTranscript(){ idx = backIdx; update(); }
-  document.getElementById('transcriptBack').onclick = closeTranscript;
+  document.querySelectorAll('.transcript-back').forEach(b => { b.onclick = closeTranscript; });
 
   function openMenu(){ document.getElementById('sidebar').classList.add('open'); document.getElementById('backdrop').classList.add('show'); }
   function closeMenu(){ document.getElementById('sidebar').classList.remove('open'); document.getElementById('backdrop').classList.remove('show'); }
