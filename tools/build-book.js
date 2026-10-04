@@ -102,7 +102,7 @@ for (const part of parts) {
     groups.push({ key: 's7b', nav: '7ב. רפלקציה על התהליך', title: 'רפלקציה על התהליך', stage: '7ב', blocks: stage.blocks.slice(cut) });
   } else {
     groups.push({
-      key: 's' + n, nav: n === 0 ? 'שער והיכרות (שלב 0)' : `${n}. ${baseTitle}`,
+      key: 's' + n, nav: `${n}. ${baseTitle}`,
       title: baseTitle, stage: String(n), blocks: stage.blocks
     });
   }
@@ -117,6 +117,7 @@ for (const part of parts) {
   }
 }
 
+screens.unshift({ key: 'cover', nav: 'שער', title: 'שער', stage: 'שער', blocks: [] });
 const data = { coverTitle, coverHtml, screens };
 const tpl = fs.readFileSync(path.join(__dirname, 'book.template.html'), 'utf8');
 const json = JSON.stringify(data).replace(/</g, '\\u003c');

@@ -291,9 +291,8 @@ const Book = (() => {
     let html = '';
     screens.forEach((s, i) => {
       let body = '';
-      if (i === 0){
+      if (s.key === 'cover'){
         body += `<h2 tabindex="-1">${esc(DATA.coverTitle)}</h2><div class="intro">${DATA.coverHtml}</div>`;
-        body += `<div class="stage-head"><span class="stage-tag">שלב 0</span><h3>${esc(s.title)}</h3></div>`;
       } else {
         body += `<h2 tabindex="-1">שלב ${esc(s.stage)}: ${esc(s.title)}</h2>`;
       }
@@ -316,7 +315,7 @@ const Book = (() => {
       }
       body += `<div class="nav">
         <button class="prev" type="button" data-nav="prev"${i === 0 ? ' disabled' : ''}>→ הקודם</button>
-        ${i === screens.length - 1 ? '' : '<button class="next" type="button" data-nav="next">הבא ←</button>'}
+        ${i === screens.length - 1 ? '' : `<button class="next" type="button" data-nav="next">${s.key === 'cover' ? 'מתחילים ←' : 'הבא ←'}</button>`}
       </div>`;
       html += `<section class="screen" id="screen-${i}" data-i="${i}">${body}</section>`;
     });
