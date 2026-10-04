@@ -632,7 +632,7 @@ const App = (() => {
   function render(){
     const main = document.getElementById('steps');
     const glossaryHTML = `
-      <div class="glossary">
+      <div class="glossary" id="glossary" tabindex="-1">
         <h3>מילון מושגים</h3>
         <div class="sub">לעיון — לא חלק מרצף השיעור</div>
         ${GLOSSARY.map(([k,v]) => `<div class="gloss-row"><dt>${k}</dt><dd>${v}</dd></div>`).join('')}
@@ -657,8 +657,16 @@ const App = (() => {
     const navEl = document.getElementById('sidebarNav');
     navEl.innerHTML = `<div class="nav-group">שלב 1: למידה</div><button class="nav-item" data-i="-1">שער</button>` +
       STEPS.map((s,i) => `<button class="nav-item" data-i="${i}">${i+1}. ${s.title}</button>`).join('') +
+      `<button class="nav-item" type="button" data-gloss="1">מילון מושגים</button>` +
       `<div class="nav-group">שלב 2: ספר הפרומפטים</div><a class="nav-item" href="book.html">לספר הפרומפטים ←</a>`;
     navEl.querySelectorAll('button.nav-item').forEach(btn => {
+      if (btn.dataset.gloss){
+        btn.onclick = () => {
+          goTo(STEPS.length - 1);
+          setTimeout(() => document.getElementById('glossary').scrollIntoView({behavior:'smooth', block:'start'}), 80);
+        };
+        return;
+      }
       btn.onclick = () => goTo(parseInt(btn.dataset.i, 10));
     });
   }
