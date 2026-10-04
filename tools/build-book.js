@@ -26,11 +26,18 @@ const coverLines = coverPart.split('\n').slice(1)
 let coverTitle = '';
 let coverHtml = '';
 let inList = false;
+let coverSave = null;
 for (const raw of coverLines) {
   const l = raw.trim();
   if (!l) { if (inList) { coverHtml += '</ul>\n'; inList = false; } continue; }
   if (l.startsWith('**מתחילים**')) continue; // developer note, replaced by the stage 0 heading
   const bullet = l.match(/^\* (.*)$/);
+  if (bullet && bullet[1].startsWith('**שומרים תוך כדי')) {
+    // pulled out of the list: rendered as a prominent callout under the intro box
+    const sm = bullet[1].match(/^\*\*([^*]+?):?\*\*\s*(.*)$/);
+    coverSave = { title: sm[1], html: inline(sm[2]) };
+    continue;
+  }
   if (bullet) {
     if (!inList) { coverHtml += '<ul>\n'; inList = true; }
     coverHtml += `<li>${inline(bullet[1])}</li>\n`;
@@ -57,7 +64,16 @@ function parseStage(part) {
     }
     if (inCode) { code.push(line); continue; }
     let m = line.match(/^\*\*הנחיה למשתמש(?: \(([^)]*)\))?:\*\*\s*(.*)$/);
-    if (m) { blocks.push({ type: 'guide', sub: m[1] || '', html: inline(m[2]) }); continue; }
+    if (m) {
+      // the "keep the same conversation open" sentence is pulled out as its own prominent callout
+      const KEEP = 'השאירו את אותה שיחה פתוחה עד סוף התהליך.';
+      let guideHtml = inline(m[2]);
+      const hasKeep = guideHtml.includes(KEEP);
+      if (hasKeep) guideHtml = guideHtml.replace(KEEP, '').replace(/\s+$/, '');
+      blocks.push({ type: 'guide', sub: m[1] || '', html: guideHtml });
+      if (hasKeep) blocks.push({ type: 'keep', html: KEEP });
+      continue;
+    }
     m = line.match(/^\*\*שמירה לפני שממשיכים:\*\*\s*(.*)$/);
     if (m) { blocks.push({ type: 'save', html: inline(m[1]) }); continue; }
     m = line.match(/^\*\*(תוצר[^:]*):\*\*\s*(.*)$/);
@@ -120,7 +136,7 @@ for (const part of parts) {
 }
 
 screens.unshift({ key: 'cover', nav: 'שער', title: 'שער', stage: 'שער', blocks: [] });
-const data = { coverTitle, coverHtml, screens };
+const data = { coverTitle, coverHtml, coverSave, screens };
 const tpl = fs.readFileSync(path.join(__dirname, 'book.template.html'), 'utf8');
 const json = JSON.stringify(data).replace(/</g, '\\u003c');
 const html = tpl.replace('/*__DATA__*/null', () => json);
