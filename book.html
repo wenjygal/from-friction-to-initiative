@@ -323,6 +323,7 @@ const Book = (() => {
         body += `<h2 tabindex="-1">שלב ${esc(s.stage)}: ${esc(s.title)}</h2>`;
       }
       const screenFieldIds = s.blocks.filter(b => b.type === 'prompt').flatMap(b => b.fields.map(f => f.id));
+      let clearBtnInserted = false;
       s.blocks.forEach((b, bi) => {
         if (b.type === 'guide'){
           const sub = b.sub ? `<span class="sub">${esc(b.sub)}</span><br>` : '';
@@ -330,7 +331,13 @@ const Book = (() => {
         } else if (b.type === 'keep'){
           body += `<div class="keep-note" role="note"><span class="badge">חשוב</span><strong>${b.html}</strong></div>`;
         } else if (b.type === 'prompt'){
-          if (b.fields.length) body += `<div class="fields">${b.fields.map(fieldHTML).join('')}</div>`;
+          if (b.fields.length) {
+            if (!clearBtnInserted){
+              body += `<button class="clear-fields" type="button" data-clear-screen="${i}">נקה שדות במסך הזה</button>`;
+              clearBtnInserted = true;
+            }
+            body += `<div class="fields">${b.fields.map(fieldHTML).join('')}</div>`;
+          }
           body += `<div class="prompt-box">
             <div class="prompt-bar"><span class="lbl" id="lbl-${i}-${bi}">הפרומפט להעתקה</span>
             <button class="copy-btn" type="button" data-copy="${i}-${bi}" aria-describedby="lbl-${i}-${bi}">העתק</button></div>
@@ -341,9 +348,6 @@ const Book = (() => {
           body += `<p class="output"><strong>${esc(b.label)}:</strong> ${b.html}</p>`;
         }
       });
-      if (screenFieldIds.length){
-        body += `<button class="clear-fields" type="button" data-clear-screen="${i}">נקה שדות במסך הזה</button>`;
-      }
       if (i === screens.length - 1){
         body += `<div class="finish"><p><strong>מה מגישים:</strong> את שלד היוזמה ואת פסקת התהליך, כמטלת הסיכום של השיעור. יש להגיש את המטלה במודל הקורס.</p></div>`;
       }
