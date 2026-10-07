@@ -141,6 +141,7 @@
   @media (prefers-reduced-motion: reduce){ .step.active{animation:none} }
 
   .step h2{font-size:clamp(24px,5vw,30px);font-weight:900;margin:0 0 18px;line-height:1.3;letter-spacing:-.015em}
+  .step h3{font-size:18px;font-weight:800;margin:28px 0 10px}
   figure{margin:0 0 20px}
   figure.pair{display:grid;grid-template-columns:1fr 1fr;gap:10px}
   figure img{display:block;width:100%;border-radius:10px;box-shadow:0 1px 0 rgba(0,0,0,.06)}
@@ -186,6 +187,8 @@
   .site-footer a{color:var(--soft);font-weight:700;text-decoration:none}
   .site-footer a:hover{color:var(--accent)}
   .site-footer p{font-size:12.5px;color:var(--soft);margin:0}
+  .footer-info-link{font-family:inherit;font-size:12.5px;font-weight:700;color:var(--soft);background:none;border:none;cursor:pointer;padding:6px 0;text-decoration:underline}
+  .footer-info-link:hover{color:var(--accent)}
   .footer-contact{display:flex;justify-content:center;gap:8px;margin-top:10px}
   .footer-contact a{display:flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:999px;color:var(--soft)}
   .footer-contact a:hover{color:var(--accent);background:var(--accent-soft)}
@@ -368,10 +371,34 @@
       </div>
     </section>
 
+    <!-- INFO -->
+    <section class="step" id="info" aria-labelledby="infoTitle">
+      <h2 id="infoTitle" tabindex="-1">נגישות, פרטיות ותנאי שימוש</h2>
+      <h3>פרטיות ושמירת נתונים</h3>
+      <ul>
+        <li>העמוד הזה הוא תוכן לקריאה והאזנה בלבד: אין בו שדות מילוי, ושום דבר לא נשמר בדפדפן או נשלח לשרת.</li>
+        <li>אין באתר אנליטיקס ואין עוגיות.</li>
+        <li>בהמשך לשלב הזה, בספר הפרומפטים, יש שדות מילוי שנשמרים בדפדפן שלכם בלבד — פרטים בעמוד ההוא.</li>
+      </ul>
+      <h3>נגישות</h3>
+      <p>העמוד נבנה במטרה לעמוד בתקן נגישות WCAG 2.1 ברמה AA: אפשר לנווט בו במקלדת, התוכן מתאים לקוראי מסך, והוא מותאם לטלפון ולמחשב. אם נתקלתם בקושי, אפשר לפנות במייל <a href="mailto:boost@boost-me.digital">boost@boost-me.digital</a> או בוואטסאפ <a href="https://wa.me/972545538883" target="_blank" rel="noopener">054-5538883</a>.</p>
+      <h3>תנאי שימוש</h3>
+      <ul>
+        <li>התוכן בעמוד הזה (השיעור וספר הפרומפטים) הוא רכוש של BOOST ME. כל הזכויות שמורות.</li>
+        <li>השימוש בו מותר למכללת קיי ולסטודנטים שלה, במסגרת הקורס, בלבד.</li>
+        <li>BOOST ME שומרת לעצמה את הזכות להפסיק את השירות בכל עת, ללא הודעה מוקדמת.</li>
+        <li>העמוד מוצג כמו שהוא, בלי התחייבות לדיוק או להתאמה לכל צורך, ואינו מהווה ייעוץ חינוכי, משפטי או מקצועי.</li>
+        <li>השימוש בכלי AI חיצוניים (כמו Gemini או Claude) כפוף לתנאי השימוש ולמדיניות הפרטיות של אותו כלי. BOOST ME אינה אחראית לתוכן שהם מייצרים.</li>
+        <li>אין אחריות או התחייבות לתוצאות השימוש בעמוד, בספר הפרומפטים או ביוזמה שתיבנה בעזרתם.</li>
+      </ul>
+      <div class="nav"><button class="prev" type="button" id="infoBack">→ חזרה לשיעור</button></div>
+    </section>
+
     <main id="steps"></main>
 
     <div class="site-footer">
       <p>כל הזכויות שמורות ל-<a href="https://linktr.ee/boost_me" target="_blank" rel="noopener">BOOST ME</a></p>
+      <p><button class="footer-info-link" type="button" id="footerInfoBtn">נגישות, פרטיות ותנאי שימוש</button></p>
       <div class="footer-contact">
         <a href="https://wa.me/972545538883" target="_blank" rel="noopener" aria-label="שלחו לנו הודעה בוואטסאפ">
           <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false"><path fill="currentColor" d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
@@ -681,6 +708,7 @@ const App = (() => {
     document.getElementById('topBar').classList.toggle('active', idx >= 0);
     STEPS.forEach((_,i) => document.getElementById(`step-${i}`).classList.toggle('active', i === idx));
     document.getElementById('transcript').classList.toggle('active', idx === -2);
+    document.getElementById('info').classList.toggle('active', idx === -3);
     if (idx >= 0){
       document.getElementById('stepNum').textContent = idx + 1;
       document.getElementById('stepMeta').textContent = `מתוך ${STEPS.length}`;
@@ -694,6 +722,7 @@ const App = (() => {
     if (focus){
       const h = idx === -1 ? document.querySelector('.cover h1')
         : idx === -2 ? document.getElementById('transcriptTitle')
+        : idx === -3 ? document.getElementById('infoTitle')
         : document.querySelector(`#step-${idx} h2`);
       if (h) h.focus({preventScroll:true});
     }
@@ -710,6 +739,11 @@ const App = (() => {
   function openTranscript(){ if (idx !== -2) backIdx = idx; idx = -2; update(true); }
   function closeTranscript(){ idx = backIdx; update(true); }
   document.querySelectorAll('.transcript-back').forEach(b => { b.onclick = closeTranscript; });
+
+  function openInfo(){ if (idx !== -3) backIdx = idx; idx = -3; update(true); }
+  function closeInfo(){ idx = backIdx; update(true); }
+  document.getElementById('infoBack').onclick = closeInfo;
+  document.getElementById('footerInfoBtn').onclick = openInfo;
 
   function openMenu(){
     document.getElementById('sidebar').classList.add('open');
